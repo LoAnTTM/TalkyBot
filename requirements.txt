@@ -25,4 +25,6 @@ transformers
 TTS
 coqpit
 trainer
+pygame
 
+pysbd
