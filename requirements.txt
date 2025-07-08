@@ -1,0 +1,28 @@
+# Audio processing
+sounddevice
+numpy
+
+# PyTorch (NOT pytorch!)
+torch
+torchaudio
+
+# Speech recognition  
+vosk
+silero-vad
+
+# Wake word detection
+openwakeword
+portaudio
+
+# Audio analysis
+librosa
+scipy
+
+# NLP
+transformers
+
+# Text-to-Speech
+TTS
+coqpit
+trainer
+

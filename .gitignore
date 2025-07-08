@@ -1,0 +1,29 @@
+# Python cache
+__pycache__/
+
+# MacOS
+.DS_Store
+
+# Model files and large data
+models/
+*.pth
+*.pt
+*.onnx
+*.tflite
+*.ckpt
+*.npz
+*.h5
+*.pb
+
+# Audio files
+*.wav
+*.mp3
+*.flac
+
+# Environment
+.env
+.env.*
+
+
+# Test filestest_*.py
+test_*.py
