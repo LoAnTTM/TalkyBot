@@ -2,6 +2,16 @@
 sounddevice
 numpy
 
+# Wake word detection
+onnxruntime
+# TensorFlow (for macOS)
+tensorflow-macos
+# TensorFlow dependencies for non-Mac systems
+# Uncomment the next line if you are not on macOS
+# tensorflow 
+openwakeword==0.6.0
+pyaudio
+
 # PyTorch (NOT pytorch!)
 torch
 torchaudio
@@ -9,10 +19,6 @@ torchaudio
 # Speech recognition  
 vosk
 silero-vad
-
-# Wake word detection
-openwakeword
-portaudio
 
 # Audio analysis
 librosa
@@ -22,9 +28,6 @@ scipy
 transformers
 
 # Text-to-Speech
+# https://github.com/coqui-ai/TTS/tree/dev#installation
+# pip install TTS
 TTS
-coqpit
-trainer
-pygame
-
-pysbd

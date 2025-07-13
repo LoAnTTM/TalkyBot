@@ -1,10 +1,10 @@
 from audio.mic_stream import AudioStream
-from voice.vad import VoiceActivityDetector
-from wake.wakeword import WakeWordDetector
+from components.vad import VoiceActivityDetector
+from components.wakeword import WakeWordDetector
 from audio.recorder import SpeechRecorder
-from stt.vosk_stt import SpeechToText
-from nlp.dialogpt import Chatbot
-from tts.coqui_tts import TextToSpeech
+from components.vosk_stt import SpeechToText
+from components.dialogpt import Chatbot
+from tts.FastSpeech2_tts import TextToSpeech
 
 def main():
     # 1. Initialize modules
@@ -22,7 +22,7 @@ def main():
     def on_wake_word_detected():
         nonlocal wake_word_detected
         wake_word_detected = True
-        print("🎤 Wake word detected! Listening for command...")
+        print("🎤 Wake word detected!")
     
     # Set up wake word callback
     wakeword.set_wake_callback(on_wake_word_detected)

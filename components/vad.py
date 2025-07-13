@@ -3,7 +3,7 @@ import numpy as np
 import time
 
 class VoiceActivityDetector:
-    def __init__(self, sampling_rate=16000, threshold=0.5, min_speech_duration_ms=250):
+    def __init__(self, sampling_rate=16000, threshold=0.9, min_speech_duration_ms=250):
         self.sampling_rate = sampling_rate
         self.threshold = threshold
         self.min_speech_duration_ms = min_speech_duration_ms
