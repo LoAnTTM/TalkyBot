@@ -43,7 +43,9 @@ def callback(indata, frames, time_info, status):
     if status:
         print(f"⚠️ Audio status: {status}")
 
-    audio_int16 = (indata[:, 0] * 32767).astype(np.int16)
+    # Chuyển đổi dữ liệu âm thanh sang định dạng int16
+    if indata.dtype != np.float32:
+        audio_int16 = (indata[:, 0] * 32767).astype(np.int16)
 
     try:
         scores = model.predict(audio_int16)

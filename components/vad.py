@@ -2,6 +2,12 @@ import torch
 import numpy as np
 import time
 
+import os
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
+from audio.mic_stream import AudioStream
+
 class VoiceActivityDetector:
     def __init__(self, sampling_rate=16000, threshold=0.9, min_speech_duration_ms=250):
         self.sampling_rate = sampling_rate
@@ -123,3 +129,53 @@ class VoiceActivityDetector:
         self.is_speaking = False
         self.last_speech_time = time.time()
         self.speech_start_time = None
+
+def test_continuous_vad():
+    # Khởi tạo VAD và AudioStream
+    vad = VoiceActivityDetector(sampling_rate=16000)
+    audio_stream = AudioStream(samplerate=16000, channels=1, frame_duration_ms=100)
+    
+    print("🎤 Bắt đầu test VAD liên tục...")
+    print("Nói câu dài để test (Ctrl+C để dừng)")
+    print("=" * 50)
+    
+    try:
+        frame_count = 0
+        for audio_frame in audio_stream.stream():
+            frame_count += 1
+            
+            # Kiểm tra VAD
+            is_speech = vad.is_speech(audio_frame)
+            speech_info = vad.get_continuous_speech_info()
+            
+            # Tính mức âm thanh
+            import numpy as np
+            audio_level = np.abs(audio_frame).mean()
+            
+            # Hiển thị thông tin mỗi 5 frames (500ms)
+            if frame_count % 5 == 0:
+                if speech_info['is_speaking']:
+                    duration = speech_info['duration']
+                    print(f"🎤 ĐANG NÓI ({duration:.1f}s) | Mức âm: {audio_level:.4f} | Frame: {frame_count}")
+                else:
+                    print(f"🔇 Im lặng | Mức âm: {audio_level:.4f} | Frame: {frame_count}")
+            
+            # Ngủ một chút để không spam quá nhiều
+            time.sleep(0.01)
+            
+    except KeyboardInterrupt:
+        print("\n" + "=" * 50)
+        print("🛑 Dừng test VAD")
+        
+        # Hiển thị thông tin cuối cùng
+        final_info = vad.get_continuous_speech_info()
+        if final_info['is_speaking']:
+            print(f"📊 Phiên nói cuối: {final_info['duration']:.1f}s")
+        else:
+            print("📊 Không có phiên nói đang diễn ra")
+    
+    except Exception as e:
+        print(f"❌ Lỗi: {e}")
+
+if __name__ == "__main__":
+    test_continuous_vad()
