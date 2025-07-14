@@ -1,35 +1,36 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import BlenderbotSmallTokenizer, BlenderbotSmallForConditionalGeneration
 import torch
 
 class Chatbot:
-    def __init__(self, model_name="microsoft/DialoGPT-small", device=None):
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        self.model = AutoModelForCausalLM.from_pretrained(model_name)
+    def __init__(self, model_name="facebook/blenderbot_small-90M", device=None):
+        self.tokenizer = BlenderbotSmallTokenizer.from_pretrained(model_name)
+        self.model = BlenderbotSmallForConditionalGeneration.from_pretrained(model_name)
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
-        self.model = self.model.to(self.device)
-        self.chat_history_ids = None
+        self.model.to(self.device)
+        self.history = []
 
-    def get_response(self, text):
-        # Tokenize user input
-        new_input_ids = self.tokenizer.encode(text + self.tokenizer.eos_token, return_tensors="pt").to(self.device)
-        # Append to chat history
-        if self.chat_history_ids is not None:
-            bot_input_ids = torch.cat([self.chat_history_ids, new_input_ids], dim=-1)
-        else:
-            bot_input_ids = new_input_ids
-        # Generate response
-        self.chat_history_ids = self.model.generate(
-            bot_input_ids,
-            max_length=1000,
-            pad_token_id=self.tokenizer.eos_token_id
+    def get_response(self, user_input):
+        context = f"{user_input}".strip()  
+
+        inputs = self.tokenizer(context, return_tensors="pt", padding="longest").to(self.device)
+        outputs = self.model.generate(
+            **inputs,
+            max_length=200,
+            do_sample=True,
+            temperature=1.0,
+            top_k=50,
+            top_p=0.95,
+            repetition_penalty=1.2,
+            no_repeat_ngram_size=3,
+            pad_token_id=self.tokenizer.pad_token_id
         )
-        # Decode response
-        response = self.tokenizer.decode(self.chat_history_ids[:, bot_input_ids.shape[-1]:][0], skip_special_tokens=True)
+        response = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+        self.history.append(user_input)
+        self.history.append(response)
         return response.strip()
-    
+
     def reset_conversation(self):
-        """Reset chat history to start a new conversation"""
-        self.chat_history_ids = None
+        self.history = []
 
 # Test function
 if __name__ == "__main__":

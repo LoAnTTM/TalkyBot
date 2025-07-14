@@ -2,75 +2,86 @@ import os
 import time
 import numpy as np
 import sounddevice as sd
-import openwakeword
+from openwakeword import utils
 from openwakeword.model import Model
 
-# === CẤU HÌNH ===
-model_folder = "models/openwakeword"
-model_name = "alexa"
-onnx_file = "alexa_v0.1.onnx"
-model_path = os.path.abspath(os.path.join(model_folder, onnx_file))
-
-vad_threshold = 0.3               # độ nhạy VAD tích hợp
-sensitivity_threshold = 0.3       # ngưỡng phát hiện wake word
-min_trigger_interval = 1.0        # giây giữa 1 lần phát hiện liên tiếp
-
-last_trigger_time = 0  # dùng để tránh phát hiện liên tục
-
-# === TẠO THƯ MỤC VÀ TẢI MODEL ===
-os.makedirs(model_folder, exist_ok=True)
-
-if not os.path.isfile(model_path):
-    print(f"➡️ Đang tải model '{model_name}' vào {model_folder}...")
-    openwakeword.utils.download_models(
-        model_names=[model_name],
-        target_directory=model_folder
-    )
-else:
-    print(f"✅ Model đã tồn tại tại: {model_path}")
-
-# === KHỞI TẠO MODEL WAKEWORD ===
-model = Model(
-    wakeword_models=[model_path],
-    inference_framework="onnx",
-    vad_threshold=vad_threshold
-)
-
-# === HÀM CALLBACK XỬ LÝ ÂM THANH ===
-def callback(indata, frames, time_info, status):
-    global last_trigger_time
-
-    if status:
-        print(f"⚠️ Audio status: {status}")
-
-    # Chuyển đổi dữ liệu âm thanh sang định dạng int16
-    if indata.dtype != np.float32:
-        audio_int16 = (indata[:, 0] * 32767).astype(np.int16)
-
-    try:
-        scores = model.predict(audio_int16)
-        current_time = time.time()
-        for wake_word, score in scores.items():
-            if score > sensitivity_threshold and (current_time - last_trigger_time > min_trigger_interval):
-                print(f"🔊 Wake word '{wake_word}' detected! (score: {score:.3f})")
-                last_trigger_time = current_time
-    except Exception as e:
-        print(f"❌ Predict error: {e}")
-
-# === GHI ÂM MICROPHONE ===
-print("🎤 Đang nghe... (nói 'Alexa' để test)")
-try:
-    with sd.InputStream(
-        samplerate=16000,
-        channels=1,
-        dtype="float32",
-        blocksize=512,
-        callback=callback,
+class WakeWordDetector:
+    def __init__(
+        self,
+        model_name="alexa",
+        model_folder="models/openwakeword",
+        onnx_file="alexa_v0.1.onnx",
+        vad_threshold=0.3,
+        sensitivity_threshold=0.3,
+        min_trigger_interval=1.0,
     ):
-        while True:
-            time.sleep(0.1)
-except KeyboardInterrupt:
-    print("\n🛑 Đã dừng.")
-finally:
-    model.cleanup()
-    print("🧹 Đã giải phóng model.")
+        self.model_name = model_name
+        self.model_folder = model_folder
+        self.model_path = os.path.abspath(os.path.join(model_folder, onnx_file))
+        self.vad_threshold = vad_threshold
+        self.sensitivity_threshold = sensitivity_threshold
+        self.min_trigger_interval = min_trigger_interval
+        self.last_trigger_time = 0
+
+        self._prepare_model()
+
+        self.model = Model(
+            wakeword_models=[self.model_path],
+            inference_framework="onnx",
+            vad_threshold=self.vad_threshold,
+        )
+
+    def _prepare_model(self):
+        os.makedirs(self.model_folder, exist_ok=True)
+        if not os.path.isfile(self.model_path):
+            print(f"Loading model '{self.model_name}'...")
+            utils.download_models(
+                model_names=[self.model_name],
+                target_directory=self.model_folder
+            )
+        else:
+            print(f"Model is already available at: {self.model_path}")
+
+    def _callback(self, indata, frames, time_info, status):
+        if status:
+            print(f"Audio status: {status}")
+
+        # Convert input data to int16 format
+        if indata.dtype != np.float32:
+            audio_int16 = (indata[:, 0] * 32767).astype(np.int16)
+
+        try:
+            scores = self.model.predict(audio_int16)
+            current_time = time.time()
+            for wake_word, score in scores.items():
+                if score > self.sensitivity_threshold and (current_time - self.last_trigger_time > self.min_trigger_interval):
+                    print(f"Wake word '{wake_word}' detected! (score: {score:.3f})")
+                    self.last_trigger_time = current_time
+        except Exception as e:
+            print(f"Error predicting wake word: {e}")
+
+    def start_listening(self):
+        print("Starting to listen... (say 'Alexa')")
+        try:
+            with sd.InputStream(
+                samplerate=16000,
+                channels=1,
+                dtype="float32",
+                blocksize=512,
+                callback=self._callback,
+            ):
+                while True:
+                    time.sleep(0.1)
+        except KeyboardInterrupt:
+            print("\nStopping listening.")
+
+
+
+
+    def cleanup(self):
+        self.model.cleanup()
+        print("Model released.")
+
+if __name__ == "__main__":
+    detector = WakeWordDetector()
+    detector.start_listening()

@@ -1,33 +1,42 @@
 import numpy as np
 import sounddevice as sd
 from TTS.api import TTS
+import os
 
-def test_model(model_name, text):
-    # print(f"\n🔊 Testing model: {model_name}")
-    # Load model
-    tts = TTS(model_name=model_name)
 
-    # Generate waveform
-    wav = tts.tts(text)
+class TextToSpeech:
+    def __init__(self, model_name="tts_models/en/ljspeech/vits"):
+        if not model_name:
+            raise ValueError("Model name cannot be empty.")
 
-    # Normalize to -1.0 ~ 1.0
-    wav = wav / np.abs(wav).max()
+        # Ensure model exists (downloads if needed)
+        self.model_name = model_name
+        self.tts = TTS(model_name=self.model_name)
 
-    # Play
-    sd.play(wav, samplerate=tts.synthesizer.output_sample_rate)
-    sd.wait()
+        # Hide unnecessary output during initialization
+        # with contextlib.redirect_stdout(io.StringIO()):
+        #     self.tts = TTS(model_name=self.model_name)
+
+        # Confirm synthesizer loaded properly
+        if not hasattr(self.tts, "synthesizer"):
+            raise RuntimeError("Failed to load TTS synthesizer.")
+
+        self.sample_rate = self.tts.synthesizer.output_sample_rate
+
+    def speak(self, text):
+        if not text:
+            raise ValueError("Text input cannot be empty.")
+
+        #hide unnecessary output during synthesis
+        # with contextlib.redirect_stdout(io.StringIO()):
+        # wav = self.tts.tts(text)
+
+        wav = self.tts.tts(text)
+        wav = wav / np.abs(wav).max()  # Normalize audio
+        sd.play(wav, samplerate=self.sample_rate)
+        sd.wait()
+
 
 if __name__ == "__main__":
-    # Use only VITS LJSpeech model
-    model = "tts_models/en/ljspeech/vits"
-    
-    # print("Text: ")
-    test_text = "Two antennas met on a roof, fell in love, and got married. The ceremony wasn't much, but the reception was excellent."
-                
-#     test_text = """Follow two young explorers on a monorhyme (all the lines end in the same rhyme) adventure that takes you across the sea to the mysterious Island of Bum Bum Ba Loo. You'll meet the King and Queen, dance with Bum Bum Balites, and learn the secret to Bum Berry Goo! The only problem is finding your way back again...
-# The Island of Bum Bum Ba Loo is a bedtime tale about discovery, with an ending to encourage the explorer in us all!
-
-# Have you sailed to the island of Bum Bum Ba Loo?
-
-# It’s something that all great explorers must do"""
-    test_model(model, test_text)
+    tts = TextToSpeech()
+    tts.speak("Two antennas met on a roof, fell in love, and got married. The ceremony wasn't much, but the reception was excellent.")

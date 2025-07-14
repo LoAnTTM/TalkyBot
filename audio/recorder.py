@@ -8,10 +8,10 @@ class SpeechRecorder:
 
     def record(self, mic, vad):
         """
-        Ghi lại đoạn nói sau wake word.
+        Record speech after wake word.
         mic: AudioStream instance
         vad: VoiceActivityDetector instance
-        Trả về numpy array audio đã ghi.
+        Returns recorded audio numpy array.
         """
         audio_frames = []
         silence_start = None
@@ -25,7 +25,7 @@ class SpeechRecorder:
                     silence_start = time.time()
                 elif time.time() - silence_start > self.max_silence_sec:
                     break
-            # Dừng nếu quá thời gian tối đa
+            # Stop if exceeding maximum time
             if time.time() - start_time > self.max_record_sec:
                 break
         if audio_frames:

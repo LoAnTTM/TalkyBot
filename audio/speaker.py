@@ -7,18 +7,18 @@ class Speaker:
         self.tts = TextToSpeech(device=device)
 
     def speak(self, text):
-        """Tạo và phát audio"""
+        """Generate and play audio"""
         audio = self.tts.generate_audio(text)
         self.play_audio(audio)
         return audio
 
     def play_audio(self, audio):
-        """Phát audio"""
+        """Play audio"""
         try:
             sample_rate = 22050
-            print(f"🔊 Đang phát audio ({len(audio)} mẫu ở {sample_rate}Hz)...")
+            print(f"🔊 Playing audio ({len(audio)} samples at {sample_rate}Hz)...")
             sd.play(audio, samplerate=sample_rate)
             sd.wait()
-            print("⏹️ Phát xong.")
+            print("⏹️ Playback finished.")
         except Exception as e:
-            print(f"❌ Lỗi phát audio: {e}")
+            print(f"❌ Audio playback error: {e}")

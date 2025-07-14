@@ -13,7 +13,7 @@ class AudioStream:
         with sd.InputStream(samplerate=self.samplerate, channels=self.channels, dtype='int16', blocksize=self.frame_size) as stream:
             while True:
                 audio_frame, _ = stream.read(self.frame_size)
-                # Chuyển về 1D nếu chỉ có 1 channel
+                # Convert to 1D if only 1 channel
                 if self.channels == 1:
                     audio_frame = audio_frame.flatten()
                 yield audio_frame
