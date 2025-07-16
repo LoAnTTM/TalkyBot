@@ -1,5 +1,5 @@
 import sounddevice as sd
-from text_to_speech import TextToSpeech
+from components.tts import TextToSpeech
 
 
 class Speaker:

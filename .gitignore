@@ -27,3 +27,6 @@ models/
 
 # Test filestest_*.py
 test_*.py
+
+.github/
+

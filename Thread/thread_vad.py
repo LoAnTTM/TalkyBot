@@ -1,17 +1,14 @@
-import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
 import threading
 import time
 
 from components.vad import VoiceActivityDetector
 
 class VADThread(threading.Thread):
-    def __init__(self, vad, audio_stream, status_callback=None):
+    def __init__(self, vad, audio_stream, audio_queue=None, status_callback=None):
         super().__init__()
         self.vad = vad
         self.audio_stream = audio_stream
+        self.audio_queue = audio_queue  # Queue để gửi audio frames cho STT
         self.status_callback = status_callback
         self._stop_event = threading.Event()
         self.last_speaking_state = None
@@ -25,6 +22,10 @@ class VADThread(threading.Thread):
                 self.frame_count += 1
                 self.vad.process_frame(frame)
                 info = self.vad.get_continuous_speech_info()
+                
+                # Gửi audio frame cho STT khi có speech
+                if info['is_speaking'] and self.audio_queue:
+                    self.audio_queue.put(frame)
                 
                 # Only call callback when state changes or every 10 frames during speech
                 current_speaking = info['is_speaking']

@@ -1,11 +1,6 @@
-import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
 import threading
 import time
 import json
-import numpy as np
 from vosk import Model, KaldiRecognizer
 
 from components.stt import SpeechToText
