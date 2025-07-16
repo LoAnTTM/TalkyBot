@@ -46,9 +46,7 @@ class WakeWordDetector:
         if status:
             print(f"Audio status: {status}")
 
-        # Convert input data to int16 format
-        if indata.dtype != np.float32:
-            audio_int16 = (indata[:, 0] * 32767).astype(np.int16)
+        audio_int16 = (indata[:, 0] * 32767).astype(np.int16)
 
         try:
             scores = self.model.predict(audio_int16)
@@ -74,9 +72,6 @@ class WakeWordDetector:
                     time.sleep(0.1)
         except KeyboardInterrupt:
             print("\nStopping listening.")
-
-
-
 
     def cleanup(self):
         self.model.cleanup()

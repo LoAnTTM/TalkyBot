@@ -1,7 +1,6 @@
 import numpy as np
 import sounddevice as sd
 from TTS.api import TTS
-import os
 
 
 class TextToSpeech:
@@ -12,6 +11,7 @@ class TextToSpeech:
         # Ensure model exists (downloads if needed)
         self.model_name = model_name
         self.tts = TTS(model_name=self.model_name)
+        self.stop_requested = False
 
         # Hide unnecessary output during initialization
         # with contextlib.redirect_stdout(io.StringIO()):
@@ -27,15 +27,23 @@ class TextToSpeech:
         if not text:
             raise ValueError("Text input cannot be empty.")
 
+        self.stop_requested = False
+        
         #hide unnecessary output during synthesis
         # with contextlib.redirect_stdout(io.StringIO()):
         # wav = self.tts.tts(text)
 
         wav = self.tts.tts(text)
         wav = wav / np.abs(wav).max()  # Normalize audio
-        sd.play(wav, samplerate=self.sample_rate)
-        sd.wait()
+        
+        if not self.stop_requested:
+            sd.play(wav, samplerate=self.sample_rate)
+            sd.wait()
 
+    def stop(self):
+        """Stop current TTS playback"""
+        self.stop_requested = True
+        sd.stop()
 
 if __name__ == "__main__":
     tts = TextToSpeech()

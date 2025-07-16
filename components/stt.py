@@ -1,11 +1,12 @@
-from vosk import Model, KaldiRecognizer
-import numpy as np
-import json
-
 import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from audio.mic_stream import AudioStream
+
+from vosk import Model, KaldiRecognizer
+import numpy as np
+import json
+
 
 class SpeechToText:
     def __init__(self, model_path="models/vosk/vosk-model-small-en-us-0.15", samplerate=16000):

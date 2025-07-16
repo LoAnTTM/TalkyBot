@@ -107,21 +107,32 @@ pip install onnxruntime
   - Support for multiple languages and voices
   - Models downloaded automatically based on configuration
 
-
-
 ## Project Structure
 
 ```
 TalkyBot/
-├── audio/
-│   └── mic_stream.py       # Microphone stream handling
-├── components/
-│   ├── wakeword.py         # Wake word detection
-│   ├── vad.py              # Voice activity detection
-│   └── tts.py              # Text-to-speech
-├── models/                 # Downloaded models (auto-created)
+├── main.py                 # Main application entry point
+├── setup.sh                # Automated setup script
 ├── requirements.txt        # Python dependencies
-└── README.md              # This file
+├── README.md              # This file
+├── audio/
+│   ├── mic_stream.py       # Microphone stream handling
+│   ├── recorder.py         # Audio recording functionality
+│   └── speaker.py          # Audio output handling
+├── components/
+│   ├── brain.py            # Conversational AI using BlenderBot
+│   ├── stt.py              # Speech-to-text using Vosk
+│   ├── tts.py              # Text-to-speech
+│   ├── vad.py              # Voice activity detection
+│   └── wakeword.py         # Wake word detection using OpenWakeWord
+└── models/                 # Downloaded models (auto-created)
+    ├── openwakeword/       # OpenWakeWord models
+    │   ├── alexa_v0.1.onnx
+    │   ├── alexa_v0.1.tflite
+    │   ├── embedding_model.onnx
+    │   └── embedding_model.tflite
+    └── vosk/               # Vosk speech recognition models
+        └── vosk-model-small-en-us-0.15/
 ```
 
 ## Usage
@@ -154,4 +165,3 @@ python tts.py
 - Microphone access required for testing
 - Some models will be downloaded automatically on first run
 - Make sure to activate the conda environment before running scripts
-
