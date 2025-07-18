@@ -9,6 +9,8 @@ from .stt import SpeechToText
 from .tts import TextToSpeech
 from .vad import VoiceActivityDetector
 from .wakeword import WakeWordDetector
+from .state_manager import StateManager, SystemState
+from .logger import TalkyBotLogger, get_logger, setup_logging
 
 __all__ = [
     'Chatbot',
@@ -17,5 +19,8 @@ __all__ = [
     'VoiceActivityDetector',
     'WakeWordDetector',
     'StateManager',
-    'SystemState'
+    'SystemState',
+    'TalkyBotLogger',
+    'get_logger',
+    'setup_logging'
 ]

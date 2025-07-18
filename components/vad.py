@@ -15,9 +15,9 @@ class VoiceActivityDetector:
     """
     def __init__(self,
                  sampling_rate: int = 16000,
-                 threshold: float = 0.5,
-                 min_speech_duration_ms: int = 250,
-                 min_silence_duration_ms: int = 500,
+                 threshold: float = 0.3,
+                 min_speech_duration_ms: int = 100,
+                 min_silence_duration_ms: int = 300,
                  buffer_duration_ms: int = 1500):
         """
         Initialize VoiceActivityDetector.
@@ -89,6 +89,9 @@ class VoiceActivityDetector:
 
         buffer_tensor = torch.tensor(list(self.speech_buffer), dtype=torch.float32)
         
+        # Calculate audio level for debugging
+        audio_level = torch.sqrt(torch.mean(buffer_tensor ** 2)).item()
+        
         speech_timestamps = self.get_speech_timestamps(
             buffer_tensor,
             self.model,
@@ -99,13 +102,43 @@ class VoiceActivityDetector:
         current_time = time.time()
         has_speech = len(speech_timestamps) > 0
 
+        # Debug logging - import logger here to avoid circular imports
+        try:
+            from .logger import get_logger
+            logger = get_logger("VAD")
+        except:
+            logger = None
+            
+        if hasattr(self, '_debug_counter'):
+            self._debug_counter += 1
+        else:
+            self._debug_counter = 0
+            
+        # Only log when audio level is significant or speech state changes
+        if self._debug_counter % 50 == 0 and (audio_level > 0.02 or has_speech):  # Every ~5 seconds, only when relevant
+            debug_msg = f"Audio: {audio_level:.3f} {'🎤 Speech' if has_speech else '🔇 Quiet'}"
+            if logger:
+                logger.debug(debug_msg)  # Changed to debug level
+            else:
+                print(f"🔍 {debug_msg}")
+
         if has_speech:
             if not self.is_speaking:
                 self.is_speaking = True
                 self.speech_start_time = current_time
+                speech_msg = f"Speech started! (audio_level: {audio_level:.4f})"
+                if logger:
+                    logger.info(speech_msg)
+                else:
+                    print(f"🎤 {speech_msg}")
             self.last_speech_time = current_time
         elif self.is_speaking and (current_time - self.last_speech_time) > self.min_silence_duration_s:
             self.is_speaking = False
+            end_msg = f"Speech ended after {current_time - self.speech_start_time:.1f}s"
+            if logger:
+                logger.info(end_msg)
+            else:
+                print(f"🔇 {end_msg}")
 
     def get_continuous_speech_info(self) -> Dict:
         """

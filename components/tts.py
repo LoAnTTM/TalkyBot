@@ -29,10 +29,7 @@ class TextToSpeech:
 
         self.stop_requested = False
         
-        #hide unnecessary output during synthesis
-        # with contextlib.redirect_stdout(io.StringIO()):
-        # wav = self.tts.tts(text)
-
+        # Generate and play speech
         wav = self.tts.tts(text)
         wav = wav / np.abs(wav).max()  # Normalize audio
         

@@ -5,17 +5,21 @@ from vosk import Model, KaldiRecognizer
 
 from components.stt import SpeechToText
 from components.brain import Chatbot
+from components.logger import get_logger
+from components.state_manager import SystemState
 from audio.mic_stream import AudioStream
 
 
 class STTConversationThread(threading.Thread):
-    def __init__(self, audio_queue=None, response_callback=None):
+    def __init__(self, state_manager=None, audio_queue=None, response_callback=None):
         super().__init__()
         self.chatbot = Chatbot()
         self.stt = SpeechToText()
+        self.state_manager = state_manager
         self.audio_queue = audio_queue
         self.response_callback = response_callback
         self._stop_event = threading.Event()
+        self.logger = get_logger("STT")
         
         # Initialize recognizer for continuous processing
         self.recognizer = KaldiRecognizer(self.stt.model, self.stt.samplerate)
@@ -41,37 +45,62 @@ class STTConversationThread(threading.Thread):
                 self.current_partial = partial_text
 
     def on_partial_result(self, text):
-        """Handle partial STT results"""
-        print(f"\r🔄 Partial: '{text}'", end='', flush=True)
+        """Handle partial STT results with reduced logging"""
+        # Only log longer partial results to reduce spam
+        if len(text.split()) >= 3:  # At least 3 words
+            self.logger.debug(f"Partial: '{text}'")
 
     def on_final_result(self, text):
         """Handle final STT results and generate chatbot response"""
-        print(f"\r{' '*80}\r✅ Final: '{text}'")
+        if not text.strip():
+            return
         
-        # Send question to chatbot and get response
+        self.logger.info(f"Final result: '{text}'")
+        
+        # Check for sleep keywords first
+        if self.state_manager and self.state_manager.check_sleep_keywords(text):
+            self.logger.info("Sleep keyword detected - going to STANDBY")
+            return
+        
+        # Update activity timestamp
+        if self.state_manager:
+            self.state_manager.update_activity()
+        
+        # Generate chatbot response
         try:
+            self.logger.debug("Generating chatbot response...")
             response = self.chatbot.get_response(text)
-            print(f"🤖 Bot: {response}")
+            self.logger.info(f"Bot response: {response}")
             
             # Send response to callback (e.g., for TTS)
             if self.response_callback:
                 self.response_callback(response)
                 
         except Exception as e:
-            print(f"❌ Error generating response: {e}")
+            self.logger.error(f"Error generating response: {e}")
+            if self.state_manager:
+                self.state_manager.transition_to(SystemState.LISTENING, "STT error occurred")
 
     def run(self):
-        print("🎙️ Starting STT + Chatbot thread...")
+        self.logger.info("Starting STT + Chatbot thread...")
         
         if self.audio_queue:
             # Process audio from queue (when integrated with VAD)
             while not self._stop_event.is_set():
                 try:
+                    # Only process if system is active
+                    if self.state_manager and not self.state_manager.is_active():
+                        time.sleep(0.1)
+                        continue
+                    
                     # Get audio frame from queue with timeout
-                    audio_frame = self.audio_queue.get(timeout=0.1)
+                    audio_frame = self.audio_queue.get(timeout=0.5)
                     if audio_frame is not None:
                         self.process_audio_frame(audio_frame)
                 except:
+                    # Check for timeout and handle conversation end
+                    if self.state_manager:
+                        self.state_manager.check_timeout()
                     continue
         else:
             # Process audio directly from microphone
@@ -83,9 +112,9 @@ class STTConversationThread(threading.Thread):
                         break
                     self.process_audio_frame(frame)
             except Exception as e:
-                print(f"❌ Error in audio processing: {e}")
+                self.logger.error(f"Error in audio processing: {e}")
         
-        print("🛑 STT + Chatbot thread stopped.")
+        self.logger.info("STT + Chatbot thread stopped.")
 
     def stop(self):
         self._stop_event.set()

@@ -11,9 +11,9 @@ class WakeWordDetector:
         model_name="alexa",
         model_folder="models/openwakeword",
         onnx_file="alexa_v0.1.onnx",
-        vad_threshold=0.3,
-        sensitivity_threshold=0.3,
-        min_trigger_interval=1.0,
+        vad_threshold=0.6,
+        sensitivity_threshold=0.99,
+        min_trigger_interval=3.0,
     ):
         self.model_name = model_name
         self.model_folder = model_folder

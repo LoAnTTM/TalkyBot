@@ -2,33 +2,45 @@ import threading
 import time
 
 from components.vad import VoiceActivityDetector
+from components.logger import get_logger
+from components.state_manager import SystemState
 
 class VADThread(threading.Thread):
-    def __init__(self, vad, audio_stream, audio_queue=None, status_callback=None):
+    def __init__(self, vad, audio_stream, state_manager=None, audio_queue=None, status_callback=None):
         super().__init__()
         self.vad = vad
         self.audio_stream = audio_stream
+        self.state_manager = state_manager
         self.audio_queue = audio_queue  # Queue để gửi audio frames cho STT
         self.status_callback = status_callback
         self._stop_event = threading.Event()
         self.last_speaking_state = None
         self.frame_count = 0
+        self.logger = get_logger("VAD")
 
     def run(self):
+        self.logger.info("VAD Thread started")
+        
         while not self._stop_event.is_set():
             for frame in self.audio_stream.stream():
                 if self._stop_event.is_set():
                     break
+                
                 self.frame_count += 1
                 self.vad.process_frame(frame)
                 info = self.vad.get_continuous_speech_info()
-                
-                # Gửi audio frame cho STT khi có speech
-                if info['is_speaking'] and self.audio_queue:
-                    self.audio_queue.put(frame)
-                
-                # Only call callback when state changes or every 10 frames during speech
                 current_speaking = info['is_speaking']
+                
+                # Handle state transitions and interrupts
+                self._handle_speech_state_change(current_speaking, info)
+                
+                # Send audio frame to STT when active and speaking
+                if self._should_send_audio(current_speaking):
+                    self.audio_queue.put(frame)
+                    if self.frame_count % 50 == 0:  # Log every ~5 seconds during speech
+                        self.logger.debug(f"Sent audio frame to STT queue (queue size: {self.audio_queue.qsize()})")
+                
+                # Call status callback on state changes or periodic updates
                 if (current_speaking != self.last_speaking_state or 
                     (current_speaking and self.frame_count % 10 == 0)):
                     if self.status_callback:
@@ -36,6 +48,53 @@ class VADThread(threading.Thread):
                     self.last_speaking_state = current_speaking
                 
                 time.sleep(0.01)
+        
+        self.logger.info("VAD Thread stopped")
+    
+    def _handle_speech_state_change(self, current_speaking, info):
+        """Handle speech state changes and manage system state transitions"""
+        if not self.state_manager:
+            return
+        
+        current_state = self.state_manager.get_current_state()
+        
+        # Handle speech start
+        if current_speaking and not self.last_speaking_state:
+            self.logger.debug(f"Speech started - Duration: {info['duration']:.1f}s")
+            
+            # Update activity timestamp
+            self.state_manager.update_activity()
+            
+            # Interrupt TTS if currently speaking
+            if current_state == SystemState.SPEAKING:
+                self.logger.info("Interrupting TTS - User started speaking")
+                self.state_manager.interrupt_speaking("User speech detected")
+            
+            # Transition to processing if listening
+            elif current_state == SystemState.LISTENING:
+                self.state_manager.start_processing("Speech detected")
+        
+        # Handle speech end
+        elif not current_speaking and self.last_speaking_state:
+            self.logger.debug("Speech ended")
+            
+            # Update activity timestamp
+            self.state_manager.update_activity()
+            
+            # Return to listening if we were processing
+            if current_state == SystemState.PROCESSING:
+                self.state_manager.transition_to(SystemState.LISTENING, "Speech ended")
+    
+    def _should_send_audio(self, is_speaking):
+        """Determine if audio should be sent to STT queue"""
+        if not is_speaking or not self.audio_queue:
+            return False
+        
+        # Only send audio if system is active
+        if self.state_manager:
+            return self.state_manager.is_active()
+        
+        return True
 
     def stop(self):
         self._stop_event.set()

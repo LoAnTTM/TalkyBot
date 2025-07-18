@@ -1,7 +1,4 @@
 import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
 from audio.mic_stream import AudioStream 
 
 from vosk import Model, KaldiRecognizer
