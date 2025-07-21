@@ -25,6 +25,20 @@ class TalkyBotSystem:
         self.logger_system = setup_logging()
         self.logger = get_logger("MAIN")
         
+        # Test audio system before proceeding
+        self.logger.info("Testing audio system...")
+        try:
+            # Test audio stream
+            test_audio = AudioStream()
+            if test_audio.test_device():
+                self.logger.info("✅ Audio system test passed")
+            else:
+                self.logger.warning("⚠️ Audio system test failed - continuing anyway")
+                self.logger.warning("⚠️ You may experience audio issues")
+        except Exception as e:
+            self.logger.warning(f"⚠️ Audio system test error: {e}")
+            self.logger.warning("⚠️ Continuing without audio test - you may experience issues")
+        
         # Create state manager
         self.state_manager = StateManager(timeout_seconds=15)
         
@@ -163,7 +177,54 @@ class TalkyBotSystem:
                 self._last_status_log = time.time()
         else:
             self._last_status_log = time.time()
+            
+        # Check VAD thread health
+        if hasattr(self, 'vad_thread') and self.vad_thread.is_alive():
+            # Check if VAD is processing frames
+            if hasattr(self.vad_thread, 'frame_count'):
+                if not hasattr(self, '_last_vad_frame_count'):
+                    self._last_vad_frame_count = self.vad_thread.frame_count
+                    self._last_vad_check_time = time.time()
+                else:
+                    current_time = time.time()
+                    if current_time - self._last_vad_check_time > 60:  # Check every minute
+                        if self.vad_thread.frame_count == self._last_vad_frame_count:
+                            self.logger.error("⚠️ VAD thread appears to be stuck - no new frames processed")
+                            # Optionally restart VAD thread here
+                            self._restart_vad_thread()
+                        else:
+                            frames_processed = self.vad_thread.frame_count - self._last_vad_frame_count
+                            self.logger.debug(f"✅ VAD thread healthy - processed {frames_processed} frames in last minute")
+                        
+                        self._last_vad_frame_count = self.vad_thread.frame_count
+                        self._last_vad_check_time = current_time
     
+    def _restart_vad_thread(self):
+        """Restart VAD thread if it gets stuck"""
+        try:
+            self.logger.info("🔄 Restarting VAD thread...")
+            
+            # Stop current VAD thread
+            if hasattr(self, 'vad_thread') and self.vad_thread.is_alive():
+                self.vad_thread.stop()
+                self.vad_thread.join(timeout=3)
+            
+            # Create new VAD thread
+            self.vad_thread = VADThread(
+                vad=self.vad,
+                audio_stream=self.audio_stream,
+                state_manager=self.state_manager,
+                audio_queue=self.audio_to_stt_queue,
+                status_callback=self._on_vad_status
+            )
+            
+            # Start new thread
+            self.vad_thread.start()
+            self.logger.info("✅ VAD thread restarted successfully")
+            
+        except Exception as e:
+            self.logger.error(f"❌ Failed to restart VAD thread: {e}")
+
     def stop(self):
         """Stop all system threads gracefully"""
         self.logger.info("=" * 60)

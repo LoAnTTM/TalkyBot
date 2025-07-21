@@ -3320,3 +3320,1122 @@ ValueError: Test error for logging
 2025-07-17 09:39:51 | INFO     | TalkyBot.MAIN   | Stopping TTS thread...
 2025-07-17 09:39:51 | INFO     | TalkyBot.TTS    | TTS interrupted during playback
 2025-07-17 09:39:51 | INFO     | TalkyBot.TTS    | TTS Thread stopped
+2025-07-18 13:56:37 | INFO     | TalkyBot        | ============================================================
+2025-07-18 13:56:37 | INFO     | TalkyBot        | TalkyBot Logging System Initialized
+2025-07-18 13:56:37 | INFO     | TalkyBot        | Log file: /Users/loantruong/Documents/Robotic/TalkyBot/TalkyBot.log
+2025-07-18 13:56:37 | INFO     | TalkyBot        | ============================================================
+2025-07-18 13:56:42 | INFO     | TalkyBot.MAIN   | TalkyBot System initialized successfully
+2025-07-18 13:56:42 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 13:56:42 | INFO     | TalkyBot.MAIN   | Starting TalkyBot System...
+2025-07-18 13:56:42 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 13:56:42 | INFO     | TalkyBot.MAIN   | Starting Wake Word thread...
+2025-07-18 13:56:42 | INFO     | TalkyBot.WAKE   | Wake Word Thread started - Listening for 'Alexa'
+2025-07-18 13:56:42 | INFO     | TalkyBot.MAIN   | Starting TTS thread...
+2025-07-18 13:56:42 | INFO     | TalkyBot.TTS    | TTS Thread started
+2025-07-18 13:56:42 | INFO     | TalkyBot.MAIN   | Starting STT + Brain thread...
+2025-07-18 13:56:42 | INFO     | TalkyBot.STT    | Starting STT + Chatbot thread...
+2025-07-18 13:56:42 | INFO     | TalkyBot.MAIN   | Starting VAD thread...
+2025-07-18 13:56:42 | INFO     | TalkyBot.VAD    | VAD Thread started
+2025-07-18 13:56:42 | INFO     | TalkyBot.MAIN   | All threads started successfully!
+2025-07-18 13:56:42 | INFO     | TalkyBot.MAIN   | System ready - Say 'Alexa' to wake up
+2025-07-18 13:56:42 | INFO     | TalkyBot.MAIN   | Sleep commands: bye bye, goodbye, go to sleep, etc.
+2025-07-18 13:56:48 | INFO     | TalkyBot.WAKE   | Wake word 'alexa_v0.1' detected! (score: 0.998)
+2025-07-18 13:56:48 | INFO     | TalkyBot.MAIN   | State: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.998))
+2025-07-18 13:56:48 | INFO     | TalkyBot        | STATE: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.998))
+2025-07-18 13:57:03 | INFO     | TalkyBot.MAIN   | State: LISTENING → STANDBY (Timeout after 15.2s)
+2025-07-18 13:57:03 | INFO     | TalkyBot        | STATE: LISTENING → STANDBY (Timeout after 15.2s)
+2025-07-18 13:57:03 | INFO     | TalkyBot.WAKE   | Wake word 'alexa_v0.1' detected! (score: 0.998)
+2025-07-18 13:57:03 | INFO     | TalkyBot.MAIN   | State: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.998))
+2025-07-18 13:57:03 | INFO     | TalkyBot        | STATE: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.998))
+2025-07-18 13:57:12 | DEBUG    | TalkyBot.MAIN   | System status: LISTENING (active for 9.5s)
+2025-07-18 13:57:18 | INFO     | TalkyBot.MAIN   | State: LISTENING → STANDBY (Timeout after 15.2s)
+2025-07-18 13:57:18 | INFO     | TalkyBot        | STATE: LISTENING → STANDBY (Timeout after 15.2s)
+2025-07-18 13:57:18 | INFO     | TalkyBot.WAKE   | Wake word 'alexa_v0.1' detected! (score: 0.998)
+2025-07-18 13:57:18 | INFO     | TalkyBot.MAIN   | State: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.998))
+2025-07-18 13:57:18 | INFO     | TalkyBot        | STATE: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.998))
+2025-07-18 13:57:33 | INFO     | TalkyBot.MAIN   | State: LISTENING → STANDBY (Timeout after 15.2s)
+2025-07-18 13:57:33 | INFO     | TalkyBot        | STATE: LISTENING → STANDBY (Timeout after 15.2s)
+2025-07-18 13:57:33 | INFO     | TalkyBot.WAKE   | Wake word 'alexa_v0.1' detected! (score: 0.998)
+2025-07-18 13:57:33 | INFO     | TalkyBot.MAIN   | State: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.998))
+2025-07-18 13:57:33 | INFO     | TalkyBot        | STATE: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.998))
+2025-07-18 13:57:42 | DEBUG    | TalkyBot.MAIN   | System status: LISTENING (active for 9.1s)
+2025-07-18 13:57:48 | INFO     | TalkyBot.MAIN   | State: LISTENING → STANDBY (Timeout after 15.1s)
+2025-07-18 13:57:48 | INFO     | TalkyBot        | STATE: LISTENING → STANDBY (Timeout after 15.1s)
+2025-07-18 13:57:48 | INFO     | TalkyBot.MAIN   | Conversation timed out - system returned to STANDBY
+2025-07-18 13:57:49 | INFO     | TalkyBot.WAKE   | Wake word 'alexa_v0.1' detected! (score: 0.998)
+2025-07-18 13:57:49 | INFO     | TalkyBot.MAIN   | State: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.998))
+2025-07-18 13:57:49 | INFO     | TalkyBot        | STATE: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.998))
+2025-07-18 13:58:04 | INFO     | TalkyBot.MAIN   | State: LISTENING → STANDBY (Timeout after 15.0s)
+2025-07-18 13:58:04 | INFO     | TalkyBot        | STATE: LISTENING → STANDBY (Timeout after 15.0s)
+2025-07-18 13:58:04 | INFO     | TalkyBot.MAIN   | Conversation timed out - system returned to STANDBY
+2025-07-18 13:58:11 | INFO     | TalkyBot.MAIN   | Received signal 2
+2025-07-18 13:58:11 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 13:58:11 | INFO     | TalkyBot.MAIN   | Stopping TalkyBot System...
+2025-07-18 13:58:11 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 13:58:11 | INFO     | TalkyBot.MAIN   | Stopping VAD thread...
+2025-07-18 13:58:11 | INFO     | TalkyBot.MAIN   | Stopping STT thread...
+2025-07-18 13:58:11 | INFO     | TalkyBot.MAIN   | Stopping TTS thread...
+2025-07-18 13:58:11 | INFO     | TalkyBot.MAIN   | Stopping Wake Word thread...
+2025-07-18 13:58:11 | ERROR    | TalkyBot.MAIN   | Error during shutdown: 'Model' object has no attribute 'cleanup'
+2025-07-18 13:58:11 | INFO     | TalkyBot.MAIN   | TalkyBot System stopped cleanly
+2025-07-18 13:58:11 | INFO     | TalkyBot        | SYSTEM: Shutting down logging system
+2025-07-18 14:04:27 | INFO     | TalkyBot        | ============================================================
+2025-07-18 14:04:27 | INFO     | TalkyBot        | TalkyBot Logging System Initialized
+2025-07-18 14:04:27 | INFO     | TalkyBot        | Log file: /Users/loantruong/Documents/Robotic/TalkyBot/TalkyBot.log
+2025-07-18 14:04:27 | INFO     | TalkyBot        | ============================================================
+2025-07-18 14:04:32 | INFO     | TalkyBot.MAIN   | TalkyBot System initialized successfully
+2025-07-18 14:04:32 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 14:04:32 | INFO     | TalkyBot.MAIN   | Starting TalkyBot System...
+2025-07-18 14:04:32 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 14:04:32 | INFO     | TalkyBot.MAIN   | Starting Wake Word thread...
+2025-07-18 14:04:32 | INFO     | TalkyBot.WAKE   | Wake Word Thread started - Listening for 'Alexa'
+2025-07-18 14:04:32 | INFO     | TalkyBot.MAIN   | Starting TTS thread...
+2025-07-18 14:04:32 | INFO     | TalkyBot.TTS    | TTS Thread started
+2025-07-18 14:04:32 | INFO     | TalkyBot.MAIN   | Starting STT + Brain thread...
+2025-07-18 14:04:32 | INFO     | TalkyBot.STT    | Starting STT + Chatbot thread...
+2025-07-18 14:04:32 | INFO     | TalkyBot.MAIN   | Starting VAD thread...
+2025-07-18 14:04:32 | INFO     | TalkyBot.VAD    | VAD Thread started
+2025-07-18 14:04:32 | INFO     | TalkyBot.MAIN   | All threads started successfully!
+2025-07-18 14:04:32 | INFO     | TalkyBot.MAIN   | System ready - Say 'Alexa' to wake up
+2025-07-18 14:04:32 | INFO     | TalkyBot.MAIN   | Sleep commands: bye bye, goodbye, go to sleep, etc.
+2025-07-18 14:04:37 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0131)
+2025-07-18 14:04:37 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:04:37 | DEBUG    | TalkyBot.VAD    | Audio: 0.025 🎤 Speech
+2025-07-18 14:04:38 | DEBUG    | TalkyBot.VAD    | Audio: 0.108 🎤 Speech
+2025-07-18 14:04:39 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.3s
+2025-07-18 14:04:39 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.6s
+2025-07-18 14:04:40 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.9s
+2025-07-18 14:04:40 | DEBUG    | TalkyBot.VAD    | Audio: 0.061 🎤 Speech
+2025-07-18 14:04:40 | INFO     | TalkyBot.VAD    | Speech ended after 3.7s
+2025-07-18 14:04:40 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:04:42 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0253)
+2025-07-18 14:04:42 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:04:43 | INFO     | TalkyBot.WAKE   | Wake word 'alexa_v0.1' detected! (score: 0.996)
+2025-07-18 14:04:43 | INFO     | TalkyBot.MAIN   | State: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.996))
+2025-07-18 14:04:43 | INFO     | TalkyBot        | STATE: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.996))
+2025-07-18 14:04:43 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:04:43 | DEBUG    | TalkyBot.VAD    | Audio: 0.048 🎤 Speech
+2025-07-18 14:04:44 | INFO     | TalkyBot.VAD    | Speech ended after 2.0s
+2025-07-18 14:04:44 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:04:46 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0145)
+2025-07-18 14:04:46 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:04:46 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:04:46 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:04:47 | DEBUG    | TalkyBot.STT    | Partial: 'you hear me'
+2025-07-18 14:04:47 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:04:47 | DEBUG    | TalkyBot.VAD    | Audio: 0.035 🎤 Speech
+2025-07-18 14:04:48 | INFO     | TalkyBot.STT    | Final result: 'you hear me'
+2025-07-18 14:04:48 | DEBUG    | TalkyBot.STT    | Generating chatbot response...
+2025-07-18 14:04:49 | INFO     | TalkyBot.VAD    | Speech ended after 2.3s
+2025-07-18 14:04:49 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:04:49 | INFO     | TalkyBot.MAIN   | State: PROCESSING → LISTENING (Speech ended)
+2025-07-18 14:04:49 | INFO     | TalkyBot        | STATE: PROCESSING → LISTENING (Speech ended)
+2025-07-18 14:04:50 | INFO     | TalkyBot.STT    | Bot response: what do you mean you hear me ? i ' m sorry , i don ' t understand .
+2025-07-18 14:04:50 | INFO     | TalkyBot.MAIN   | Chatbot response: what do you mean you hear me ? i ' m sorry , i don...
+2025-07-18 14:04:50 | DEBUG    | TalkyBot.TTS    | Added to TTS queue: 'what do you mean you hear me ? i ' m sorry , i don...'
+2025-07-18 14:04:50 | INFO     | TalkyBot.MAIN   | State: LISTENING → SPEAKING (Speaking: 'what do you mean you hear me ?...')
+2025-07-18 14:04:50 | INFO     | TalkyBot        | STATE: LISTENING → SPEAKING (Speaking: 'what do you mean you hear me ?...')
+2025-07-18 14:04:50 | INFO     | TalkyBot.TTS    | Speaking: what do you mean you hear me ? i ' m sorry , i don ' t understand .
+2025-07-18 14:04:57 | INFO     | TalkyBot.TTS    | TTS completed successfully
+2025-07-18 14:04:57 | INFO     | TalkyBot.MAIN   | State: SPEAKING → LISTENING (TTS completed)
+2025-07-18 14:04:57 | INFO     | TalkyBot        | STATE: SPEAKING → LISTENING (TTS completed)
+2025-07-18 14:04:58 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0094)
+2025-07-18 14:04:58 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:04:58 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:04:58 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:04:58 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:04:58 | DEBUG    | TalkyBot.VAD    | Audio: 0.024 🎤 Speech
+2025-07-18 14:04:59 | INFO     | TalkyBot.STT    | Final result: 'nine'
+2025-07-18 14:04:59 | DEBUG    | TalkyBot.STT    | Generating chatbot response...
+2025-07-18 14:04:59 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 10)
+2025-07-18 14:04:59 | DEBUG    | TalkyBot.VAD    | Audio: 0.010 🎤 Speech
+2025-07-18 14:05:00 | INFO     | TalkyBot.VAD    | Speech ended after 2.0s
+2025-07-18 14:05:00 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:05:00 | INFO     | TalkyBot.MAIN   | State: PROCESSING → LISTENING (Speech ended)
+2025-07-18 14:05:00 | INFO     | TalkyBot        | STATE: PROCESSING → LISTENING (Speech ended)
+2025-07-18 14:05:00 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0015)
+2025-07-18 14:05:00 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:05:00 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:05:00 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:05:01 | INFO     | TalkyBot.STT    | Bot response: do you like to watch tv ? i love watching it . it ' s my favorite show .
+2025-07-18 14:05:01 | INFO     | TalkyBot.MAIN   | Chatbot response: do you like to watch tv ? i love watching it . it ...
+2025-07-18 14:05:01 | DEBUG    | TalkyBot.TTS    | Added to TTS queue: 'do you like to watch tv ? i love watching it . it ...'
+2025-07-18 14:05:01 | INFO     | TalkyBot.MAIN   | State: PROCESSING → SPEAKING (Speaking: 'do you like to watch tv ? i lo...')
+2025-07-18 14:05:01 | INFO     | TalkyBot        | STATE: PROCESSING → SPEAKING (Speaking: 'do you like to watch tv ? i lo...')
+2025-07-18 14:05:01 | INFO     | TalkyBot.TTS    | Speaking: do you like to watch tv ? i love watching it . it ' s my favorite show .
+2025-07-18 14:05:01 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:05:01 | DEBUG    | TalkyBot.VAD    | Audio: 0.033 🎤 Speech
+2025-07-18 14:05:01 | INFO     | TalkyBot.STT    | Final result: 'good night'
+2025-07-18 14:05:01 | DEBUG    | TalkyBot.STT    | Generating chatbot response...
+2025-07-18 14:05:02 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.1s
+2025-07-18 14:05:02 | INFO     | TalkyBot.VAD    | Speech ended after 2.2s
+2025-07-18 14:05:02 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:05:02 | DEBUG    | TalkyBot.MAIN   | System status: SPEAKING (active for 0.2s)
+2025-07-18 14:05:03 | INFO     | TalkyBot.STT    | Bot response: i hope you have a great night . i ' m sure you ' ll have a good time .
+2025-07-18 14:05:03 | INFO     | TalkyBot.MAIN   | Chatbot response: i hope you have a great night . i ' m sure you ' l...
+2025-07-18 14:05:03 | DEBUG    | TalkyBot.TTS    | Added to TTS queue: 'i hope you have a great night . i ' m sure you ' l...'
+2025-07-18 14:05:04 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0016)
+2025-07-18 14:05:04 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:05:04 | INFO     | TalkyBot.VAD    | Interrupting TTS - User started speaking
+2025-07-18 14:05:04 | INFO     | TalkyBot.MAIN   | State: SPEAKING → LISTENING (User speech detected)
+2025-07-18 14:05:04 | INFO     | TalkyBot        | STATE: SPEAKING → LISTENING (User speech detected)
+2025-07-18 14:05:05 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:05:06 | INFO     | TalkyBot.VAD    | Speech ended after 1.4s
+2025-07-18 14:05:06 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:05:09 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0302)
+2025-07-18 14:05:09 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:05:09 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:05:09 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:05:10 | INFO     | TalkyBot.TTS    | TTS completed successfully
+2025-07-18 14:05:10 | INFO     | TalkyBot.MAIN   | State: PROCESSING → LISTENING (TTS completed)
+2025-07-18 14:05:10 | INFO     | TalkyBot        | STATE: PROCESSING → LISTENING (TTS completed)
+2025-07-18 14:05:10 | INFO     | TalkyBot.MAIN   | State: LISTENING → SPEAKING (Speaking: 'i hope you have a great night ...')
+2025-07-18 14:05:10 | INFO     | TalkyBot        | STATE: LISTENING → SPEAKING (Speaking: 'i hope you have a great night ...')
+2025-07-18 14:05:10 | INFO     | TalkyBot.TTS    | Speaking: i hope you have a great night . i ' m sure you ' ll have a good time .
+2025-07-18 14:05:10 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:05:10 | DEBUG    | TalkyBot.VAD    | Audio: 0.095 🎤 Speech
+2025-07-18 14:05:11 | INFO     | TalkyBot.STT    | Final result: 'bye bye'
+2025-07-18 14:05:11 | INFO     | TalkyBot.MAIN   | State: SPEAKING → STANDBY (Sleep keyword detected: 'bye bye')
+2025-07-18 14:05:11 | INFO     | TalkyBot        | STATE: SPEAKING → STANDBY (Sleep keyword detected: 'bye bye')
+2025-07-18 14:05:11 | INFO     | TalkyBot.STT    | Sleep keyword detected - going to STANDBY
+2025-07-18 14:05:11 | INFO     | TalkyBot.WAKE   | Wake word 'alexa_v0.1' detected! (score: 0.996)
+2025-07-18 14:05:11 | INFO     | TalkyBot.MAIN   | State: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.996))
+2025-07-18 14:05:11 | INFO     | TalkyBot        | STATE: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.996))
+2025-07-18 14:05:11 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:05:11 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.0s
+2025-07-18 14:05:12 | INFO     | TalkyBot.VAD    | Speech ended after 2.3s
+2025-07-18 14:05:12 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:05:16 | INFO     | TalkyBot.TTS    | TTS completed successfully
+2025-07-18 14:05:27 | INFO     | TalkyBot.MAIN   | State: LISTENING → STANDBY (Timeout after 15.1s)
+2025-07-18 14:05:27 | INFO     | TalkyBot        | STATE: LISTENING → STANDBY (Timeout after 15.1s)
+2025-07-18 14:05:27 | INFO     | TalkyBot.WAKE   | Wake word 'alexa_v0.1' detected! (score: 0.996)
+2025-07-18 14:05:27 | INFO     | TalkyBot.MAIN   | State: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.996))
+2025-07-18 14:05:27 | INFO     | TalkyBot        | STATE: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.996))
+2025-07-18 14:05:32 | DEBUG    | TalkyBot.MAIN   | System status: LISTENING (active for 5.7s)
+2025-07-18 14:05:41 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0016)
+2025-07-18 14:05:41 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:05:41 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:05:41 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:05:41 | INFO     | TalkyBot.VAD    | Speech ended after 0.3s
+2025-07-18 14:05:41 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:05:41 | INFO     | TalkyBot.MAIN   | State: PROCESSING → LISTENING (Speech ended)
+2025-07-18 14:05:41 | INFO     | TalkyBot        | STATE: PROCESSING → LISTENING (Speech ended)
+2025-07-18 14:05:55 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0120)
+2025-07-18 14:05:55 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:05:55 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:05:55 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:05:55 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:05:55 | DEBUG    | TalkyBot.VAD    | Audio: 0.028 🎤 Speech
+2025-07-18 14:05:56 | INFO     | TalkyBot.STT    | Final result: 'low'
+2025-07-18 14:05:56 | DEBUG    | TalkyBot.STT    | Generating chatbot response...
+2025-07-18 14:05:56 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 14)
+2025-07-18 14:05:57 | INFO     | TalkyBot.VAD    | Speech ended after 1.9s
+2025-07-18 14:05:57 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:05:57 | INFO     | TalkyBot.MAIN   | State: PROCESSING → LISTENING (Speech ended)
+2025-07-18 14:05:57 | INFO     | TalkyBot        | STATE: PROCESSING → LISTENING (Speech ended)
+2025-07-18 14:05:58 | INFO     | TalkyBot.STT    | Bot response: i love to go to the beach . it ' s a great place to relax and enjoy nature .
+2025-07-18 14:05:58 | INFO     | TalkyBot.MAIN   | Chatbot response: i love to go to the beach . it ' s a great place t...
+2025-07-18 14:05:58 | DEBUG    | TalkyBot.TTS    | Added to TTS queue: 'i love to go to the beach . it ' s a great place t...'
+2025-07-18 14:05:58 | INFO     | TalkyBot.MAIN   | State: LISTENING → SPEAKING (Speaking: 'i love to go to the beach . it...')
+2025-07-18 14:05:58 | INFO     | TalkyBot        | STATE: LISTENING → SPEAKING (Speaking: 'i love to go to the beach . it...')
+2025-07-18 14:05:58 | INFO     | TalkyBot.TTS    | Speaking: i love to go to the beach . it ' s a great place to relax and enjoy nature .
+2025-07-18 14:06:00 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0045)
+2025-07-18 14:06:00 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:06:00 | INFO     | TalkyBot.VAD    | Interrupting TTS - User started speaking
+2025-07-18 14:06:00 | INFO     | TalkyBot.MAIN   | State: SPEAKING → LISTENING (User speech detected)
+2025-07-18 14:06:00 | INFO     | TalkyBot        | STATE: SPEAKING → LISTENING (User speech detected)
+2025-07-18 14:06:00 | INFO     | TalkyBot.VAD    | Speech ended after 0.4s
+2025-07-18 14:06:00 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:06:00 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0044)
+2025-07-18 14:06:00 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:06:00 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:06:00 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:06:01 | INFO     | TalkyBot.VAD    | Speech ended after 0.4s
+2025-07-18 14:06:01 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:06:01 | INFO     | TalkyBot.MAIN   | State: PROCESSING → LISTENING (Speech ended)
+2025-07-18 14:06:01 | INFO     | TalkyBot        | STATE: PROCESSING → LISTENING (Speech ended)
+2025-07-18 14:06:01 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0015)
+2025-07-18 14:06:01 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:06:01 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:06:01 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:06:01 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:06:01 | INFO     | TalkyBot.VAD    | Speech ended after 0.3s
+2025-07-18 14:06:01 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:06:01 | INFO     | TalkyBot.MAIN   | State: PROCESSING → LISTENING (Speech ended)
+2025-07-18 14:06:01 | INFO     | TalkyBot        | STATE: PROCESSING → LISTENING (Speech ended)
+2025-07-18 14:06:01 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0019)
+2025-07-18 14:06:01 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:06:01 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:06:01 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:06:02 | INFO     | TalkyBot.VAD    | Speech ended after 1.0s
+2025-07-18 14:06:02 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:06:02 | INFO     | TalkyBot.MAIN   | State: PROCESSING → LISTENING (Speech ended)
+2025-07-18 14:06:02 | INFO     | TalkyBot        | STATE: PROCESSING → LISTENING (Speech ended)
+2025-07-18 14:06:02 | DEBUG    | TalkyBot.VAD    | Audio: 0.005 🎤 Speech
+2025-07-18 14:06:02 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0048)
+2025-07-18 14:06:02 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:06:02 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:06:02 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:06:03 | DEBUG    | TalkyBot.MAIN   | System status: PROCESSING (active for 0.1s)
+2025-07-18 14:06:04 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:06:04 | INFO     | TalkyBot.VAD    | Speech ended after 1.6s
+2025-07-18 14:06:04 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:06:04 | INFO     | TalkyBot.MAIN   | State: PROCESSING → LISTENING (Speech ended)
+2025-07-18 14:06:04 | INFO     | TalkyBot        | STATE: PROCESSING → LISTENING (Speech ended)
+2025-07-18 14:06:06 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0351)
+2025-07-18 14:06:06 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:06:06 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:06:06 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:06:06 | INFO     | TalkyBot.TTS    | TTS completed successfully
+2025-07-18 14:06:06 | INFO     | TalkyBot.MAIN   | State: PROCESSING → LISTENING (TTS completed)
+2025-07-18 14:06:06 | INFO     | TalkyBot        | STATE: PROCESSING → LISTENING (TTS completed)
+2025-07-18 14:06:07 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:06:07 | DEBUG    | TalkyBot.VAD    | Audio: 0.045 🎤 Speech
+2025-07-18 14:06:07 | INFO     | TalkyBot.STT    | Final result: 'by'
+2025-07-18 14:06:07 | DEBUG    | TalkyBot.STT    | Generating chatbot response...
+2025-07-18 14:06:08 | INFO     | TalkyBot.VAD    | Speech ended after 2.0s
+2025-07-18 14:06:08 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:06:09 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0296)
+2025-07-18 14:06:09 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:06:09 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:06:09 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 14:06:09 | INFO     | TalkyBot.STT    | Bot response: i love my job . it ' s a lot of work but it pays the bills and makes me happy .
+2025-07-18 14:06:09 | INFO     | TalkyBot.MAIN   | Chatbot response: i love my job . it ' s a lot of work but it pays t...
+2025-07-18 14:06:09 | DEBUG    | TalkyBot.TTS    | Added to TTS queue: 'i love my job . it ' s a lot of work but it pays t...'
+2025-07-18 14:06:09 | INFO     | TalkyBot.MAIN   | State: PROCESSING → SPEAKING (Speaking: 'i love my job . it ' s a lot o...')
+2025-07-18 14:06:09 | INFO     | TalkyBot        | STATE: PROCESSING → SPEAKING (Speaking: 'i love my job . it ' s a lot o...')
+2025-07-18 14:06:09 | INFO     | TalkyBot.TTS    | Speaking: i love my job . it ' s a lot of work but it pays the bills and makes me happy .
+2025-07-18 14:06:10 | INFO     | TalkyBot.STT    | Final result: 'right'
+2025-07-18 14:06:10 | DEBUG    | TalkyBot.STT    | Generating chatbot response...
+2025-07-18 14:06:10 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 4)
+2025-07-18 14:06:10 | DEBUG    | TalkyBot.VAD    | Audio: 0.040 🎤 Speech
+2025-07-18 14:06:10 | INFO     | TalkyBot.VAD    | Speech ended after 1.9s
+2025-07-18 14:06:10 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:06:12 | INFO     | TalkyBot.STT    | Bot response: do you have a favorite color ? mine is yellow . it ' s the color between blue and red .
+2025-07-18 14:06:12 | INFO     | TalkyBot.MAIN   | Chatbot response: do you have a favorite color ? mine is yellow . it...
+2025-07-18 14:06:12 | DEBUG    | TalkyBot.TTS    | Added to TTS queue: 'do you have a favorite color ? mine is yellow . it...'
+2025-07-18 14:06:14 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0474)
+2025-07-18 14:06:14 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:06:14 | INFO     | TalkyBot.VAD    | Interrupting TTS - User started speaking
+2025-07-18 14:06:14 | INFO     | TalkyBot.MAIN   | State: SPEAKING → LISTENING (User speech detected)
+2025-07-18 14:06:14 | INFO     | TalkyBot        | STATE: SPEAKING → LISTENING (User speech detected)
+2025-07-18 14:06:14 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:06:14 | DEBUG    | TalkyBot.VAD    | Audio: 0.052 🎤 Speech
+2025-07-18 14:06:16 | INFO     | TalkyBot.STT    | Final result: 'i buy'
+2025-07-18 14:06:16 | DEBUG    | TalkyBot.STT    | Generating chatbot response...
+2025-07-18 14:06:16 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 4)
+2025-07-18 14:06:16 | DEBUG    | TalkyBot.VAD    | Audio: 0.026 🎤 Speech
+2025-07-18 14:06:16 | INFO     | TalkyBot.VAD    | Speech ended after 2.2s
+2025-07-18 14:06:16 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:06:18 | INFO     | TalkyBot.STT    | Bot response: what kind of food do you like to eat ? i ' m a big fan of pizza .
+2025-07-18 14:06:18 | INFO     | TalkyBot.MAIN   | Chatbot response: what kind of food do you like to eat ? i ' m a big...
+2025-07-18 14:06:18 | DEBUG    | TalkyBot.TTS    | Added to TTS queue: 'what kind of food do you like to eat ? i ' m a big...'
+2025-07-18 14:06:18 | INFO     | TalkyBot.TTS    | TTS completed successfully
+2025-07-18 14:06:18 | INFO     | TalkyBot.MAIN   | State: LISTENING → SPEAKING (Speaking: 'do you have a favorite color ?...')
+2025-07-18 14:06:18 | INFO     | TalkyBot        | STATE: LISTENING → SPEAKING (Speaking: 'do you have a favorite color ?...')
+2025-07-18 14:06:18 | INFO     | TalkyBot.TTS    | Speaking: do you have a favorite color ? mine is yellow . it ' s the color between blue and red .
+2025-07-18 14:06:20 | DEBUG    | TalkyBot.VAD    | Audio: 0.066 🔇 Quiet
+2025-07-18 14:06:21 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0438)
+2025-07-18 14:06:21 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:06:21 | INFO     | TalkyBot.VAD    | Interrupting TTS - User started speaking
+2025-07-18 14:06:21 | INFO     | TalkyBot.MAIN   | State: SPEAKING → LISTENING (User speech detected)
+2025-07-18 14:06:21 | INFO     | TalkyBot        | STATE: SPEAKING → LISTENING (User speech detected)
+2025-07-18 14:06:22 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:06:23 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.1s
+2025-07-18 14:06:23 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:06:23 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.4s
+2025-07-18 14:06:23 | INFO     | TalkyBot.STT    | Final result: 'so'
+2025-07-18 14:06:23 | DEBUG    | TalkyBot.STT    | Generating chatbot response...
+2025-07-18 14:06:23 | DEBUG    | TalkyBot.VAD    | Audio: 0.072 🎤 Speech
+2025-07-18 14:06:24 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.7s
+2025-07-18 14:06:24 | INFO     | TalkyBot.VAD    | Speech ended after 3.0s
+2025-07-18 14:06:24 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:06:25 | INFO     | TalkyBot.STT    | Bot response: i love to go to the movies . it ' s my favorite thing to do . how about you ?
+2025-07-18 14:06:25 | INFO     | TalkyBot.MAIN   | Chatbot response: i love to go to the movies . it ' s my favorite th...
+2025-07-18 14:06:25 | DEBUG    | TalkyBot.TTS    | Added to TTS queue: 'i love to go to the movies . it ' s my favorite th...'
+2025-07-18 14:06:25 | INFO     | TalkyBot.MAIN   | Received signal 2
+2025-07-18 14:06:25 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 14:06:25 | INFO     | TalkyBot.MAIN   | Stopping TalkyBot System...
+2025-07-18 14:06:25 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 14:06:25 | INFO     | TalkyBot.MAIN   | Stopping VAD thread...
+2025-07-18 14:06:25 | INFO     | TalkyBot.MAIN   | Stopping STT thread...
+2025-07-18 14:06:25 | INFO     | TalkyBot.MAIN   | Stopping TTS thread...
+2025-07-18 14:06:25 | INFO     | TalkyBot.TTS    | TTS interrupted during playback
+2025-07-18 14:06:26 | INFO     | TalkyBot.MAIN   | Stopping Wake Word thread...
+2025-07-18 14:06:26 | ERROR    | TalkyBot.MAIN   | Error during shutdown: 'Model' object has no attribute 'cleanup'
+2025-07-18 14:06:26 | INFO     | TalkyBot.MAIN   | TalkyBot System stopped cleanly
+2025-07-18 14:06:26 | INFO     | TalkyBot        | SYSTEM: Shutting down logging system
+2025-07-18 14:09:08 | INFO     | TalkyBot        | ============================================================
+2025-07-18 14:09:08 | INFO     | TalkyBot        | TalkyBot Logging System Initialized
+2025-07-18 14:09:08 | INFO     | TalkyBot        | Log file: /Users/loantruong/Documents/Robotic/TalkyBot/TalkyBot.log
+2025-07-18 14:09:08 | INFO     | TalkyBot        | ============================================================
+2025-07-18 14:09:13 | INFO     | TalkyBot.MAIN   | TalkyBot System initialized successfully
+2025-07-18 14:09:13 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 14:09:13 | INFO     | TalkyBot.MAIN   | Starting TalkyBot System...
+2025-07-18 14:09:13 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 14:09:13 | INFO     | TalkyBot.MAIN   | Starting Wake Word thread...
+2025-07-18 14:09:13 | INFO     | TalkyBot.WAKE   | Wake Word Thread started - Listening for 'Alexa'
+2025-07-18 14:09:13 | INFO     | TalkyBot.MAIN   | Starting TTS thread...
+2025-07-18 14:09:13 | INFO     | TalkyBot.TTS    | TTS Thread started
+2025-07-18 14:09:13 | INFO     | TalkyBot.MAIN   | Starting STT + Brain thread...
+2025-07-18 14:09:13 | INFO     | TalkyBot.STT    | Starting STT + Chatbot thread...
+2025-07-18 14:09:13 | INFO     | TalkyBot.MAIN   | Starting VAD thread...
+2025-07-18 14:09:13 | INFO     | TalkyBot.VAD    | VAD Thread started
+2025-07-18 14:09:13 | INFO     | TalkyBot.MAIN   | All threads started successfully!
+2025-07-18 14:09:13 | INFO     | TalkyBot.MAIN   | System ready - Say 'Alexa' to wake up
+2025-07-18 14:09:13 | INFO     | TalkyBot.MAIN   | Sleep commands: bye bye, goodbye, go to sleep, etc.
+2025-07-18 14:09:16 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0206)
+2025-07-18 14:09:16 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:09:16 | DEBUG    | TalkyBot.VAD    | Audio: 0.021 🎤 Speech
+2025-07-18 14:09:18 | DEBUG    | TalkyBot.VAD    | Audio: 0.024 🎤 Speech
+2025-07-18 14:09:18 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.2s
+2025-07-18 14:09:18 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.5s
+2025-07-18 14:09:19 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.8s
+2025-07-18 14:09:19 | INFO     | TalkyBot.VAD    | Speech ended after 3.5s
+2025-07-18 14:09:19 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:09:19 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0044)
+2025-07-18 14:09:19 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:09:21 | DEBUG    | TalkyBot.VAD    | Audio: 0.011 🎤 Speech
+2025-07-18 14:09:22 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.2s
+2025-07-18 14:09:22 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.5s
+2025-07-18 14:09:22 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.8s
+2025-07-18 14:09:22 | DEBUG    | TalkyBot.VAD    | Audio: 0.008 🎤 Speech
+2025-07-18 14:09:24 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 4.3s
+2025-07-18 14:09:24 | DEBUG    | TalkyBot.VAD    | Audio: 0.008 🎤 Speech
+2025-07-18 14:09:24 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 4.6s
+2025-07-18 14:09:24 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 4.9s
+2025-07-18 14:09:25 | DEBUG    | TalkyBot.VAD    | Audio: 0.008 🎤 Speech
+2025-07-18 14:09:25 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 6.1s
+2025-07-18 14:09:26 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 6.4s
+2025-07-18 14:09:26 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 6.7s
+2025-07-18 14:09:26 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 7.0s
+2025-07-18 14:09:27 | DEBUG    | TalkyBot.VAD    | Audio: 0.017 🎤 Speech
+2025-07-18 14:09:28 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 8.2s
+2025-07-18 14:09:28 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 8.5s
+2025-07-18 14:09:28 | INFO     | TalkyBot.VAD    | Speech ended after 8.7s
+2025-07-18 14:09:28 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:09:30 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0081)
+2025-07-18 14:09:30 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:09:30 | DEBUG    | TalkyBot.VAD    | Audio: 0.008 🎤 Speech
+2025-07-18 14:09:31 | DEBUG    | TalkyBot.VAD    | Audio: 0.005 🎤 Speech
+2025-07-18 14:09:32 | INFO     | TalkyBot.VAD    | Speech ended after 2.0s
+2025-07-18 14:09:32 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:09:32 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0026)
+2025-07-18 14:09:32 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:09:33 | DEBUG    | TalkyBot.VAD    | Audio: 0.003 🎤 Speech
+2025-07-18 14:09:34 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.0s
+2025-07-18 14:09:34 | INFO     | TalkyBot.WAKE   | Wake word 'alexa_v0.1' detected! (score: 0.996)
+2025-07-18 14:09:34 | INFO     | TalkyBot.MAIN   | State: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.996))
+2025-07-18 14:09:34 | INFO     | TalkyBot        | STATE: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.996))
+2025-07-18 14:09:34 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.3s
+2025-07-18 14:09:34 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:09:34 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.6s
+2025-07-18 14:09:34 | DEBUG    | TalkyBot.VAD    | Audio: 0.017 🎤 Speech
+2025-07-18 14:09:34 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.9s
+2025-07-18 14:09:36 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:09:36 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 4.1s
+2025-07-18 14:09:36 | DEBUG    | TalkyBot.VAD    | Audio: 0.007 🎤 Speech
+2025-07-18 14:09:36 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 4.4s
+2025-07-18 14:09:36 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 4.7s
+2025-07-18 14:09:37 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:09:37 | DEBUG    | TalkyBot.VAD    | Audio: 0.008 🎤 Speech
+2025-07-18 14:09:38 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 6.2s
+2025-07-18 14:09:38 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 6.5s
+2025-07-18 14:09:38 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 6.8s
+2025-07-18 14:09:39 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:09:39 | DEBUG    | TalkyBot.VAD    | Audio: 0.018 🎤 Speech
+2025-07-18 14:09:39 | DEBUG    | TalkyBot.STT    | Partial: 'can you hear'
+2025-07-18 14:09:40 | DEBUG    | TalkyBot.STT    | Partial: 'can you really'
+2025-07-18 14:09:40 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 8.0s
+2025-07-18 14:09:40 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 8.3s
+2025-07-18 14:09:40 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:09:40 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 8.6s
+2025-07-18 14:09:40 | DEBUG    | TalkyBot.VAD    | Audio: 0.024 🎤 Speech
+2025-07-18 14:09:40 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 8.9s
+2025-07-18 14:09:40 | INFO     | TalkyBot.STT    | Final result: 'can you really'
+2025-07-18 14:09:40 | DEBUG    | TalkyBot.STT    | Generating chatbot response...
+2025-07-18 14:09:42 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 40)
+2025-07-18 14:09:42 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 10.1s
+2025-07-18 14:09:42 | DEBUG    | TalkyBot.VAD    | Audio: 0.006 🎤 Speech
+2025-07-18 14:09:42 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 10.4s
+2025-07-18 14:09:42 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 10.7s
+2025-07-18 14:09:43 | INFO     | TalkyBot.STT    | Bot response: i can ' t really . i don ' t know what i ' m going to do .
+2025-07-18 14:09:43 | INFO     | TalkyBot.MAIN   | Chatbot response: i can ' t really . i don ' t know what i ' m going...
+2025-07-18 14:09:43 | DEBUG    | TalkyBot.TTS    | Added to TTS queue: 'i can ' t really . i don ' t know what i ' m going...'
+2025-07-18 14:09:43 | INFO     | TalkyBot.MAIN   | State: LISTENING → SPEAKING (Speaking: 'i can ' t really . i don ' t k...')
+2025-07-18 14:09:43 | INFO     | TalkyBot        | STATE: LISTENING → SPEAKING (Speaking: 'i can ' t really . i don ' t k...')
+2025-07-18 14:09:43 | INFO     | TalkyBot.TTS    | Speaking: i can ' t really . i don ' t know what i ' m going to do .
+2025-07-18 14:09:43 | INFO     | TalkyBot.STT    | Final result: 'yet'
+2025-07-18 14:09:43 | DEBUG    | TalkyBot.STT    | Generating chatbot response...
+2025-07-18 14:09:43 | DEBUG    | TalkyBot.MAIN   | System status: SPEAKING (active for 0.1s)
+2025-07-18 14:09:43 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 34)
+2025-07-18 14:09:43 | DEBUG    | TalkyBot.VAD    | Audio: 0.008 🎤 Speech
+2025-07-18 14:09:44 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 12.2s
+2025-07-18 14:09:44 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 12.6s
+2025-07-18 14:09:44 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 12.8s
+2025-07-18 14:09:45 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 84)
+2025-07-18 14:09:45 | DEBUG    | TalkyBot.VAD    | Audio: 0.004 🎤 Speech
+2025-07-18 14:09:46 | INFO     | TalkyBot.STT    | Bot response: i ' ve always wanted to go to the beach . it ' s such a beautiful place .
+2025-07-18 14:09:46 | INFO     | TalkyBot.MAIN   | Chatbot response: i ' ve always wanted to go to the beach . it ' s s...
+2025-07-18 14:09:46 | DEBUG    | TalkyBot.TTS    | Added to TTS queue: 'i ' ve always wanted to go to the beach . it ' s s...'
+2025-07-18 14:09:46 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 14.0s
+2025-07-18 14:09:46 | DEBUG    | TalkyBot.STT    | Partial: 'look a method'
+2025-07-18 14:09:46 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 14.3s
+2025-07-18 14:09:46 | DEBUG    | TalkyBot.STT    | Partial: 'look a method i'
+2025-07-18 14:09:46 | INFO     | TalkyBot.STT    | Final result: 'look a method air'
+2025-07-18 14:09:46 | DEBUG    | TalkyBot.STT    | Generating chatbot response...
+2025-07-18 14:09:46 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 46)
+2025-07-18 14:09:46 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 14.6s
+2025-07-18 14:09:46 | DEBUG    | TalkyBot.VAD    | Audio: 0.038 🎤 Speech
+2025-07-18 14:09:47 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 14.9s
+2025-07-18 14:09:48 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 96)
+2025-07-18 14:09:48 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 16.1s
+2025-07-18 14:09:48 | DEBUG    | TalkyBot.VAD    | Audio: 0.045 🎤 Speech
+2025-07-18 14:09:48 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 16.4s
+2025-07-18 14:09:48 | INFO     | TalkyBot.STT    | Bot response: i don ' t know what method air is , but i will look it up . thank you !
+2025-07-18 14:09:48 | INFO     | TalkyBot.MAIN   | Chatbot response: i don ' t know what method air is , but i will loo...
+2025-07-18 14:09:48 | DEBUG    | TalkyBot.TTS    | Added to TTS queue: 'i don ' t know what method air is , but i will loo...'
+2025-07-18 14:09:48 | DEBUG    | TalkyBot.STT    | Partial: 'i can to'
+2025-07-18 14:09:48 | DEBUG    | TalkyBot.STT    | Partial: 'i can to really'
+2025-07-18 14:09:48 | DEBUG    | TalkyBot.STT    | Partial: 'i can to really i don't'
+2025-07-18 14:09:48 | DEBUG    | TalkyBot.STT    | Partial: 'i can to really i don t'
+2025-07-18 14:09:48 | DEBUG    | TalkyBot.STT    | Partial: 'i can to really i don t know what'
+2025-07-18 14:09:48 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 16.7s
+2025-07-18 14:09:48 | DEBUG    | TalkyBot.STT    | Partial: 'i can to really i don t know what i'm doing'
+2025-07-18 14:09:48 | DEBUG    | TalkyBot.STT    | Partial: 'i can to really i don t know what i'm going to'
+2025-07-18 14:09:49 | DEBUG    | TalkyBot.STT    | Partial: 'i can to really i don t know what i'm going to do'
+2025-07-18 14:09:49 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:09:49 | DEBUG    | TalkyBot.VAD    | Audio: 0.040 🎤 Speech
+2025-07-18 14:09:49 | INFO     | TalkyBot.TTS    | TTS completed successfully
+2025-07-18 14:09:49 | INFO     | TalkyBot.MAIN   | State: SPEAKING → LISTENING (TTS completed)
+2025-07-18 14:09:49 | INFO     | TalkyBot        | STATE: SPEAKING → LISTENING (TTS completed)
+2025-07-18 14:09:49 | INFO     | TalkyBot.MAIN   | State: LISTENING → SPEAKING (Speaking: 'i ' ve always wanted to go to ...')
+2025-07-18 14:09:49 | INFO     | TalkyBot        | STATE: LISTENING → SPEAKING (Speaking: 'i ' ve always wanted to go to ...')
+2025-07-18 14:09:49 | INFO     | TalkyBot.TTS    | Speaking: i ' ve always wanted to go to the beach . it ' s such a beautiful place .
+2025-07-18 14:09:50 | INFO     | TalkyBot.STT    | Final result: 'i can to really i don t know what i am going to do'
+2025-07-18 14:09:50 | DEBUG    | TalkyBot.STT    | Generating chatbot response...
+2025-07-18 14:09:50 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 18.2s
+2025-07-18 14:09:50 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 18.6s
+2025-07-18 14:09:50 | INFO     | TalkyBot.VAD    | Speech ended after 18.9s
+2025-07-18 14:09:50 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 14:09:51 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0059)
+2025-07-18 14:09:51 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 14:09:51 | INFO     | TalkyBot.VAD    | Interrupting TTS - User started speaking
+2025-07-18 14:09:51 | INFO     | TalkyBot.MAIN   | State: SPEAKING → LISTENING (User speech detected)
+2025-07-18 14:09:51 | INFO     | TalkyBot        | STATE: SPEAKING → LISTENING (User speech detected)
+2025-07-18 14:09:51 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 32)
+2025-07-18 14:09:51 | DEBUG    | TalkyBot.VAD    | Audio: 0.005 🎤 Speech
+2025-07-18 14:09:52 | INFO     | TalkyBot.STT    | Bot response: i ' m sorry to hear that . what are you going to do , if you don ' t mind me asking ?
+2025-07-18 14:09:52 | INFO     | TalkyBot.MAIN   | Chatbot response: i ' m sorry to hear that . what are you going to d...
+2025-07-18 14:09:52 | DEBUG    | TalkyBot.TTS    | Added to TTS queue: 'i ' m sorry to hear that . what are you going to d...'
+2025-07-18 14:09:52 | DEBUG    | TalkyBot.STT    | Partial: 'i love how'
+2025-07-18 14:09:52 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 18)
+2025-07-18 14:09:52 | DEBUG    | TalkyBot.VAD    | Audio: 0.032 🎤 Speech
+2025-07-18 14:09:52 | DEBUG    | TalkyBot.STT    | Partial: 'like all the'
+2025-07-18 14:09:53 | DEBUG    | TalkyBot.STT    | Partial: 'like all the ivy'
+2025-07-18 14:09:53 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.3s
+2025-07-18 14:09:53 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.6s
+2025-07-18 14:09:53 | DEBUG    | TalkyBot.STT    | Partial: 'like all the ivy always'
+2025-07-18 14:09:53 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.9s
+2025-07-18 14:09:54 | DEBUG    | TalkyBot.STT    | Partial: 'like all the ivy always wanted to'
+2025-07-18 14:09:54 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:09:54 | DEBUG    | TalkyBot.VAD    | Audio: 0.054 🎤 Speech
+2025-07-18 14:09:54 | DEBUG    | TalkyBot.STT    | Partial: 'like all the ivy always wanted to go'
+2025-07-18 14:09:54 | DEBUG    | TalkyBot.STT    | Partial: 'like all the ivy always wanted to go to the'
+2025-07-18 14:09:55 | DEBUG    | TalkyBot.STT    | Partial: 'like all the ivy always wanted to go to the beach'
+2025-07-18 14:09:55 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 4.1s
+2025-07-18 14:09:55 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 4.4s
+2025-07-18 14:09:55 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:09:55 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 4.7s
+2025-07-18 14:09:55 | DEBUG    | TalkyBot.VAD    | Audio: 0.035 🎤 Speech
+2025-07-18 14:09:56 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 5.0s
+2025-07-18 14:09:56 | DEBUG    | TalkyBot.STT    | Partial: 'like all the ivy always wanted to go to the beach it'
+2025-07-18 14:09:56 | DEBUG    | TalkyBot.STT    | Partial: 'like all the ivy always wanted to go to the beach it as'
+2025-07-18 14:09:56 | DEBUG    | TalkyBot.STT    | Partial: 'like all the ivy always wanted to go to the beach it as such'
+2025-07-18 14:09:56 | DEBUG    | TalkyBot.STT    | Partial: 'like all the ivy always wanted to go to the beach it as such a beautiful'
+2025-07-18 14:09:57 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:09:57 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 6.2s
+2025-07-18 14:09:57 | DEBUG    | TalkyBot.VAD    | Audio: 0.037 🎤 Speech
+2025-07-18 14:09:57 | DEBUG    | TalkyBot.STT    | Partial: 'like all the ivy always wanted to go to the beach it as such a beautiful place'
+2025-07-18 14:09:57 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 6.5s
+2025-07-18 14:09:57 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 6.8s
+2025-07-18 14:09:57 | DEBUG    | TalkyBot.STT    | Partial: 'like all the ivy always wanted to go to the beach it as such a beautiful place so'
+2025-07-18 14:09:58 | INFO     | TalkyBot.TTS    | TTS completed successfully
+2025-07-18 14:09:58 | INFO     | TalkyBot.MAIN   | State: LISTENING → SPEAKING (Speaking: 'i don ' t know what method air...')
+2025-07-18 14:09:58 | INFO     | TalkyBot        | STATE: LISTENING → SPEAKING (Speaking: 'i don ' t know what method air...')
+2025-07-18 14:09:58 | INFO     | TalkyBot.TTS    | Speaking: i don ' t know what method air is , but i will look it up . thank you !
+2025-07-18 14:09:58 | DEBUG    | TalkyBot.STT    | Partial: 'like all the ivy always wanted to go to the beach it as such a beautiful place and'
+2025-07-18 14:09:58 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 2)
+2025-07-18 14:09:58 | DEBUG    | TalkyBot.STT    | Partial: 'like all the ivy always wanted to go to the beach it as such a beautiful place and you from'
+2025-07-18 14:09:58 | DEBUG    | TalkyBot.VAD    | Audio: 0.018 🎤 Speech
+2025-07-18 14:09:59 | DEBUG    | TalkyBot.STT    | Partial: 'like all the ivy always wanted to go to the beach it as such a beautiful place and do from his'
+2025-07-18 14:09:59 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 8.3s
+2025-07-18 14:09:59 | DEBUG    | TalkyBot.STT    | Partial: 'like all the ivy always wanted to go to the beach it as such a beautiful place and do from isn't limited'
+2025-07-18 14:09:59 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 8.6s
+2025-07-18 14:09:59 | DEBUG    | TalkyBot.STT    | Partial: 'like all the ivy always wanted to go to the beach it as such a beautiful place and do from his'
+2025-07-18 14:09:59 | INFO     | TalkyBot.STT    | Final result: 'i love like all the ivy always wanted to go to the beach it as such a beautiful place and do from his atlanta'
+2025-07-18 14:09:59 | DEBUG    | TalkyBot.STT    | Generating chatbot response...
+2025-07-18 14:09:59 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 8.9s
+2025-07-18 14:10:00 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 12)
+2025-07-18 14:10:00 | DEBUG    | TalkyBot.VAD    | Audio: 0.021 🎤 Speech
+2025-07-18 14:10:01 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 10.1s
+2025-07-18 14:10:01 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 10.4s
+2025-07-18 14:10:01 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 62)
+2025-07-18 14:10:01 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 10.7s
+2025-07-18 14:10:01 | DEBUG    | TalkyBot.VAD    | Audio: 0.057 🎤 Speech
+2025-07-18 14:10:02 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 11.0s
+2025-07-18 14:10:02 | INFO     | TalkyBot.STT    | Bot response: i don ' t know much about him , but i do know he was born and raised in atlanta .
+2025-07-18 14:10:02 | INFO     | TalkyBot.MAIN   | Chatbot response: i don ' t know much about him , but i do know he w...
+2025-07-18 14:10:02 | DEBUG    | TalkyBot.TTS    | Added to TTS queue: 'i don ' t know much about him , but i do know he w...'
+2025-07-18 14:10:02 | DEBUG    | TalkyBot.STT    | Partial: 'i don t'
+2025-07-18 14:10:02 | DEBUG    | TalkyBot.STT    | Partial: 'i don t know'
+2025-07-18 14:10:02 | DEBUG    | TalkyBot.STT    | Partial: 'i don t know what'
+2025-07-18 14:10:02 | DEBUG    | TalkyBot.STT    | Partial: 'i don t know what method'
+2025-07-18 14:10:02 | DEBUG    | TalkyBot.STT    | Partial: 'i don t know what method as'
+2025-07-18 14:10:02 | DEBUG    | TalkyBot.STT    | Partial: 'i don t know what method'
+2025-07-18 14:10:02 | DEBUG    | TalkyBot.STT    | Partial: 'i don t know what method areas but'
+2025-07-18 14:10:03 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:10:03 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 12.2s
+2025-07-18 14:10:03 | DEBUG    | TalkyBot.STT    | Partial: 'i don t know what method areas but i will'
+2025-07-18 14:10:03 | DEBUG    | TalkyBot.VAD    | Audio: 0.057 🎤 Speech
+2025-07-18 14:10:03 | DEBUG    | TalkyBot.STT    | Partial: 'i don t know what method areas but i will look'
+2025-07-18 14:10:03 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 12.5s
+2025-07-18 14:10:03 | DEBUG    | TalkyBot.STT    | Partial: 'i don t know what method areas but i will look it up'
+2025-07-18 14:10:03 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 12.8s
+2025-07-18 14:10:04 | DEBUG    | TalkyBot.STT    | Partial: 'i don t know what method areas but i will look it up thank'
+2025-07-18 14:10:04 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 14:10:04 | DEBUG    | TalkyBot.VAD    | Audio: 0.037 🎤 Speech
+2025-07-18 14:10:05 | DEBUG    | TalkyBot.STT    | Partial: 'i don t know what method areas but i will look it up thank you'
+2025-07-18 14:10:05 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 14.3s
+2025-07-18 14:10:05 | INFO     | TalkyBot.TTS    | TTS completed successfully
+2025-07-18 14:10:05 | INFO     | TalkyBot.MAIN   | State: SPEAKING → LISTENING (TTS completed)
+2025-07-18 14:10:05 | INFO     | TalkyBot        | STATE: SPEAKING → LISTENING (TTS completed)
+2025-07-18 14:10:05 | INFO     | TalkyBot.MAIN   | State: LISTENING → SPEAKING (Speaking: 'i ' m sorry to hear that . wha...')
+2025-07-18 14:10:05 | INFO     | TalkyBot        | STATE: LISTENING → SPEAKING (Speaking: 'i ' m sorry to hear that . wha...')
+2025-07-18 14:10:05 | INFO     | TalkyBot.TTS    | Speaking: i ' m sorry to hear that . what are you going to do , if you don ' t mind me asking ?
+2025-07-18 14:10:05 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 14.6s
+2025-07-18 14:10:05 | INFO     | TalkyBot.STT    | Final result: 'i don t know what method areas but i will look it up thank you'
+2025-07-18 14:10:05 | DEBUG    | TalkyBot.STT    | Generating chatbot response...
+2025-07-18 14:10:05 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 14.9s
+2025-07-18 14:10:06 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 20)
+2025-07-18 14:10:06 | DEBUG    | TalkyBot.VAD    | Audio: 0.008 🎤 Speech
+2025-07-18 14:10:07 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 16.1s
+2025-07-18 14:10:07 | INFO     | TalkyBot.MAIN   | Received signal 2
+2025-07-18 14:10:07 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 14:10:07 | INFO     | TalkyBot.MAIN   | Stopping TalkyBot System...
+2025-07-18 14:10:07 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 14:10:07 | INFO     | TalkyBot.MAIN   | Stopping VAD thread...
+2025-07-18 14:10:07 | INFO     | TalkyBot.MAIN   | Stopping STT thread...
+2025-07-18 14:10:07 | INFO     | TalkyBot.MAIN   | Stopping TTS thread...
+2025-07-18 14:10:07 | INFO     | TalkyBot.MAIN   | Stopping Wake Word thread...
+2025-07-18 14:10:07 | ERROR    | TalkyBot.MAIN   | Error during shutdown: 'Model' object has no attribute 'cleanup'
+2025-07-18 14:10:07 | INFO     | TalkyBot.MAIN   | TalkyBot System stopped cleanly
+2025-07-18 14:10:07 | INFO     | TalkyBot        | SYSTEM: Shutting down logging system
+2025-07-18 14:26:38 | INFO     | TalkyBot        | ============================================================
+2025-07-18 14:26:38 | INFO     | TalkyBot        | TalkyBot Logging System Initialized
+2025-07-18 14:26:38 | INFO     | TalkyBot        | Log file: /Users/loantruong/Documents/Robotic/TalkyBot/TalkyBot.log
+2025-07-18 14:26:38 | INFO     | TalkyBot        | ============================================================
+2025-07-18 14:26:46 | INFO     | TalkyBot.MAIN   | TalkyBot System initialized successfully
+2025-07-18 14:26:46 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 14:26:46 | INFO     | TalkyBot.MAIN   | Starting TalkyBot System...
+2025-07-18 14:26:46 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 14:26:46 | INFO     | TalkyBot.MAIN   | Starting Wake Word thread...
+2025-07-18 14:26:46 | INFO     | TalkyBot.WAKE   | Wake Word Thread started - Listening for 'Alexa'
+2025-07-18 14:26:46 | INFO     | TalkyBot.MAIN   | Starting TTS thread...
+2025-07-18 14:26:46 | INFO     | TalkyBot.TTS    | TTS Thread started
+2025-07-18 14:26:46 | INFO     | TalkyBot.MAIN   | Starting STT + Brain thread...
+2025-07-18 14:26:46 | INFO     | TalkyBot.STT    | Starting STT + Chatbot thread...
+2025-07-18 14:26:46 | INFO     | TalkyBot.MAIN   | Starting VAD thread...
+2025-07-18 14:26:46 | INFO     | TalkyBot.VAD    | VAD Thread started
+2025-07-18 14:26:46 | INFO     | TalkyBot.MAIN   | All threads started successfully!
+2025-07-18 14:26:46 | INFO     | TalkyBot.MAIN   | System ready - Say 'Alexa' to wake up
+2025-07-18 14:26:46 | INFO     | TalkyBot.MAIN   | Sleep commands: bye bye, goodbye, go to sleep, etc.
+2025-07-18 14:27:00 | INFO     | TalkyBot.WAKE   | Wake word 'alexa_v0.1' detected! (score: 0.991)
+2025-07-18 14:27:00 | INFO     | TalkyBot.MAIN   | State: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.991))
+2025-07-18 14:27:00 | INFO     | TalkyBot        | STATE: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.991))
+2025-07-18 14:27:15 | INFO     | TalkyBot.MAIN   | State: LISTENING → STANDBY (Timeout after 15.2s)
+2025-07-18 14:27:15 | INFO     | TalkyBot        | STATE: LISTENING → STANDBY (Timeout after 15.2s)
+2025-07-18 14:27:15 | INFO     | TalkyBot.WAKE   | Wake word 'alexa_v0.1' detected! (score: 0.991)
+2025-07-18 14:27:15 | INFO     | TalkyBot.MAIN   | State: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.991))
+2025-07-18 14:27:15 | INFO     | TalkyBot        | STATE: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.991))
+2025-07-18 14:27:16 | DEBUG    | TalkyBot.MAIN   | System status: LISTENING (active for 1.2s)
+2025-07-18 14:27:30 | INFO     | TalkyBot.MAIN   | State: LISTENING → STANDBY (Timeout after 15.2s)
+2025-07-18 14:27:30 | INFO     | TalkyBot        | STATE: LISTENING → STANDBY (Timeout after 15.2s)
+2025-07-18 14:27:30 | INFO     | TalkyBot.WAKE   | Wake word 'alexa_v0.1' detected! (score: 0.998)
+2025-07-18 14:27:30 | INFO     | TalkyBot.MAIN   | State: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.998))
+2025-07-18 14:27:30 | INFO     | TalkyBot        | STATE: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.998))
+2025-07-18 14:27:33 | INFO     | TalkyBot.MAIN   | Received signal 2
+2025-07-18 14:27:33 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 14:27:33 | INFO     | TalkyBot.MAIN   | Stopping TalkyBot System...
+2025-07-18 14:27:33 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 14:27:33 | INFO     | TalkyBot.MAIN   | Stopping VAD thread...
+2025-07-18 14:27:33 | INFO     | TalkyBot.MAIN   | Stopping STT thread...
+2025-07-18 14:27:33 | INFO     | TalkyBot.MAIN   | Stopping TTS thread...
+2025-07-18 14:27:33 | INFO     | TalkyBot.MAIN   | Stopping Wake Word thread...
+2025-07-18 14:27:33 | ERROR    | TalkyBot.MAIN   | Error during shutdown: 'Model' object has no attribute 'cleanup'
+2025-07-18 14:27:33 | INFO     | TalkyBot.MAIN   | TalkyBot System stopped cleanly
+2025-07-18 14:27:33 | INFO     | TalkyBot        | SYSTEM: Shutting down logging system
+2025-07-18 14:28:22 | INFO     | TalkyBot        | ============================================================
+2025-07-18 14:28:22 | INFO     | TalkyBot        | TalkyBot Logging System Initialized
+2025-07-18 14:28:22 | INFO     | TalkyBot        | Log file: /Users/loantruong/Documents/Robotic/TalkyBot/TalkyBot.log
+2025-07-18 14:28:22 | INFO     | TalkyBot        | ============================================================
+2025-07-18 14:28:28 | INFO     | TalkyBot.MAIN   | TalkyBot System initialized successfully
+2025-07-18 14:28:28 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 14:28:28 | INFO     | TalkyBot.MAIN   | Starting TalkyBot System...
+2025-07-18 14:28:28 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 14:28:28 | INFO     | TalkyBot.MAIN   | Starting Wake Word thread...
+2025-07-18 14:28:28 | INFO     | TalkyBot.WAKE   | Wake Word Thread started - Listening for 'Alexa'
+2025-07-18 14:28:28 | INFO     | TalkyBot.MAIN   | Starting TTS thread...
+2025-07-18 14:28:28 | INFO     | TalkyBot.TTS    | TTS Thread started
+2025-07-18 14:28:28 | INFO     | TalkyBot.MAIN   | Starting STT + Brain thread...
+2025-07-18 14:28:28 | INFO     | TalkyBot.STT    | Starting STT + Chatbot thread...
+2025-07-18 14:28:28 | INFO     | TalkyBot.MAIN   | Starting VAD thread...
+2025-07-18 14:28:28 | INFO     | TalkyBot.VAD    | VAD Thread started
+2025-07-18 14:28:28 | INFO     | TalkyBot.MAIN   | All threads started successfully!
+2025-07-18 14:28:28 | INFO     | TalkyBot.MAIN   | System ready - Say 'Alexa' to wake up
+2025-07-18 14:28:28 | INFO     | TalkyBot.MAIN   | Sleep commands: bye bye, goodbye, go to sleep, etc.
+2025-07-18 14:28:53 | INFO     | TalkyBot.MAIN   | Received signal 2
+2025-07-18 14:28:53 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 14:28:53 | INFO     | TalkyBot.MAIN   | Stopping TalkyBot System...
+2025-07-18 14:28:53 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 14:28:53 | INFO     | TalkyBot.MAIN   | Stopping VAD thread...
+2025-07-18 14:28:53 | INFO     | TalkyBot.MAIN   | Stopping STT thread...
+2025-07-18 14:28:53 | INFO     | TalkyBot.MAIN   | Stopping TTS thread...
+2025-07-18 14:28:53 | INFO     | TalkyBot.MAIN   | Stopping Wake Word thread...
+2025-07-18 14:28:53 | ERROR    | TalkyBot.MAIN   | Error during shutdown: 'Model' object has no attribute 'cleanup'
+2025-07-18 14:28:53 | INFO     | TalkyBot.TTS    | TTS Thread stopped
+2025-07-18 14:28:53 | INFO     | TalkyBot.MAIN   | TalkyBot System stopped cleanly
+2025-07-18 14:28:53 | INFO     | TalkyBot        | SYSTEM: Shutting down logging system
+2025-07-18 15:13:50 | INFO     | TalkyBot        | ============================================================
+2025-07-18 15:13:50 | INFO     | TalkyBot        | TalkyBot Logging System Initialized
+2025-07-18 15:13:50 | INFO     | TalkyBot        | Log file: /Users/loantruong/Documents/Robotic/TalkyBot/TalkyBot.log
+2025-07-18 15:13:50 | INFO     | TalkyBot        | ============================================================
+2025-07-18 15:13:50 | INFO     | TalkyBot.MAIN   | Testing audio system...
+2025-07-18 15:13:50 | ERROR    | TalkyBot.MAIN   | ❌ Audio system test failed
+2025-07-18 15:13:50 | ERROR    | TalkyBot.MAIN   | ❌ Audio system initialization failed: Audio system test failed
+2025-07-18 15:16:07 | INFO     | TalkyBot        | ============================================================
+2025-07-18 15:16:07 | INFO     | TalkyBot        | TalkyBot Logging System Initialized
+2025-07-18 15:16:07 | INFO     | TalkyBot        | Log file: /Users/loantruong/Documents/Robotic/TalkyBot/TalkyBot.log
+2025-07-18 15:16:07 | INFO     | TalkyBot        | ============================================================
+2025-07-18 15:16:07 | INFO     | TalkyBot.MAIN   | Testing audio system...
+2025-07-18 15:16:07 | ERROR    | TalkyBot.MAIN   | ❌ Audio system test failed
+2025-07-18 15:16:07 | ERROR    | TalkyBot.MAIN   | ❌ Audio system initialization failed: Audio system test failed
+2025-07-18 15:18:08 | INFO     | TalkyBot        | ============================================================
+2025-07-18 15:18:08 | INFO     | TalkyBot        | TalkyBot Logging System Initialized
+2025-07-18 15:18:08 | INFO     | TalkyBot        | Log file: /Users/loantruong/Documents/Robotic/TalkyBot/TalkyBot.log
+2025-07-18 15:18:08 | INFO     | TalkyBot        | ============================================================
+2025-07-18 15:18:08 | INFO     | TalkyBot.MAIN   | Testing audio system...
+2025-07-18 15:18:09 | INFO     | TalkyBot.MAIN   | ✅ Audio system test passed
+2025-07-18 15:18:14 | INFO     | TalkyBot.MAIN   | TalkyBot System initialized successfully
+2025-07-18 15:18:14 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 15:18:14 | INFO     | TalkyBot.MAIN   | Starting TalkyBot System...
+2025-07-18 15:18:14 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 15:18:14 | INFO     | TalkyBot.MAIN   | Starting Wake Word thread...
+2025-07-18 15:18:14 | INFO     | TalkyBot.WAKE   | Wake Word Thread started - Listening for 'Alexa'
+2025-07-18 15:18:14 | INFO     | TalkyBot.MAIN   | Starting TTS thread...
+2025-07-18 15:18:14 | INFO     | TalkyBot.TTS    | TTS Thread started
+2025-07-18 15:18:14 | INFO     | TalkyBot.MAIN   | Starting STT + Brain thread...
+2025-07-18 15:18:14 | INFO     | TalkyBot.STT    | Starting STT + Chatbot thread...
+2025-07-18 15:18:14 | INFO     | TalkyBot.MAIN   | Starting VAD thread...
+2025-07-18 15:18:14 | INFO     | TalkyBot.VAD    | VAD Thread started
+2025-07-18 15:18:14 | INFO     | TalkyBot.MAIN   | All threads started successfully!
+2025-07-18 15:18:14 | INFO     | TalkyBot.VAD    | Testing audio stream...
+2025-07-18 15:18:14 | INFO     | TalkyBot.MAIN   | System ready - Say 'Alexa' to wake up
+2025-07-18 15:18:14 | INFO     | TalkyBot.MAIN   | Sleep commands: bye bye, goodbye, go to sleep, etc.
+2025-07-18 15:18:15 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0012, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:15 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 28.1542, Frame count: 50
+2025-07-18 15:18:15 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0012, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:16 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0012, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:17 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 36.6896, Frame count: 100
+2025-07-18 15:18:17 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0012, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:18 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0015, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:18 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 34.2333, Frame count: 150
+2025-07-18 15:18:18 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0016, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:19 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0015, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:20 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 46.0688, Frame count: 200
+2025-07-18 15:18:20 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0015, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:21 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0018, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:21 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 67.4708, Frame count: 250
+2025-07-18 15:18:21 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0026, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:22 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0027, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:23 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 29.5542, Frame count: 300
+2025-07-18 15:18:23 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0021, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:24 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0015, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:24 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 34.2167, Frame count: 350
+2025-07-18 15:18:24 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0013, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:25 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0016, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:26 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 38.2500, Frame count: 400
+2025-07-18 15:18:26 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0016, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:27 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0014, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:27 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 42.1917, Frame count: 450
+2025-07-18 15:18:27 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0014, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:28 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0018, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:29 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 32.3375, Frame count: 500
+2025-07-18 15:18:29 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0018, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:30 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0015, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:30 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 33.4521, Frame count: 550
+2025-07-18 15:18:30 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0015, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:31 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0024)
+2025-07-18 15:18:31 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 15:18:31 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0027, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:32 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 54.4688, Frame count: 600
+2025-07-18 15:18:32 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0028, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:33 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0035, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:33 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.1s
+2025-07-18 15:18:33 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.4s
+2025-07-18 15:18:33 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 151.7312, Frame count: 650
+2025-07-18 15:18:33 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.7s
+2025-07-18 15:18:33 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0049, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:34 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 3.0s
+2025-07-18 15:18:34 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0052, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:35 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 160.8229, Frame count: 700
+2025-07-18 15:18:35 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 4.2s
+2025-07-18 15:18:35 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0052, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:35 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 4.5s
+2025-07-18 15:18:35 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 4.8s
+2025-07-18 15:18:36 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0037, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:36 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 29.4312, Frame count: 750
+2025-07-18 15:18:36 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0012, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:37 | INFO     | TalkyBot.VAD    | Speech ended after 6.0s
+2025-07-18 15:18:37 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 15:18:37 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0015)
+2025-07-18 15:18:37 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 15:18:37 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0016, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:38 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 34.5000, Frame count: 800
+2025-07-18 15:18:38 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0029, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:39 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0029, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:39 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 35.0958, Frame count: 850
+2025-07-18 15:18:39 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.3s
+2025-07-18 15:18:39 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0017, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:40 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.6s
+2025-07-18 15:18:40 | INFO     | TalkyBot.VAD    | Speech ended after 2.7s
+2025-07-18 15:18:40 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 15:18:40 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0014, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:41 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 44.9312, Frame count: 900
+2025-07-18 15:18:41 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0034, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:41 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0063)
+2025-07-18 15:18:41 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 15:18:42 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0067, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:42 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 40.2479, Frame count: 950
+2025-07-18 15:18:42 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0061, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:43 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0021, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:43 | INFO     | TalkyBot.VAD    | Speech ended after 1.9s
+2025-07-18 15:18:43 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 15:18:44 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 121.1354, Frame count: 1000
+2025-07-18 15:18:44 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0027, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:45 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0032, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:45 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0034)
+2025-07-18 15:18:45 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 15:18:45 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 26.4000, Frame count: 1050
+2025-07-18 15:18:45 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0044, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:46 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0039, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:47 | INFO     | TalkyBot.VAD    | Speech ended after 2.0s
+2025-07-18 15:18:47 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 15:18:47 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 43.2479, Frame count: 1100
+2025-07-18 15:18:47 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0021, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:47 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0033)
+2025-07-18 15:18:47 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 15:18:48 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0036, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:48 | INFO     | TalkyBot.WAKE   | Wake word 'alexa_v0.1' detected! (score: 0.998)
+2025-07-18 15:18:48 | INFO     | TalkyBot.MAIN   | State: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.998))
+2025-07-18 15:18:48 | INFO     | TalkyBot        | STATE: STANDBY → LISTENING (Wake word 'alexa_v0.1' detected (score: 0.998))
+2025-07-18 15:18:48 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 31.6938, Frame count: 1150
+2025-07-18 15:18:48 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 15:18:48 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0130, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:49 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0127, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:50 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.2s
+2025-07-18 15:18:50 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 28.9375, Frame count: 1200
+2025-07-18 15:18:50 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 15:18:50 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.5s
+2025-07-18 15:18:50 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0015, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:50 | INFO     | TalkyBot.VAD    | Speech ended after 2.6s
+2025-07-18 15:18:50 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 15:18:51 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0032)
+2025-07-18 15:18:51 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 15:18:51 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 15:18:51 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 15:18:51 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0047, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:51 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 30.6521, Frame count: 1250
+2025-07-18 15:18:51 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 15:18:51 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0087, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:52 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0075, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:53 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.0s
+2025-07-18 15:18:53 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 39.6021, Frame count: 1300
+2025-07-18 15:18:53 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 15:18:53 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.3s
+2025-07-18 15:18:53 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0026, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:53 | INFO     | TalkyBot.VAD    | Speech ended after 2.4s
+2025-07-18 15:18:53 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 15:18:53 | INFO     | TalkyBot.MAIN   | State: PROCESSING → LISTENING (Speech ended)
+2025-07-18 15:18:53 | INFO     | TalkyBot        | STATE: PROCESSING → LISTENING (Speech ended)
+2025-07-18 15:18:54 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0028, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:54 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 26.9208, Frame count: 1350
+2025-07-18 15:18:54 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0018, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:55 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0469)
+2025-07-18 15:18:55 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 15:18:55 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 15:18:55 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 15:18:55 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0743, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:55 | DEBUG    | TalkyBot.STT    | Partial: 'but we are'
+2025-07-18 15:18:56 | DEBUG    | TalkyBot.STT    | Partial: 'the way i thought'
+2025-07-18 15:18:56 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 1825.0375, Frame count: 1400
+2025-07-18 15:18:56 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 15:18:56 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.1711, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:56 | DEBUG    | TalkyBot.STT    | Partial: 'but we are sorry'
+2025-07-18 15:18:57 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.1542, Speech detected: True, Threshold: 0.3
+2025-07-18 15:18:57 | INFO     | TalkyBot.STT    | Final result: 'but we are sorry'
+2025-07-18 15:18:57 | DEBUG    | TalkyBot.STT    | Generating chatbot response...
+2025-07-18 15:18:57 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.2s
+2025-07-18 15:18:57 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 77.3500, Frame count: 1450
+2025-07-18 15:18:57 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 16)
+2025-07-18 15:18:57 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.5s
+2025-07-18 15:18:57 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0024, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:58 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.8s
+2025-07-18 15:18:58 | INFO     | TalkyBot.VAD    | Speech ended after 2.8s
+2025-07-18 15:18:58 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 15:18:58 | INFO     | TalkyBot.MAIN   | State: PROCESSING → LISTENING (Speech ended)
+2025-07-18 15:18:58 | INFO     | TalkyBot        | STATE: PROCESSING → LISTENING (Speech ended)
+2025-07-18 15:18:58 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0015, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:59 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 27.1000, Frame count: 1500
+2025-07-18 15:18:59 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0013, Speech detected: False, Threshold: 0.3
+2025-07-18 15:18:59 | INFO     | TalkyBot.STT    | Bot response: i am sorry to hear that . what do you mean by that ? are you sorry for what you did ?
+2025-07-18 15:18:59 | INFO     | TalkyBot.MAIN   | Chatbot response: i am sorry to hear that . what do you mean by that...
+2025-07-18 15:18:59 | DEBUG    | TalkyBot.TTS    | Added to TTS queue: 'i am sorry to hear that . what do you mean by that...'
+2025-07-18 15:18:59 | INFO     | TalkyBot.MAIN   | State: LISTENING → SPEAKING (Speaking: 'i am sorry to hear that . what...')
+2025-07-18 15:18:59 | INFO     | TalkyBot        | STATE: LISTENING → SPEAKING (Speaking: 'i am sorry to hear that . what...')
+2025-07-18 15:18:59 | INFO     | TalkyBot.TTS    | Speaking: i am sorry to hear that . what do you mean by that ? are you sorry for what you did ?
+2025-07-18 15:19:00 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0011, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:00 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 27.9646, Frame count: 1550
+2025-07-18 15:19:00 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0012, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:01 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0011, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:02 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 30.5188, Frame count: 1600
+2025-07-18 15:19:02 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0012, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:03 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0012, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:03 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 36.6479, Frame count: 1650
+2025-07-18 15:19:03 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0011, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:04 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0013, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:05 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 39.4562, Frame count: 1700
+2025-07-18 15:19:05 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0020, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:06 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0019, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:06 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 23.1625, Frame count: 1750
+2025-07-18 15:19:06 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0012, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:07 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0012, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:08 | INFO     | TalkyBot.TTS    | TTS completed successfully
+2025-07-18 15:19:08 | INFO     | TalkyBot.MAIN   | State: SPEAKING → LISTENING (TTS completed)
+2025-07-18 15:19:08 | INFO     | TalkyBot        | STATE: SPEAKING → LISTENING (TTS completed)
+2025-07-18 15:19:08 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 25.7458, Frame count: 1800
+2025-07-18 15:19:08 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0011, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:09 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0011, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:09 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 26.2125, Frame count: 1850
+2025-07-18 15:19:09 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0011, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:10 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0324)
+2025-07-18 15:19:10 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 15:19:10 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 15:19:10 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 15:19:10 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0392, Speech detected: True, Threshold: 0.3
+2025-07-18 15:19:11 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 4505.3146, Frame count: 1900
+2025-07-18 15:19:11 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 15:19:11 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0816, Speech detected: True, Threshold: 0.3
+2025-07-18 15:19:11 | DEBUG    | TalkyBot.STT    | Partial: 'oh we asked'
+2025-07-18 15:19:11 | DEBUG    | TalkyBot.STT    | Partial: 'oh we have'
+2025-07-18 15:19:11 | DEBUG    | TalkyBot.STT    | Partial: 'oh wait a story'
+2025-07-18 15:19:12 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0973, Speech detected: True, Threshold: 0.3
+2025-07-18 15:19:12 | INFO     | TalkyBot.STT    | Final result: 'oh we a story'
+2025-07-18 15:19:12 | DEBUG    | TalkyBot.STT    | Generating chatbot response...
+2025-07-18 15:19:12 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 27.3000, Frame count: 1950
+2025-07-18 15:19:12 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 6)
+2025-07-18 15:19:12 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.3s
+2025-07-18 15:19:12 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0659, Speech detected: True, Threshold: 0.3
+2025-07-18 15:19:13 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.5s
+2025-07-18 15:19:13 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.9s
+2025-07-18 15:19:13 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0011, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:13 | INFO     | TalkyBot.VAD    | Speech ended after 3.0s
+2025-07-18 15:19:13 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 15:19:13 | INFO     | TalkyBot.MAIN   | State: PROCESSING → LISTENING (Speech ended)
+2025-07-18 15:19:13 | INFO     | TalkyBot        | STATE: PROCESSING → LISTENING (Speech ended)
+2025-07-18 15:19:14 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0025)
+2025-07-18 15:19:14 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 15:19:14 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 15:19:14 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 15:19:14 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 30.6646, Frame count: 2000
+2025-07-18 15:19:14 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 38)
+2025-07-18 15:19:14 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0025, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:14 | DEBUG    | TalkyBot.MAIN   | System status: PROCESSING (active for 0.3s)
+2025-07-18 15:19:14 | DEBUG    | TalkyBot.MAIN   | ✅ VAD thread healthy - processed 2002 frames in last minute
+2025-07-18 15:19:14 | INFO     | TalkyBot.VAD    | Speech ended after 0.3s
+2025-07-18 15:19:14 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 15:19:14 | INFO     | TalkyBot.MAIN   | State: PROCESSING → LISTENING (Speech ended)
+2025-07-18 15:19:14 | INFO     | TalkyBot        | STATE: PROCESSING → LISTENING (Speech ended)
+2025-07-18 15:19:14 | INFO     | TalkyBot.STT    | Bot response: i ' m not sure what that means . i don ' t know what a story is .
+2025-07-18 15:19:14 | INFO     | TalkyBot.MAIN   | Chatbot response: i ' m not sure what that means . i don ' t know wh...
+2025-07-18 15:19:14 | DEBUG    | TalkyBot.TTS    | Added to TTS queue: 'i ' m not sure what that means . i don ' t know wh...'
+2025-07-18 15:19:14 | INFO     | TalkyBot.MAIN   | State: LISTENING → SPEAKING (Speaking: 'i ' m not sure what that means...')
+2025-07-18 15:19:14 | INFO     | TalkyBot        | STATE: LISTENING → SPEAKING (Speaking: 'i ' m not sure what that means...')
+2025-07-18 15:19:14 | INFO     | TalkyBot.TTS    | Speaking: i ' m not sure what that means . i don ' t know what a story is .
+2025-07-18 15:19:15 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0026, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:15 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 30.6917, Frame count: 2050
+2025-07-18 15:19:15 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0014, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:16 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0013, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:17 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 40.7771, Frame count: 2100
+2025-07-18 15:19:17 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0012, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:18 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0012, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:18 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 22.0833, Frame count: 2150
+2025-07-18 15:19:18 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0011, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:19 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0015, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:20 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 27.7042, Frame count: 2200
+2025-07-18 15:19:20 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0015, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:21 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0021, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:21 | INFO     | TalkyBot.TTS    | TTS completed successfully
+2025-07-18 15:19:21 | INFO     | TalkyBot.MAIN   | State: SPEAKING → LISTENING (TTS completed)
+2025-07-18 15:19:21 | INFO     | TalkyBot        | STATE: SPEAKING → LISTENING (TTS completed)
+2025-07-18 15:19:21 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 18.3729, Frame count: 2250
+2025-07-18 15:19:21 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0021, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:22 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0010, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:23 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 29.5646, Frame count: 2300
+2025-07-18 15:19:23 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0011, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:24 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0012, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:24 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 25.3938, Frame count: 2350
+2025-07-18 15:19:24 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0013)
+2025-07-18 15:19:24 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 15:19:24 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 15:19:24 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 15:19:24 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 15:19:24 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0013, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:25 | INFO     | TalkyBot.VAD    | Speech ended after 0.3s
+2025-07-18 15:19:25 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 15:19:25 | INFO     | TalkyBot.MAIN   | State: PROCESSING → LISTENING (Speech ended)
+2025-07-18 15:19:25 | INFO     | TalkyBot        | STATE: PROCESSING → LISTENING (Speech ended)
+2025-07-18 15:19:25 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0013)
+2025-07-18 15:19:25 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 15:19:25 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 15:19:25 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 15:19:25 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0013, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:25 | INFO     | TalkyBot.VAD    | Speech ended after 0.3s
+2025-07-18 15:19:25 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 15:19:25 | INFO     | TalkyBot.MAIN   | State: PROCESSING → LISTENING (Speech ended)
+2025-07-18 15:19:25 | INFO     | TalkyBot        | STATE: PROCESSING → LISTENING (Speech ended)
+2025-07-18 15:19:26 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 27.3833, Frame count: 2400
+2025-07-18 15:19:26 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0013, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:27 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0012, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:27 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 43.5000, Frame count: 2450
+2025-07-18 15:19:27 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0015, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:28 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0301)
+2025-07-18 15:19:28 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 15:19:28 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 15:19:28 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 15:19:28 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0341, Speech detected: True, Threshold: 0.3
+2025-07-18 15:19:29 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 1404.0771, Frame count: 2500
+2025-07-18 15:19:29 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 15:19:29 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0433, Speech detected: True, Threshold: 0.3
+2025-07-18 15:19:29 | DEBUG    | TalkyBot.STT    | Partial: 'but it and'
+2025-07-18 15:19:30 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0802, Speech detected: True, Threshold: 0.3
+2025-07-18 15:19:30 | DEBUG    | TalkyBot.STT    | Partial: 'but it an actor'
+2025-07-18 15:19:30 | DEBUG    | TalkyBot.STT    | Partial: 'but it and after'
+2025-07-18 15:19:30 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.0s
+2025-07-18 15:19:30 | DEBUG    | TalkyBot.STT    | Partial: 'but it an actual'
+2025-07-18 15:19:30 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 30.8771, Frame count: 2550
+2025-07-18 15:19:30 | DEBUG    | TalkyBot.VAD    | Sent audio frame to STT queue (queue size: 1)
+2025-07-18 15:19:30 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.3s
+2025-07-18 15:19:30 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0757, Speech detected: True, Threshold: 0.3
+2025-07-18 15:19:31 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.6s
+2025-07-18 15:19:31 | DEBUG    | TalkyBot.MAIN   | 🎤 Speaking: 2.9s
+2025-07-18 15:19:31 | INFO     | TalkyBot.STT    | Final result: 'but it an actor'
+2025-07-18 15:19:31 | DEBUG    | TalkyBot.STT    | Generating chatbot response...
+2025-07-18 15:19:31 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0019, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:31 | INFO     | TalkyBot.VAD    | Speech ended after 3.2s
+2025-07-18 15:19:31 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 15:19:31 | INFO     | TalkyBot.MAIN   | State: PROCESSING → LISTENING (Speech ended)
+2025-07-18 15:19:31 | INFO     | TalkyBot        | STATE: PROCESSING → LISTENING (Speech ended)
+2025-07-18 15:19:32 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 27.8958, Frame count: 2600
+2025-07-18 15:19:32 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0017, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:33 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0016, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:33 | INFO     | TalkyBot.STT    | Bot response: that ' s what i was thinking . i don ' t think i ' d be able to do it .
+2025-07-18 15:19:33 | INFO     | TalkyBot.MAIN   | Chatbot response: that ' s what i was thinking . i don ' t think i '...
+2025-07-18 15:19:33 | DEBUG    | TalkyBot.TTS    | Added to TTS queue: 'that ' s what i was thinking . i don ' t think i '...'
+2025-07-18 15:19:33 | INFO     | TalkyBot.MAIN   | State: LISTENING → SPEAKING (Speaking: 'that ' s what i was thinking ....')
+2025-07-18 15:19:33 | INFO     | TalkyBot        | STATE: LISTENING → SPEAKING (Speaking: 'that ' s what i was thinking ....')
+2025-07-18 15:19:33 | INFO     | TalkyBot.TTS    | Speaking: that ' s what i was thinking . i don ' t think i ' d be able to do it .
+2025-07-18 15:19:33 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 29.6938, Frame count: 2650
+2025-07-18 15:19:33 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0010, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:34 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0013, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:35 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 21.9396, Frame count: 2700
+2025-07-18 15:19:35 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0021, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:36 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0020, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:36 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 30.0437, Frame count: 2750
+2025-07-18 15:19:36 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0017, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:37 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0017, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:38 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 22.7917, Frame count: 2800
+2025-07-18 15:19:38 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0011, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:39 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0010, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:39 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 33.3750, Frame count: 2850
+2025-07-18 15:19:39 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0012, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:40 | INFO     | TalkyBot.TTS    | TTS completed successfully
+2025-07-18 15:19:40 | INFO     | TalkyBot.MAIN   | State: SPEAKING → LISTENING (TTS completed)
+2025-07-18 15:19:40 | INFO     | TalkyBot        | STATE: SPEAKING → LISTENING (TTS completed)
+2025-07-18 15:19:40 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0015, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:41 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 113.1854, Frame count: 2900
+2025-07-18 15:19:41 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0024, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:41 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0024)
+2025-07-18 15:19:41 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 15:19:41 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 15:19:41 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 15:19:42 | INFO     | TalkyBot.VAD    | Speech ended after 0.3s
+2025-07-18 15:19:42 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 15:19:42 | INFO     | TalkyBot.MAIN   | State: PROCESSING → LISTENING (Speech ended)
+2025-07-18 15:19:42 | INFO     | TalkyBot        | STATE: PROCESSING → LISTENING (Speech ended)
+2025-07-18 15:19:42 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0031, Speech detected: True, Threshold: 0.3
+2025-07-18 15:19:42 | INFO     | TalkyBot.VAD    | Speech started! (audio_level: 0.0031)
+2025-07-18 15:19:42 | DEBUG    | TalkyBot.VAD    | Speech started - Duration: 0.0s
+2025-07-18 15:19:42 | INFO     | TalkyBot.MAIN   | State: LISTENING → PROCESSING (Speech detected)
+2025-07-18 15:19:42 | INFO     | TalkyBot        | STATE: LISTENING → PROCESSING (Speech detected)
+2025-07-18 15:19:42 | INFO     | TalkyBot.VAD    | Speech ended after 0.4s
+2025-07-18 15:19:42 | DEBUG    | TalkyBot.VAD    | Speech ended
+2025-07-18 15:19:42 | INFO     | TalkyBot.MAIN   | State: PROCESSING → LISTENING (Speech ended)
+2025-07-18 15:19:42 | INFO     | TalkyBot        | STATE: PROCESSING → LISTENING (Speech ended)
+2025-07-18 15:19:42 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 58.1042, Frame count: 2950
+2025-07-18 15:19:42 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0050, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:43 | INFO     | TalkyBot.VAD    | VAD Debug - Audio level: 0.0047, Speech detected: False, Threshold: 0.3
+2025-07-18 15:19:44 | INFO     | TalkyBot.MAIN   | Received signal 2
+2025-07-18 15:19:44 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 15:19:44 | INFO     | TalkyBot.MAIN   | Stopping TalkyBot System...
+2025-07-18 15:19:44 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 15:19:44 | INFO     | TalkyBot.MAIN   | Stopping VAD thread...
+2025-07-18 15:19:44 | INFO     | TalkyBot.MAIN   | Stopping STT thread...
+2025-07-18 15:19:44 | INFO     | TalkyBot.MAIN   | Stopping TTS thread...
+2025-07-18 15:19:44 | INFO     | TalkyBot.MAIN   | Stopping Wake Word thread...
+2025-07-18 15:19:44 | ERROR    | TalkyBot.MAIN   | Error during shutdown: 'Model' object has no attribute 'cleanup'
+2025-07-18 15:19:44 | INFO     | TalkyBot.MAIN   | TalkyBot System stopped cleanly
+2025-07-18 15:19:44 | INFO     | TalkyBot        | SYSTEM: Shutting down logging system
+2025-07-18 17:14:55 | INFO     | TalkyBot        | ============================================================
+2025-07-18 17:14:55 | INFO     | TalkyBot        | TalkyBot Logging System Initialized
+2025-07-18 17:14:55 | INFO     | TalkyBot        | Log file: /Users/loantruong/Documents/Robotic/TalkyBot/TalkyBot.log
+2025-07-18 17:14:55 | INFO     | TalkyBot        | ============================================================
+2025-07-18 17:14:55 | INFO     | TalkyBot.MAIN   | Testing audio system...
+2025-07-18 17:14:56 | INFO     | TalkyBot.MAIN   | ✅ Audio system test passed
+2025-07-18 17:15:00 | INFO     | TalkyBot.MAIN   | TalkyBot System initialized successfully
+2025-07-18 17:15:00 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 17:15:00 | INFO     | TalkyBot.MAIN   | Starting TalkyBot System...
+2025-07-18 17:15:00 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 17:15:00 | INFO     | TalkyBot.MAIN   | Starting Wake Word thread...
+2025-07-18 17:15:00 | INFO     | TalkyBot.WAKE   | Wake Word Thread started - Listening for 'Alexa'
+2025-07-18 17:15:00 | INFO     | TalkyBot.MAIN   | Starting TTS thread...
+2025-07-18 17:15:00 | INFO     | TalkyBot.TTS    | TTS Thread started
+2025-07-18 17:15:00 | INFO     | TalkyBot.MAIN   | Starting STT + Brain thread...
+2025-07-18 17:15:00 | INFO     | TalkyBot.STT    | Starting STT + Chatbot thread...
+2025-07-18 17:15:00 | INFO     | TalkyBot.MAIN   | Starting VAD thread...
+2025-07-18 17:15:00 | INFO     | TalkyBot.VAD    | VAD Thread started
+2025-07-18 17:15:00 | INFO     | TalkyBot.MAIN   | All threads started successfully!
+2025-07-18 17:15:00 | INFO     | TalkyBot.VAD    | Testing audio stream...
+2025-07-18 17:15:00 | INFO     | TalkyBot.MAIN   | System ready - Say 'Alexa' to wake up
+2025-07-18 17:15:00 | INFO     | TalkyBot.MAIN   | Sleep commands: bye bye, goodbye, go to sleep, etc.
+2025-07-18 17:15:20 | INFO     | TalkyBot.MAIN   | Received signal 2
+2025-07-18 17:15:20 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 17:15:20 | INFO     | TalkyBot.MAIN   | Stopping TalkyBot System...
+2025-07-18 17:15:20 | INFO     | TalkyBot.MAIN   | ============================================================
+2025-07-18 17:15:20 | INFO     | TalkyBot.MAIN   | Stopping VAD thread...
+2025-07-18 17:15:20 | INFO     | TalkyBot.MAIN   | Stopping STT thread...
+2025-07-18 17:15:20 | INFO     | TalkyBot.MAIN   | Stopping TTS thread...
+2025-07-18 17:15:20 | INFO     | TalkyBot.MAIN   | Stopping Wake Word thread...
+2025-07-18 17:15:20 | ERROR    | TalkyBot.MAIN   | Error during shutdown: 'Model' object has no attribute 'cleanup'
+2025-07-18 17:15:20 | INFO     | TalkyBot.MAIN   | TalkyBot System stopped cleanly
+2025-07-18 17:15:20 | INFO     | TalkyBot        | SYSTEM: Shutting down logging system

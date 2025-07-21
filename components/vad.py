@@ -33,22 +33,45 @@ class VoiceActivityDetector:
         self.min_silence_duration_s = min_silence_duration_ms / 1000.0
 
         print("Loading Silero VAD model from torch hub...")
-        try:
-            self.model, utils = torch.hub.load(
-                repo_or_dir='snakers4/silero-vad',
-                model='silero_vad',
-                force_reload=False
-            )
-            # Unpack necessary utilities
-            (self.get_speech_timestamps, _, _, _, _) = utils
-            self.vad_parameters = {
-                'threshold': threshold,
-                'min_speech_duration_ms': min_speech_duration_ms
-            }
-            print("VAD model loaded successfully!")
-        except Exception as e:
-            print(f"Error loading VAD model: {e}")
-            raise
+        max_retries = 3
+        retry_count = 0
+        
+        while retry_count < max_retries:
+            try:
+                self.model, utils = torch.hub.load(
+                    repo_or_dir='snakers4/silero-vad',
+                    model='silero_vad',
+                    force_reload=False,
+                    trust_repo=True  # Add trust_repo to avoid warnings
+                )
+                # Unpack necessary utilities
+                (self.get_speech_timestamps, _, _, _, _) = utils
+                self.vad_parameters = {
+                    'threshold': threshold,
+                    'min_speech_duration_ms': min_speech_duration_ms
+                }
+                print("✅ VAD model loaded successfully!")
+                
+                # Test model with dummy data
+                dummy_audio = torch.randn(16000)  # 1 second of dummy audio
+                test_result = self.get_speech_timestamps(
+                    dummy_audio, 
+                    self.model, 
+                    sampling_rate=self.sampling_rate,
+                    **self.vad_parameters
+                )
+                print(f"✅ VAD model test successful - detected {len(test_result)} segments in dummy audio")
+                break  # Success, exit retry loop
+                
+            except Exception as e:
+                retry_count += 1
+                print(f"❌ Error loading VAD model (attempt {retry_count}/{max_retries}): {e}")
+                if retry_count < max_retries:
+                    print(f"⏳ Retrying VAD model load in 3 seconds...")
+                    time.sleep(3.0)
+                else:
+                    print("❌ Failed to load VAD model after all retries")
+                    raise
 
         # Use deque for more efficient buffering
         buffer_size = int(self.sampling_rate * buffer_duration_ms / 1000)
@@ -58,6 +81,10 @@ class VoiceActivityDetector:
         self.is_speaking = False
         self.last_speech_time = 0.0
         self.speech_start_time = 0.0
+        
+        # Debug counters
+        self._debug_counter = 0
+        self._process_frame_count = 0
 
     def _normalize_audio_frame(self, audio_frame: np.ndarray) -> torch.Tensor:
         """Normalize input audio frame to torch.Tensor float32 format."""
@@ -80,65 +107,81 @@ class VoiceActivityDetector:
         Process an audio frame to update speech detection state.
         This method only updates internal state, does not return a value.
         """
-        tensor_frame = self._normalize_audio_frame(audio_frame)
-        self.speech_buffer.extend(tensor_frame.tolist())
-
-        # Only process when buffer has enough data
-        if len(self.speech_buffer) < 512:
-            return
-
-        buffer_tensor = torch.tensor(list(self.speech_buffer), dtype=torch.float32)
-        
-        # Calculate audio level for debugging
-        audio_level = torch.sqrt(torch.mean(buffer_tensor ** 2)).item()
-        
-        speech_timestamps = self.get_speech_timestamps(
-            buffer_tensor,
-            self.model,
-            sampling_rate=self.sampling_rate,
-            **self.vad_parameters
-        )
-
-        current_time = time.time()
-        has_speech = len(speech_timestamps) > 0
-
-        # Debug logging - import logger here to avoid circular imports
         try:
-            from .logger import get_logger
-            logger = get_logger("VAD")
-        except:
-            logger = None
+            self._process_frame_count += 1
             
-        if hasattr(self, '_debug_counter'):
-            self._debug_counter += 1
-        else:
-            self._debug_counter = 0
+            # Validate input
+            if audio_frame is None:
+                print(f"⚠️ VAD received None audio frame (count: {self._process_frame_count})")
+                return
             
-        # Only log when audio level is significant or speech state changes
-        if self._debug_counter % 50 == 0 and (audio_level > 0.02 or has_speech):  # Every ~5 seconds, only when relevant
-            debug_msg = f"Audio: {audio_level:.3f} {'🎤 Speech' if has_speech else '🔇 Quiet'}"
-            if logger:
-                logger.debug(debug_msg)  # Changed to debug level
-            else:
-                print(f"🔍 {debug_msg}")
+            tensor_frame = self._normalize_audio_frame(audio_frame)
+            self.speech_buffer.extend(tensor_frame.tolist())
 
-        if has_speech:
-            if not self.is_speaking:
-                self.is_speaking = True
-                self.speech_start_time = current_time
-                speech_msg = f"Speech started! (audio_level: {audio_level:.4f})"
+            # Only process when buffer has enough data
+            if len(self.speech_buffer) < 512:
+                if self._process_frame_count % 100 == 0:  # Log every ~10 seconds when starting
+                    print(f"🔄 VAD buffer building: {len(self.speech_buffer)}/512 frames")
+                return
+
+            buffer_tensor = torch.tensor(list(self.speech_buffer), dtype=torch.float32)
+            
+            # Calculate audio level for debugging
+            audio_level = torch.sqrt(torch.mean(buffer_tensor ** 2)).item()
+            
+            # Get speech timestamps from VAD model
+            try:
+                speech_timestamps = self.get_speech_timestamps(
+                    buffer_tensor,
+                    self.model,
+                    sampling_rate=self.sampling_rate,
+                    **self.vad_parameters
+                )
+            except Exception as vad_error:
+                print(f"❌ VAD model inference error: {vad_error}")
+                return
+
+            current_time = time.time()
+            has_speech = len(speech_timestamps) > 0
+
+            # Debug logging - import logger here to avoid circular imports
+            try:
+                from .logger import get_logger
+                logger = get_logger("VAD")
+            except:
+                logger = None
+                
+            self._debug_counter += 1
+                
+            # More frequent debug logging to track VAD health
+            if self._debug_counter % 25 == 0:  # Every ~2.5 seconds
+                debug_msg = f"VAD Debug - Audio level: {audio_level:.4f}, Speech detected: {has_speech}, Threshold: {self.vad_parameters['threshold']}"
                 if logger:
-                    logger.info(speech_msg)
+                    logger.info(debug_msg)
                 else:
-                    print(f"🎤 {speech_msg}")
-            self.last_speech_time = current_time
-        elif self.is_speaking and (current_time - self.last_speech_time) > self.min_silence_duration_s:
-            self.is_speaking = False
-            end_msg = f"Speech ended after {current_time - self.speech_start_time:.1f}s"
-            if logger:
-                logger.info(end_msg)
-            else:
-                print(f"🔇 {end_msg}")
+                    print(f"🔍 {debug_msg}")
+
+            if has_speech:
+                if not self.is_speaking:
+                    self.is_speaking = True
+                    self.speech_start_time = current_time
+                    speech_msg = f"Speech started! (audio_level: {audio_level:.4f})"
+                    if logger:
+                        logger.info(speech_msg)
+                    else:
+                        print(f"🎤 {speech_msg}")
+                self.last_speech_time = current_time
+            elif self.is_speaking and (current_time - self.last_speech_time) > self.min_silence_duration_s:
+                self.is_speaking = False
+                end_msg = f"Speech ended after {current_time - self.speech_start_time:.1f}s"
+                if logger:
+                    logger.info(end_msg)
+                else:
+                    print(f"🔇 {end_msg}")
+                    
+        except Exception as e:
+            print(f"❌ Critical error in VAD process_frame: {e}")
+            # Don't crash the thread, just log and continue
 
     def get_continuous_speech_info(self) -> Dict:
         """

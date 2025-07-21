@@ -17,39 +17,76 @@ class VADThread(threading.Thread):
         self.last_speaking_state = None
         self.frame_count = 0
         self.logger = get_logger("VAD")
+        self._vad_failure_count = 0
+        self._max_vad_failures = 10  # Max consecutive VAD failures before giving up
+        self._fallback_mode = False
 
     def run(self):
         self.logger.info("VAD Thread started")
         
-        while not self._stop_event.is_set():
-            for frame in self.audio_stream.stream():
-                if self._stop_event.is_set():
-                    break
-                
-                self.frame_count += 1
-                self.vad.process_frame(frame)
-                info = self.vad.get_continuous_speech_info()
-                current_speaking = info['is_speaking']
-                
-                # Handle state transitions and interrupts
-                self._handle_speech_state_change(current_speaking, info)
-                
-                # Send audio frame to STT when active and speaking
-                if self._should_send_audio(current_speaking):
-                    self.audio_queue.put(frame)
-                    if self.frame_count % 50 == 0:  # Log every ~5 seconds during speech
-                        self.logger.debug(f"Sent audio frame to STT queue (queue size: {self.audio_queue.qsize()})")
-                
-                # Call status callback on state changes or periodic updates
-                if (current_speaking != self.last_speaking_state or 
-                    (current_speaking and self.frame_count % 10 == 0)):
-                    if self.status_callback:
-                        self.status_callback(info)
-                    self.last_speaking_state = current_speaking
-                
-                time.sleep(0.01)
+        try:
+            # Test audio stream first
+            self.logger.info("Testing audio stream...")
+            test_frame_count = 0
+            
+            while not self._stop_event.is_set():
+                try:
+                    for frame in self.audio_stream.stream():
+                        if self._stop_event.is_set():
+                            break
+                        
+                        self.frame_count += 1
+                        test_frame_count += 1
+                        
+                        # Log audio stream health every 50 frames (~5 seconds)
+                        if test_frame_count % 50 == 0:
+                            audio_level = abs(frame).mean() if frame is not None and hasattr(frame, 'mean') else 0.0
+                            self.logger.info(f"VAD Debug - Audio level: {audio_level:.4f}, Frame count: {test_frame_count}")
+                        
+                        # Process VAD
+                        try:
+                            self.vad.process_frame(frame)
+                            info = self.vad.get_continuous_speech_info()
+                            current_speaking = info['is_speaking']
+                            
+                            # Handle state transitions and interrupts
+                            self._handle_speech_state_change(current_speaking, info)
+                            
+                            # Send audio frame to STT when active and speaking
+                            if self._should_send_audio(current_speaking):
+                                self.audio_queue.put(frame)
+                                if self.frame_count % 50 == 0:  # Log every ~5 seconds during speech
+                                    self.logger.debug(f"Sent audio frame to STT queue (queue size: {self.audio_queue.qsize()})")
+                            
+                            # Call status callback on state changes or periodic updates
+                            if (current_speaking != self.last_speaking_state or 
+                                (current_speaking and self.frame_count % 10 == 0)):
+                                if self.status_callback:
+                                    self.status_callback(info)
+                                self.last_speaking_state = current_speaking
+                        
+                        except Exception as vad_error:
+                            self.logger.error(f"VAD processing error: {vad_error}")
+                            # Continue processing even if VAD fails
+                            continue
+                        
+                        time.sleep(0.01)
+                        
+                except Exception as stream_error:
+                    self.logger.error(f"Audio stream error: {stream_error}")
+                    # Restart audio stream
+                    try:
+                        self.logger.info("Attempting to restart audio stream...")
+                        self.audio_stream.restart_stream()
+                        time.sleep(1.0)  # Wait before retry
+                    except Exception as restart_error:
+                        self.logger.error(f"Failed to restart audio stream: {restart_error}")
+                        time.sleep(5.0)  # Wait longer before retry
         
-        self.logger.info("VAD Thread stopped")
+        except Exception as e:
+            self.logger.error(f"Critical VAD thread error: {e}")
+        finally:
+            self.logger.info("VAD Thread stopped")
     
     def _handle_speech_state_change(self, current_speaking, info):
         """Handle speech state changes and manage system state transitions"""
