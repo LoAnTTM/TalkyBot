@@ -30,3 +30,6 @@ test_*.py
 
 .github/
 
+# Logs
+logs/
+*.log

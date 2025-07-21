@@ -46,6 +46,12 @@ class TalkyBotSystem:
         self.audio_to_stt_queue = queue.Queue()
         self.text_to_tts_queue = queue.Queue()
         
+        # TTS interrupt coordination (key for loopback prevention)
+        self._tts_interrupt_event = threading.Event()
+        self._tts_playing_event = threading.Event()
+        self._current_tts_audio = None  # Reference audio for echo cancellation
+        self._tts_audio_lock = threading.Lock()
+        
         # Initialize audio components
         self.vad = VoiceActivityDetector()
         self.audio_stream = AudioStream()
@@ -62,6 +68,17 @@ class TalkyBotSystem:
         
         self.logger.info("TalkyBot System initialized successfully")
     
+    def _on_tts_audio_start(self, audio_data):
+        """Called when TTS starts playing - store reference audio for echo cancellation"""
+        with self._tts_audio_lock:
+            self._current_tts_audio = audio_data
+            self.logger.debug("🔊 TTS reference audio stored for echo cancellation")
+    
+    def _get_tts_reference_audio(self):
+        """Get current TTS audio for echo cancellation in VAD"""
+        with self._tts_audio_lock:
+            return self._current_tts_audio
+    
     def _init_threads(self):
         """Initialize all system threads"""
         
@@ -71,7 +88,10 @@ class TalkyBotSystem:
         # TTS Thread - handles text-to-speech with interrupt capability
         self.tts_thread = TTSThread(
             state_manager=self.state_manager,
-            max_queue_size=10
+            max_queue_size=10,
+            interrupt_event=self._tts_interrupt_event,
+            playing_event=self._tts_playing_event,
+            audio_callback=self._on_tts_audio_start
         )
         self.tts_thread.text_queue = self.text_to_tts_queue
         
@@ -82,32 +102,46 @@ class TalkyBotSystem:
             response_callback=self._on_chatbot_response
         )
         
-        # VAD Thread - voice activity detection and audio gatekeeper
+        # VAD Thread - voice activity detection and audio gatekeeper with TTS awareness
         self.vad_thread = VADThread(
-            vad=self.vad,
-            audio_stream=self.audio_stream,
             state_manager=self.state_manager,
             audio_queue=self.audio_to_stt_queue,
-            status_callback=self._on_vad_status
+            tts_interrupt_event=self._tts_interrupt_event,
+            tts_playing_event=self._tts_playing_event,
+            tts_audio_ref_callback=self._get_tts_reference_audio
         )
     
     def _on_chatbot_response(self, response):
         """Handle chatbot response and send to TTS"""
         self.logger.info(f"Chatbot response: {response[:50]}...")
         if response and response.strip():
+            # Clear any previous interrupt state
+            self._tts_interrupt_event.clear()
             self.tts_thread.speak_text(response)
     
     def _on_vad_status(self, info):
-        """Handle VAD status updates with reduced logging"""
+        """Handle VAD status updates with TTS interrupt detection"""
         if info['is_speaking']:
-            # Only log every 2 seconds during speech to reduce spam
-            duration = info['duration']
-            if duration > 1.0 and int(duration) % 2 == 0:
-                self.logger.debug(f"🎤 Speaking: {duration:.1f}s")
+            # During TTS playback, detect user interruption
+            if self._tts_playing_event.is_set():
+                # User is trying to interrupt TTS
+                audio_level = info.get('audio_level', 0)
+                if audio_level > info.get('interrupt_threshold', 200):
+                    self.logger.info("🛑 User interrupt detected during TTS - stopping playback")
+                    self._tts_interrupt_event.set()
+                    self.state_manager.transition_to(SystemState.LISTENING, "User interrupted TTS")
+            else:
+                # Normal speech detection
+                duration = info['duration']
+                if duration > 1.0 and int(duration) % 2 == 0:
+                    self.logger.debug(f"🎤 Speaking: {duration:.1f}s")
         else:
-            # Only log speech end if it was significant (>0.5s)
+            # Speech ended
             if info.get('duration', 0) > 0.5:
                 self.logger.debug("🔇 Speech ended")
+                # Clear TTS reference audio when speech ends
+                with self._tts_audio_lock:
+                    self._current_tts_audio = None
     
     def _on_state_change(self, old_state, new_state, reason):
         """Handle system state changes"""
@@ -211,11 +245,11 @@ class TalkyBotSystem:
             
             # Create new VAD thread
             self.vad_thread = VADThread(
-                vad=self.vad,
-                audio_stream=self.audio_stream,
                 state_manager=self.state_manager,
                 audio_queue=self.audio_to_stt_queue,
-                status_callback=self._on_vad_status
+                tts_interrupt_event=self._tts_interrupt_event,
+                tts_playing_event=self._tts_playing_event,
+                tts_audio_ref_callback=self._get_tts_reference_audio
             )
             
             # Start new thread

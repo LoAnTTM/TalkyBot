@@ -1,13 +1,18 @@
 import threading
 import queue
 import time
+import subprocess
+import tempfile
+import os
+
 from components.tts import TextToSpeech
 from components.logger import get_logger
 from components.state_manager import SystemState
 
 
 class TTSThread(threading.Thread):
-    def __init__(self, state_manager=None, max_queue_size=10):
+    def __init__(self, state_manager=None, max_queue_size=10, interrupt_event=None, 
+                 playing_event=None, audio_callback=None):
         super().__init__()
         self.tts = TextToSpeech()
         self.text_queue = queue.Queue(maxsize=max_queue_size)
@@ -15,9 +20,15 @@ class TTSThread(threading.Thread):
         self.is_speaking = False
         self.state_manager = state_manager
         self.logger = get_logger("TTS")
+        
+        # TTS interrupt coordination
+        self.interrupt_event = interrupt_event
+        self.playing_event = playing_event
+        self.audio_callback = audio_callback  # Called when audio starts playing
+        self.current_process = None
 
     def run(self):
-        self.logger.info("TTS Thread started")
+        self.logger.info("TTS Thread started with interrupt capability")
         
         while not self._stop_event.is_set():
             try:
@@ -29,7 +40,7 @@ class TTSThread(threading.Thread):
                 # Wait for new text to speak, timeout to check stop event
                 text = self.text_queue.get(timeout=0.5)
                 if text and not self._stop_event.is_set():
-                    self._speak_with_interrupt(text)
+                    self._speak_with_interrupt_support(text)
                     
             except queue.Empty:
                 continue
@@ -41,93 +52,89 @@ class TTSThread(threading.Thread):
 
         self.logger.info("TTS Thread stopped")
     
-    def _speak_with_interrupt(self, text):
-        """Speak text with interrupt capability via StateManager"""
+    def _speak_with_interrupt_support(self, text):
+        """Speak text with interrupt capability"""
         try:
+            self.logger.info(f"🗣️ Speaking: {text[:50]}...")
             self.is_speaking = True
             
-            # Transition to SPEAKING state
-            if self.state_manager:
-                self.state_manager.start_speaking(f"Speaking: '{text[:30]}...'")
+            # Generate audio to temporary file
+            with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as tmp_file:
+                self.tts.tts.tts_to_file(text=text, file_path=tmp_file.name)
+                audio_file_path = tmp_file.name
             
-            self.logger.info(f"Speaking: {text}")
+            # Load audio data for reference (echo cancellation)
+            if self.audio_callback:
+                try:
+                    # Simple audio data loading without numpy
+                    with open(audio_file_path, 'rb') as f:
+                        # Skip WAV header (44 bytes) and read raw audio data
+                        f.seek(44)
+                        audio_data = f.read()
+                        # Convert to simple list for reference
+                        audio_ref = list(audio_data)
+                        self.audio_callback(audio_ref)
+                except Exception as e:
+                    self.logger.debug(f"Could not load audio reference: {e}")
             
-            # Generate audio first
-            wav = self.tts.tts.tts(text)
+            # Signal that TTS is starting
+            if self.playing_event:
+                self.playing_event.set()
             
-            # Ensure wav is numpy array and proper normalization
-            import numpy as np
-            if isinstance(wav, list):
-                wav = np.array(wav, dtype=np.float32)
-            
-            # Better normalization to avoid clipping and artifacts
-            max_val = np.abs(wav).max()
-            if max_val > 0:
-                wav = wav * (0.8 / max_val)  # Scale to 80% to avoid clipping
-            wav = np.clip(wav, -1.0, 1.0)  # Ensure values stay in valid range
-            
-            # Check for interrupt before playing
-            if self._should_stop():
-                self.logger.info("TTS interrupted before playing")
-                self._handle_interrupt()
-                return
-            
-            # Play audio with interrupt monitoring and better audio settings
-            import sounddevice as sd
-            
-            # Configure audio settings for better quality
-            sd.default.blocksize = 1024  # Smaller buffer for better responsiveness
-            sd.default.latency = 'low'
-            
-            # Start playing
-            sd.play(wav, samplerate=self.tts.sample_rate, blocking=False)
-            
-            # Monitor for interrupts while playing with faster checking
-            while sd.get_stream().active:
-                if self._should_stop():
-                    self.logger.info("TTS interrupted during playback")
-                    sd.stop()  # Stop immediately
-                    self._handle_interrupt()
-                    return
-                time.sleep(0.02)  # Check every 20ms for more responsive interrupts
-            
-            # Wait for completion if not interrupted
-            if not self._should_stop():
-                sd.wait()
-                self.logger.info("TTS completed successfully")
-                
-                # Transition back to listening state
-                if self.state_manager:
-                    self.state_manager.transition_to(SystemState.LISTENING, "TTS completed")
+            # Play audio with interrupt monitoring
+            self._play_audio_with_interrupt(audio_file_path)
             
         except Exception as e:
-            self.logger.error(f"Error during TTS playback: {e}")
+            self.logger.error(f"Error in TTS speak: {e}")
         finally:
+            # Clear playing state
+            if self.playing_event:
+                self.playing_event.clear()
+            
             self.is_speaking = False
-    
-    def _should_stop(self):
-        """Check if TTS should stop (thread stop or state manager interrupt)"""
-        if self._stop_event.is_set():
-            return True
-        if self.state_manager and self.state_manager.stop_tts_event.is_set():
-            return True
-        return False
-    
-    def _handle_interrupt(self):
-        """Handle TTS interruption"""
-        self.is_speaking = False
-        if self.state_manager:
-            self.state_manager.stop_tts_event.clear()  # Clear the interrupt flag
-            # Don't change state here - let VAD/STT handle the transition
+            
+            # Clean up temp file
+            if 'audio_file_path' in locals():
+                try:
+                    os.unlink(audio_file_path)
+                except:
+                    pass
 
-    def stop(self):
-        self._stop_event.set()
-        # Stop playback if currently running
-        if hasattr(self.tts, 'stop'):
-            self.tts.stop()
-        # Also trigger state manager stop if available
-        if self.state_manager:
-            self.state_manager.stop_tts_event.set()
+    def _play_audio_with_interrupt(self, audio_file_path):
+        """Play audio file with interrupt monitoring"""
+        try:
+            if self.state_manager:
+                self.state_manager.transition_to(SystemState.SPEAKING, "TTS started")
+            
+            # Start audio playback process (macOS)
+            self.current_process = subprocess.Popen([
+                'afplay', audio_file_path
+            ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            
+            # Monitor for interrupts while playing
+            while self.current_process.poll() is None:
+                # Check for interrupt signal
+                if (self.interrupt_event and self.interrupt_event.is_set()) or self._stop_event.is_set():
+                    self.logger.info("🛑 TTS interrupted - stopping playback")
+                    self.current_process.terminate()
+                    
+                    # Clear interrupt flag
+                    if self.interrupt_event:
+                        self.interrupt_event.clear()
+                    break
+                    
+                time.sleep(0.05)  # Check every 50ms for responsive interruption
+            
+            # Ensure process cleanup
+            if self.current_process.poll() is None:
+                self.current_process.kill()
+                
+        except Exception as e:
+            self.logger.error(f"Error playing audio: {e}")
+        finally:
+            self.current_process = None
+            if self.state_manager:
+                self.state_manager.transition_to(SystemState.LISTENING, "TTS completed")
 
     def speak_text(self, text, priority=False):
         """Add text to queue for speech synthesis"""
@@ -160,10 +167,17 @@ class TTSThread(threading.Thread):
 
     def interrupt_current_speech(self):
         """Interrupt current TTS speech immediately"""
-        if self.state_manager:
-            self.state_manager.stop_tts_event.set()
-        self.tts.stop()
+        if self.interrupt_event:
+            self.interrupt_event.set()
+        if self.current_process:
+            self.current_process.terminate()
         self.logger.info("TTS speech interrupted")
+
+    def stop(self):
+        """Stop TTS thread"""
+        self._stop_event.set()
+        if self.current_process:
+            self.current_process.terminate()
 
     def get_queue_size(self):
         """Get current queue size"""

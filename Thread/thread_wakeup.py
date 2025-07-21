@@ -20,10 +20,7 @@ class WakeWordThread(threading.Thread):
         original_callback = self.detector._callback
         
         def state_aware_callback(indata, frames, time_info, status):
-            # Only process wake word if system is in STANDBY
-            if self.state_manager and self.state_manager.get_current_state().value != "STANDBY":
-                return
-            
+            # Always process wake word (remove STANDBY restriction)
             if status:
                 self.logger.debug(f"Audio status: {status}")
 
@@ -37,12 +34,15 @@ class WakeWordThread(threading.Thread):
                     if (score > self.detector.sensitivity_threshold and 
                         (current_time - self.detector.last_trigger_time > self.detector.min_trigger_interval)):
                         
-                        self.logger.info(f"Wake word '{wake_word}' detected! (score: {score:.3f})")
+                        self.logger.info(f"🚨 Wake word '{wake_word}' detected! (score: {score:.3f})")
                         self.detector.last_trigger_time = current_time
                         
-                        # Trigger state transition
+                        # Trigger state transition regardless of current state
                         if self.state_manager:
+                            self.logger.info("🔄 Triggering wake up...")
                             self.state_manager.wake_up(f"Wake word '{wake_word}' detected (score: {score:.3f})")
+                        else:
+                            self.logger.warning("⚠️ No state manager available!")
                         
             except Exception as e:
                 self.logger.error(f"Error predicting wake word: {e}")

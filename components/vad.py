@@ -14,6 +14,7 @@ class VoiceActivityDetector:
     using the Silero VAD model.
     """
     def __init__(self,
+                 state_manager=None,
                  sampling_rate: int = 16000,
                  threshold: float = 0.3,
                  min_speech_duration_ms: int = 100,
@@ -23,12 +24,14 @@ class VoiceActivityDetector:
         Initialize VoiceActivityDetector.
 
         Args:
+            state_manager: Optional state manager for system integration.
             sampling_rate (int): Audio sampling rate.
             threshold (float): Silero VAD speech detection threshold (0.0 - 1.0).
             min_speech_duration_ms (int): Minimum speech duration to be considered a segment.
             min_silence_duration_ms (int): Silence duration after speech to end a speaking session.
             buffer_duration_ms (int): Duration of internal audio buffer (in ms).
         """
+        self.state_manager = state_manager
         self.sampling_rate = sampling_rate
         self.min_silence_duration_s = min_silence_duration_ms / 1000.0
 

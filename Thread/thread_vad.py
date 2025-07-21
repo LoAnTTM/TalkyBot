@@ -1,34 +1,42 @@
 import threading
 import time
+import queue
 
 from components.vad import VoiceActivityDetector
 from components.logger import get_logger
-from components.state_manager import SystemState
+from audio.mic_stream import AudioStream
+
 
 class VADThread(threading.Thread):
-    def __init__(self, vad, audio_stream, state_manager=None, audio_queue=None, status_callback=None):
+    def __init__(self, state_manager=None, audio_queue=None, tts_interrupt_event=None, 
+                 tts_playing_event=None, tts_audio_ref_callback=None):
         super().__init__()
-        self.vad = vad
-        self.audio_stream = audio_stream
         self.state_manager = state_manager
-        self.audio_queue = audio_queue  # Queue để gửi audio frames cho STT
-        self.status_callback = status_callback
+        self.audio_queue = audio_queue or queue.Queue()
+        self.vad = VoiceActivityDetector(state_manager=state_manager)
+        self.audio_stream = AudioStream()
+        
+        # TTS interrupt coordination
+        self.tts_interrupt_event = tts_interrupt_event
+        self.tts_playing_event = tts_playing_event
+        self.reference_audio = None
+        
         self._stop_event = threading.Event()
         self.last_speaking_state = None
         self.frame_count = 0
         self.logger = get_logger("VAD")
-        self._vad_failure_count = 0
-        self._max_vad_failures = 10  # Max consecutive VAD failures before giving up
-        self._fallback_mode = False
-
+        
+        # Simple baseline noise level
+        self._baseline_noise_level = 50.0
+        
     def run(self):
-        self.logger.info("VAD Thread started")
+        """Main VAD processing loop - Audio gatekeeper"""
+        self.logger.info("VAD Thread started as audio gatekeeper")
+        
+        # Quick baseline calibration
+        self._calibrate_baseline()
         
         try:
-            # Test audio stream first
-            self.logger.info("Testing audio stream...")
-            test_frame_count = 0
-            
             while not self._stop_event.is_set():
                 try:
                     for frame in self.audio_stream.stream():
@@ -36,139 +44,107 @@ class VADThread(threading.Thread):
                             break
                         
                         self.frame_count += 1
-                        test_frame_count += 1
                         
-                        # Log audio stream health every 50 frames (~5 seconds)
-                        if test_frame_count % 50 == 0:
-                            audio_level = abs(frame).mean() if frame is not None and hasattr(frame, 'mean') else 0.0
-                            self.logger.info(f"VAD Debug - Audio level: {audio_level:.4f}, Frame count: {test_frame_count}")
-                        
-                        # Process VAD
+                        # Process VAD on ALL audio (gatekeeper function)
                         try:
                             self.vad.process_frame(frame)
                             info = self.vad.get_continuous_speech_info()
                             current_speaking = info['is_speaking']
                             
-                            # Handle state transitions and interrupts
-                            self._handle_speech_state_change(current_speaking, info)
+                            # Debug logging every 100 frames to see if VAD is working
+                            if self.frame_count % 100 == 0:
+                                audio_level = abs(frame).mean() if frame is not None and hasattr(frame, 'mean') else 0.0
+                                self.logger.debug(f"📊 VAD Gatekeeper Frame {self.frame_count}: level={audio_level:.1f}, speaking={current_speaking}")
                             
-                            # Send audio frame to STT when active and speaking
-                            if self._should_send_audio(current_speaking):
-                                self.audio_queue.put(frame)
-                                if self.frame_count % 50 == 0:  # Log every ~5 seconds during speech
-                                    self.logger.debug(f"Sent audio frame to STT queue (queue size: {self.audio_queue.qsize()})")
+                            # Only forward audio to STT if speech is detected AND system is listening
+                            if current_speaking:
+                                # Check if system is in listening mode
+                                if (self.state_manager and 
+                                    hasattr(self.state_manager, 'conversation_active') and 
+                                    self.state_manager.conversation_active.is_set()):
+                                    
+                                    # Skip if TTS is playing (avoid loopback)
+                                    if not (self.tts_playing_event and self.tts_playing_event.is_set()):
+                                        # Forward to STT
+                                        if self.audio_queue:
+                                            self.audio_queue.put(frame)
                             
-                            # Call status callback on state changes or periodic updates
-                            if (current_speaking != self.last_speaking_state or 
-                                (current_speaking and self.frame_count % 10 == 0)):
-                                if self.status_callback:
-                                    self.status_callback(info)
+                            # Log state changes
+                            if current_speaking != self.last_speaking_state:
                                 self.last_speaking_state = current_speaking
-                        
-                        except Exception as vad_error:
-                            self.logger.error(f"VAD processing error: {vad_error}")
-                            # Continue processing even if VAD fails
-                            continue
-                        
-                        time.sleep(0.01)
-                        
-                except Exception as stream_error:
-                    self.logger.error(f"Audio stream error: {stream_error}")
-                    # Restart audio stream
-                    try:
-                        self.logger.info("Attempting to restart audio stream...")
-                        self.audio_stream.restart_stream()
-                        time.sleep(1.0)  # Wait before retry
-                    except Exception as restart_error:
-                        self.logger.error(f"Failed to restart audio stream: {restart_error}")
-                        time.sleep(5.0)  # Wait longer before retry
-        
+                                if current_speaking:
+                                    self.logger.info("🗣️ VAD: Speech detected")
+                                    if (self.state_manager and 
+                                        hasattr(self.state_manager, 'conversation_active') and 
+                                        self.state_manager.conversation_active.is_set()):
+                                        self.logger.info("📤 Forwarding audio to STT queue")
+                                else:
+                                    self.logger.info("🔇 VAD: Speech ended")
+                                
+                        except Exception as e:
+                            self.logger.debug(f"VAD frame processing error: {e}")
+                            
+                except Exception as e:
+                    self.logger.error(f"VAD stream error: {e}")
+                    time.sleep(0.1)
+                    
         except Exception as e:
-            self.logger.error(f"Critical VAD thread error: {e}")
+            self.logger.error(f"Critical VAD error: {e}")
         finally:
             self.logger.info("VAD Thread stopped")
-    
-    def _handle_speech_state_change(self, current_speaking, info):
-        """Handle speech state changes and manage system state transitions"""
-        if not self.state_manager:
-            return
-        
-        current_state = self.state_manager.get_current_state()
-        
-        # Handle speech start
-        if current_speaking and not self.last_speaking_state:
-            self.logger.debug(f"Speech started - Duration: {info['duration']:.1f}s")
+
+    def _calibrate_baseline(self):
+        """Quick baseline noise calibration"""
+        try:
+            self.logger.info("🔧 Quick baseline calibration...")
             
-            # Update activity timestamp
-            self.state_manager.update_activity()
+            # Simple calibration - just use a default level
+            self._baseline_noise_level = 64.0
             
-            # Interrupt TTS if currently speaking
-            if current_state == SystemState.SPEAKING:
-                self.logger.info("Interrupting TTS - User started speaking")
-                self.state_manager.interrupt_speaking("User speech detected")
+            self.logger.info(f"📊 Using baseline noise level: {self._baseline_noise_level}")
             
-            # Transition to processing if listening
-            elif current_state == SystemState.LISTENING:
-                self.state_manager.start_processing("Speech detected")
-        
-        # Handle speech end
-        elif not current_speaking and self.last_speaking_state:
-            self.logger.debug("Speech ended")
-            
-            # Update activity timestamp
-            self.state_manager.update_activity()
-            
-            # Return to listening if we were processing
-            if current_state == SystemState.PROCESSING:
-                self.state_manager.transition_to(SystemState.LISTENING, "Speech ended")
-    
-    def _should_send_audio(self, is_speaking):
-        """Determine if audio should be sent to STT queue"""
-        if not is_speaking or not self.audio_queue:
-            return False
-        
-        # Only send audio if system is active
-        if self.state_manager:
-            return self.state_manager.is_active()
-        
-        return True
+        except Exception as e:
+            self.logger.warning(f"⚠️ Calibration error: {e}")
+            self._baseline_noise_level = 50.0
+
+    def set_reference_audio(self, audio_data):
+        """Set reference audio for echo cancellation"""
+        self.reference_audio = audio_data
 
     def stop(self):
+        """Stop VAD thread"""
         self._stop_event.set()
 
 
-def vad_status_callback(info):
-    """Callback function to handle VAD status updates with reduced spam"""
-    if info['is_speaking']:
-        print(f"🎤 Speech detected - Duration: {info['duration']:.1f}s")
-    else:
-        print("🔇 Speech ended - Silence detected")
-
 if __name__ == "__main__":
-    from audio.mic_stream import AudioStream
+    # Test VAD thread independently
+    from components.state_manager import StateManager
     
-    # Create VAD detector and audio stream
-    vad = VoiceActivityDetector(sampling_rate=16000, threshold=0.5, min_speech_duration_ms=100)
-    audio_stream = AudioStream(samplerate=16000, channels=1, frame_duration_ms=100)
+    state_manager = StateManager()
+    audio_queue = queue.Queue()
     
-    # Create VAD thread with callback to receive status
-    vad_thread = VADThread(vad, audio_stream, status_callback=vad_status_callback)
-    
-    # Start the thread
-    vad_thread.start()
+    vad_thread = VADThread(
+        state_manager=state_manager,
+        audio_queue=audio_queue
+    )
     
     print("🎤 VAD Thread test started!")
-    print("Speak to test speech detection (Press Ctrl+C to stop)")
     print("=" * 50)
-
+    print("Speak to test voice activity detection...")
+    
+    vad_thread.start()
+    
     try:
-        # Main thread can do other work or just wait
         while True:
-            time.sleep(1)
-
+            try:
+                audio_data = audio_queue.get(timeout=1.0)
+                print("📊 Audio detected in queue")
+            except queue.Empty:
+                continue
     except KeyboardInterrupt:
-        print("\n" + "=" * 50)
-        print("🛑 Stopping program...")
+        print("\n🛑 Interrupted by user")
+    finally:
+        print("🛑 Stopping VAD thread...")
         vad_thread.stop()
         vad_thread.join()
-        print("✅ Program stopped.")
+        print("✅ VAD thread stopped successfully")

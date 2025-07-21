@@ -11,9 +11,9 @@ class WakeWordDetector:
         model_name="alexa",
         model_folder="models/openwakeword",
         onnx_file="alexa_v0.1.onnx",
-        vad_threshold=0.6,
-        sensitivity_threshold=0.99,
-        min_trigger_interval=3.0,
+        vad_threshold=0.3,
+        sensitivity_threshold=0.3,
+        min_trigger_interval=1.0,
     ):
         self.model_name = model_name
         self.model_folder = model_folder
@@ -74,8 +74,13 @@ class WakeWordDetector:
             print("\nStopping listening.")
 
     def cleanup(self):
-        self.model.cleanup()
-        print("Model released.")
+        """Clean up wake word detector"""
+        try:
+            if hasattr(self.model, 'cleanup'):
+                self.model.cleanup()
+                print("Model released.")
+        except Exception as e:
+            print(f"Model cleanup error (ignored): {e}")
 
 if __name__ == "__main__":
     detector = WakeWordDetector()
