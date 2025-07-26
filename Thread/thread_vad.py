@@ -1,10 +1,13 @@
 import threading
 import numpy as np
 import sounddevice as sd
+from collections import deque
+
 from components.vad import VoiceActivityDetector
 from components.logger import get_logger
 from audio.mic_stream import MicStream
 from components.state_manager import SystemState
+
 
 class VADThread(threading.Thread):
     """
@@ -27,13 +30,16 @@ class VADThread(threading.Thread):
         self.last_speaking_state = None
         self.frame_count = 0
         self.logger = get_logger("VAD")
+        
+        # Pre-speech buffer: giữ lại các frame trước khi phát hiện speech
+        self.pre_speech_buffer = deque(maxlen=10)  # khoảng 5s nếu 500ms mỗi frame
 
     def run(self):
         self.logger.info("VAD Thread started as audio gatekeeper")
         try:
             mic_stream = MicStream(samplerate=16000,
                                     channels=1,
-                                    frame_duration_ms=500)
+                                    frame_duration_ms=50)
             for frame in mic_stream.stream():
                 if self._stop_event.is_set():
                     break
@@ -43,31 +49,31 @@ class VADThread(threading.Thread):
                     info = self.vad.get_continuous_speech_info()
                     current_speaking = info['is_speaking']
 
-                    # Wakeword pipeline
-                    if current_speaking and self._is_state(SystemState.STANDBY) and self.wakeword_detector:
-                        frame = np.array(frame, dtype=np.float32).reshape(-1, 1)
-                        if frame.max() > 1.0 or frame.min() < -1.0:
-                            frame = frame / 32767.0
-                        mean_amp = np.abs(frame).mean()
-                        self.logger.debug(f"Wakeword frame stats: min={frame.min()}, max={frame.max()}, mean_amp={mean_amp:.6f}, dtype={frame.dtype}, shape={frame.shape}, first5={frame[:5].flatten()}")
-                        self.wakeword_detector.process_frame(frame)
+                    # Luôn lưu vào buffer đệm
+                    self.pre_speech_buffer.append(frame)
 
-                    # STT pipeline (gọi trực tiếp, không queue)
-                    if current_speaking and self._is_state('LISTENING') and self.stt_handler:
-                        
-                        self.stt_handler.process_frame(frame)
+                    # Nếu vừa chuyển từ silence sang speech -> phát lại các frame đệm
+                    if current_speaking and self.last_speaking_state is False:
+                        self.logger.info("🗣️ VAD: Speech started — flushing buffered frames")
+                        for buffered_frame in list(self.pre_speech_buffer):
+                            self._route_frame(buffered_frame)
+                        self.pre_speech_buffer.clear()
 
-                    # TTS interrupt pipeline
-                    if current_speaking and self.tts_playing_event and self.tts_playing_event.is_set():
-                        if self.tts_interrupt_event:
-                            self.logger.info("🛑 VAD: Interrupting TTS due to user speech")
-                            self.tts_interrupt_event.set()
-                        try:
-                            sd.stop()
-                        except Exception as e:
-                            self.logger.warning(f"⚠️ Failed to stop sounddevice: {e}")
+                    # Nếu đang nói, truyền frame hiện tại
+                    if current_speaking:
+                        self._route_frame(frame)
 
-                    # Log state changes
+                        # Nếu đang phát TTS, ngắt ngay
+                        if self.tts_playing_event and self.tts_playing_event.is_set():
+                            if self.tts_interrupt_event:
+                                self.logger.info("🛑 VAD: Interrupting TTS due to user speech")
+                                self.tts_interrupt_event.set()
+                            try:
+                                sd.stop()
+                            except Exception as e:
+                                self.logger.warning(f"⚠️ Failed to stop sounddevice: {e}")
+
+                    # Log thay đổi trạng thái
                     if current_speaking != self.last_speaking_state:
                         self.last_speaking_state = current_speaking
                         if current_speaking:
@@ -77,8 +83,8 @@ class VADThread(threading.Thread):
 
                     # Debug logging
                     if self.frame_count % 100 == 0:
-                        audio_level = abs(frame).mean() if frame is not None and hasattr(frame, 'mean') else 0.0
-                        self.logger.debug(f"📊 VAD Gatekeeper Frame {self.frame_count}: level={audio_level:.1f}, speaking={current_speaking}")
+                        audio_level = abs(frame).mean() if hasattr(frame, 'mean') else 0.0
+                        self.logger.debug(f"📊 VAD Frame {self.frame_count}: level={audio_level:.1f}, speaking={current_speaking}")
                 except Exception as e:
                     self.logger.debug(f"VAD frame processing error: {e}")
         except Exception as e:
@@ -86,12 +92,29 @@ class VADThread(threading.Thread):
         finally:
             self.logger.info("VAD Thread stopped")
 
-    def _is_state(self, state_name):
-        return (
-            self.state_manager is not None
-            and hasattr(self.state_manager, 'get_current_state')
-            and self.state_manager.get_current_state() == state_name
-        )
+    def _is_state(self, target_state):
+        """Check if current system state matches the target"""
+        try:
+            self.logger.debug(f"_is_state: current={self.state_manager.current_state}, compare={target_state}")
+            return self.state_manager and self.state_manager.current_state == target_state
+            
+        except Exception as e:
+            self.logger.warning(f"⚠️ State check failed: {e}")
+            return False
+
+    def _route_frame(self, frame):
+        """
+        Gửi frame tới wakeword hoặc stt tùy theo trạng thái hệ thống
+        """
+        if self._is_state(SystemState.STANDBY) and self.wakeword_detector:
+            frame = np.array(frame, dtype=np.float32).reshape(-1, 1)
+            if frame.max() > 1.0 or frame.min() < -1.0:
+                frame = frame / 32767.0
+            self.wakeword_detector.process_frame(frame)
+
+        elif self._is_state(SystemState.LISTENING) and self.stt_handler:
+            self.logger.debug("Routing frame to STT handler (LISTENING state)")
+            self.stt_handler.process_frame(frame)
 
     def set_reference_audio(self, audio_data):
         """Set reference audio for echo cancellation"""

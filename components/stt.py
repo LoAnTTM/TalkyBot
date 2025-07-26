@@ -26,6 +26,9 @@ class SpeechToText:
 
         self.samplerate = samplerate
 
+        self.rec = KaldiRecognizer(self.model, self.samplerate)
+        self.current_partial = ""
+
     def _to_int16(self, audio):
         if audio.dtype != np.int16:
             return (audio * 32768).astype(np.int16)
@@ -48,18 +51,30 @@ class SpeechToText:
             partial = json.loads(rec.PartialResult())
             return partial.get("partial", "").strip(), False
 
-    def process_frame(self, frame):
-        # """Real-time STT loop with print output"""
-        # print("🎙️ Listening from STT...")
-        # mic_stream = MicStream(samplerate=self.samplerate, channels=1, frame_duration_ms=frame_duration_ms)
-        #===============================================
-        
-        # Get audio from vad and process it
+    def process_frame(self, frame: np.ndarray):
+        frame = self._to_int16(frame)
+        if self.rec.AcceptWaveform(frame.tobytes()):
+            result = json.loads(self.rec.Result()).get("text", "").strip()
+            if result:
+                print(f"\r{' '*80}\r✅ Final: '{result}'")
+                return result
+            self.current_partial = ""
+        else:
+            partial = json.loads(self.rec.PartialResult()).get("partial", "").strip()
+            if partial and partial != self.current_partial:
+                print(f"\r{' '*80}\r🔄 Partial: '{partial}'", end='', flush=True)
+                self.current_partial = partial
+        return None
+
+    def listen_and_transcribe(self, frame_duration_ms=250):
+        """Real-time STT loop with print output"""
+        print("🎙️ Listening from STT...")
+        mic_stream = MicStream(samplerate=self.samplerate, channels=1, frame_duration_ms=frame_duration_ms)
         rec = KaldiRecognizer(self.model, self.samplerate)
         current_partial = ""
 
         try:
-            for frame in frame():
+            for frame in mic_stream.stream():
                 frame = self._to_int16(frame)
                 if rec.AcceptWaveform(frame.tobytes()):
                     result = json.loads(rec.Result()).get("text", "").strip()
@@ -78,4 +93,4 @@ class SpeechToText:
 
 if __name__ == "__main__":
     stt = SpeechToText()
-    stt.process_frame()
+    stt.listen_and_transcribe()

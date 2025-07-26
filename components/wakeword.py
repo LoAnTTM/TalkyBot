@@ -72,13 +72,12 @@ class WakeWordDetector:
             current_time = time.time()
 
             for wake_word, score in scores.items():
-                self.logger.info(f"WakeWordDetector: score={score:.3f}")
+                # self.logger.info(f"WakeWordDetector: score={score:.3f}")
                 if (score > self.sensitivity_threshold and
                     (current_time - self.last_trigger_time > self.min_trigger_interval)):
                     if self.state_manager and hasattr(self.state_manager, 'wake_up'):
-                        # Notify state manager to wake up
                         self.logger.info(f"Wake word '{wake_word}' detected!!!!! (score: {score:.3f})")
-                    
+                        self.state_manager.wake_up(f"Wake word '{wake_word}' detected!!!!! (score: {score:.3f})")
                     self.last_trigger_time = current_time
 
         except Exception as e:

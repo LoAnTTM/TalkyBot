@@ -11,8 +11,6 @@ from typing import Dict
 import numpy as np
 import torch
 
-
-
 class VoiceActivityDetector:
     def __init__(self,
                  sampling_rate: int = 16000,
