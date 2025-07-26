@@ -20,7 +20,7 @@ class StateManager:
     """
     
     def __init__(self, timeout_seconds: int = 15):
-        self.current_state = SystemState.STANDBY
+        self._current_state = SystemState.STANDBY  # Đảm bảo mặc định là STANDBY
         self.timeout_seconds = timeout_seconds
         self._state_lock = threading.RLock()
         self._last_activity_time = time.time()
@@ -35,10 +35,10 @@ class StateManager:
         
         # Sleep keywords that trigger STANDBY
         self.sleep_keywords = [
-            'bye bye', 'goodbye', 'go to sleep', 'sleep', 'stop listening', 
-            'see you later', 'goodnight', 'shut down', 'power off', 
-            'deactivate', 'turn off'
-        ]
+            'bye','bye bye', 'goodbye', 'go to sleep', 'sleep', 
+            'stop listening', 'see you later', 'goodnight', 'good night', 
+            'shut down', 'power off', 'deactivate', 'turn off'
+            ]
         
         # Logging
         self.logger = logging.getLogger('StateManager')
@@ -46,17 +46,17 @@ class StateManager:
     def get_current_state(self) -> SystemState:
         """Get current system state (thread-safe)"""
         with self._state_lock:
-            return self.current_state
+            return self._current_state
     
     def is_active(self) -> bool:
         """Check if system is in any active state (not STANDBY)"""
         with self._state_lock:
-            return self.current_state != SystemState.STANDBY
+            return self._current_state != SystemState.STANDBY
     
     def is_speaking(self) -> bool:
         """Check if system is currently speaking"""
         with self._state_lock:
-            return self.current_state == SystemState.SPEAKING
+            return self._current_state == SystemState.SPEAKING
     
     def transition_to(self, new_state: SystemState, reason: str = "") -> bool:
         """
@@ -64,22 +64,22 @@ class StateManager:
         Returns True if transition was successful
         """
         with self._state_lock:
-            old_state = self.current_state
+            old_state = self._current_state
             
             # Validate state transition
             if not self._is_valid_transition(old_state, new_state):
-                self.logger.warning(f"Invalid transition from {old_state.value} to {new_state.value}")
+                self.logger.warning(f"Invalid transition from {old_state} to {new_state}")
                 return False
             
             # Execute transition
-            self.current_state = new_state
+            self._current_state = new_state
             self._update_activity_time()
             
             # Handle state-specific actions
             self._handle_state_entry(new_state, old_state)
             
             # Log transition
-            log_msg = f"State: {old_state.value} → {new_state.value}"
+            log_msg = f"State: {old_state} → {new_state}"
             if reason:
                 log_msg += f" ({reason})"
             self.logger.info(log_msg)
@@ -195,7 +195,7 @@ class StateManager:
         with self._state_lock:
             elapsed = time.time() - self._last_activity_time
             return {
-                'current_state': self.current_state.value,
+                'current_state': self.current_state,
                 'is_active': self.is_active(),
                 'is_speaking': self.is_speaking(),
                 'time_since_activity': elapsed,
@@ -204,64 +204,3 @@ class StateManager:
                 'wake_up_event': self.wake_up_event.is_set(),
                 'stop_tts_event': self.stop_tts_event.is_set()
             }
-
-
-# Example usage and testing
-if __name__ == "__main__":
-    import logging
-    
-    # Setup logging
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    )
-    
-    # Create state manager
-    state_manager = StateManager(timeout_seconds=5)  # Short timeout for testing
-    
-    # Add callback for state changes
-    def state_callback(old_state, new_state, reason):
-        print(f"📊 State Change: {old_state.value} → {new_state.value} ({reason})")
-    
-    state_manager.add_state_callback(state_callback)
-    
-    print("🔧 Testing StateManager...")
-    print(f"Initial state: {state_manager.get_current_state().value}")
-    
-    # Test wake up
-    print("\n🎤 Testing wake up...")
-    state_manager.wake_up("Test wake word")
-    print(f"State: {state_manager.get_current_state().value}")
-    
-    # Test processing
-    print("\n🔄 Testing processing...")
-    state_manager.start_processing("Test speech detected")
-    print(f"State: {state_manager.get_current_state().value}")
-    
-    # Test speaking
-    print("\n🔊 Testing speaking...")
-    state_manager.start_speaking("Test response ready")
-    print(f"State: {state_manager.get_current_state().value}")
-    
-    # Test interrupt
-    print("\n⚡ Testing interrupt...")
-    state_manager.interrupt_speaking("Test user interrupt")
-    print(f"State: {state_manager.get_current_state().value}")
-    
-    # Test sleep keywords
-    print("\n😴 Testing sleep keywords...")
-    result = state_manager.check_sleep_keywords("goodbye see you later")
-    print(f"Sleep detected: {result}, State: {state_manager.get_current_state().value}")
-    
-    # Test timeout
-    print("\n⏰ Testing timeout...")
-    state_manager.wake_up("Test for timeout")
-    print(f"State: {state_manager.get_current_state().value}")
-    print("Waiting for timeout...")
-    time.sleep(6)  # Wait longer than timeout
-    timeout_occurred = state_manager.check_timeout()
-    print(f"Timeout occurred: {timeout_occurred}, State: {state_manager.get_current_state().value}")
-    
-    print("\n📊 Final state info:")
-    import json
-    print(json.dumps(state_manager.get_state_info(), indent=2)) 

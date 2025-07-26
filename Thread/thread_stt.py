@@ -7,7 +7,6 @@ from components.stt import SpeechToText
 from components.brain import Chatbot
 from components.logger import get_logger
 from components.state_manager import SystemState
-from audio.mic_stream import AudioStream
 
 
 class STTConversationThread(threading.Thread):
@@ -104,10 +103,10 @@ class STTConversationThread(threading.Thread):
                     continue
         else:
             # Process audio directly from microphone
-            audio_stream = AudioStream(samplerate=16000, channels=1, frame_duration_ms=250)
+            mic_stream = MicStream(samplerate=16000, channels=1, frame_duration_ms=250)
             
             try:
-                for frame in audio_stream.stream():
+                for frame in mic_stream.stream():
                     if self._stop_event.is_set():
                         break
                     self.process_audio_frame(frame)

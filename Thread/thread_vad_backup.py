@@ -8,12 +8,12 @@ from components.state_manager import SystemState
 
 
 class VADThread(threading.Thread):
-    def __init__(self, vad, audio_stream, state_manager=None, audio_queue=None, 
+    def __init__(self, vad, mic_stream, state_manager=None, audio_queue=None, 
                  status_callback=None, tts_interrupt_event=None, 
                  tts_playing_event=None, tts_audio_ref_callback=None):
         super().__init__()
         self.vad = vad
-        self.audio_stream = audio_stream
+        self.mic_stream = mic_stream
         self.state_manager = state_manager
         self.audio_queue = audio_queue  # Queue để gửi audio frames cho STT
         self.status_callback = status_callback
@@ -63,7 +63,7 @@ class VADThread(threading.Thread):
             
             while not self._stop_event.is_set():
                 try:
-                    for frame in self.audio_stream.stream():
+                    for frame in self.mic_stream.stream():
                         if self._stop_event.is_set():
                             break
                         
@@ -147,7 +147,7 @@ class VADThread(threading.Thread):
                     # Restart audio stream
                     try:
                         self.logger.info("Attempting to restart audio stream...")
-                        self.audio_stream.restart_stream()
+                        self.mic_stream.restart_stream()
                         time.sleep(1.0)  # Wait before retry
                     except Exception as restart_error:
                         self.logger.error(f"Failed to restart audio stream: {restart_error}")
@@ -213,7 +213,7 @@ class VADThread(threading.Thread):
             start_time = time.time()
             
             # Use the same audio stream that will be used in main loop
-            for audio_frame in self.audio_stream.stream():
+            for audio_frame in self.mic_stream.stream():
                 if hasattr(audio_frame, 'mean'):
                     audio_level = abs(audio_frame).mean()
                 elif hasattr(audio_frame, '__len__') and len(audio_frame) > 0:
@@ -389,14 +389,14 @@ def vad_status_callback(info):
         print("🔇 Speech ended - Silence detected")
 
 if __name__ == "__main__":
-    from audio.mic_stream import AudioStream
+    from audio.mic_stream import MicStream
     
     # Create VAD detector and audio stream
     vad = VoiceActivityDetector(sampling_rate=16000, threshold=0.5, min_speech_duration_ms=100)
-    audio_stream = AudioStream(samplerate=16000, channels=1, frame_duration_ms=100)
+    mic_stream = MicStream(samplerate=16000, channels=1, frame_duration_ms=100)
     
     # Create VAD thread with callback to receive status
-    vad_thread = VADThread(vad, audio_stream, status_callback=vad_status_callback)
+    vad_thread = VADThread(vad, mic_stream, status_callback=vad_status_callback)
     
     # Start the thread
     vad_thread.start()

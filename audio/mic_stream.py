@@ -4,7 +4,7 @@ import threading
 import time
 import logging
 
-class AudioStream:
+class MicStream:
     def __init__(self, samplerate=16000, channels=1, frame_duration_ms=30):
         self.samplerate = samplerate
         self.channels = channels
@@ -13,7 +13,6 @@ class AudioStream:
         self._stream = None
         self._lock = threading.Lock()
         self._restart_requested = False
-        
         # Audio device management for loopback prevention
         self._setup_audio_devices()
 
@@ -59,13 +58,13 @@ class AudioStream:
 
     def stream(self):
         """Generator returns each audio frame from the microphone."""
-        logger = logging.getLogger("AudioStream")
+        logger = logging.getLogger("MicStream")
         try:
             logger.info("Opening audio input stream...")
             with sd.InputStream(
                 samplerate=self.samplerate, 
                 channels=self.channels, 
-                dtype='int16', 
+                dtype=self.dtype, 
                 blocksize=self.frame_size,
                 device=self.input_device  # Use specific input device
             ) as stream:
@@ -76,7 +75,7 @@ class AudioStream:
                         audio_frame = audio_frame.flatten()
                     yield audio_frame
         except Exception as e:
-            logger.error(f"Error in AudioStream.stream: {e}", exc_info=True)
+            logger.error(f"Error in MicStream.stream: {e}", exc_info=True)
             raise
 
     def restart_stream(self):

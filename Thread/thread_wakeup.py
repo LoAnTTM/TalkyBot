@@ -8,56 +8,21 @@ class WakeWordThread(threading.Thread):
         super().__init__()
         self.daemon = True
         self.state_manager = state_manager
-        self.detector = WakeWordDetector()
+        self.detector = WakeWordDetector(state_manager=state_manager)
         self._stop_event = threading.Event()
         self.logger = get_logger("WAKE")
-        
-        # Override the wake word callback to integrate with state manager
-        self._setup_wake_word_callback()
     
-    def _setup_wake_word_callback(self):
-        """Setup wake word detection callback to trigger state transitions"""
-        original_callback = self.detector._callback
-        
-        def state_aware_callback(indata, frames, time_info, status):
-            # Always process wake word (remove STANDBY restriction)
-            if status:
-                self.logger.debug(f"Audio status: {status}")
-
-            import numpy as np
-            audio_int16 = (indata[:, 0] * 32767).astype(np.int16)
-
-            try:
-                scores = self.detector.model.predict(audio_int16)
-                current_time = time.time()
-                for wake_word, score in scores.items():
-                    if (score > self.detector.sensitivity_threshold and 
-                        (current_time - self.detector.last_trigger_time > self.detector.min_trigger_interval)):
-                        
-                        self.logger.info(f"🚨 Wake word '{wake_word}' detected! (score: {score:.3f})")
-                        self.detector.last_trigger_time = current_time
-                        
-                        # Trigger state transition regardless of current state
-                        if self.state_manager:
-                            self.logger.info("🔄 Triggering wake up...")
-                            self.state_manager.wake_up(f"Wake word '{wake_word}' detected (score: {score:.3f})")
-                        else:
-                            self.logger.warning("⚠️ No state manager available!")
-                        
-            except Exception as e:
-                self.logger.error(f"Error predicting wake word: {e}")
-        
-        # Replace the callback
-        self.detector._callback = state_aware_callback
+    def process_frame(self, frame):
+        try:
+            self.detector.process_frame(frame)
+        except Exception as e:
+            self.logger.error(f"Error in wake word process_frame: {e}")
 
     def run(self):
-        self.logger.info("Wake Word Thread started - Listening for 'Alexa'")
-        try:
-            self.detector.start_listening()
-        except Exception as e:
-            self.logger.error(f"Wake word detection error: {e}")
-        finally:
-            self.logger.info("Wake Word Thread stopped")
+        self.logger.info("Wake Word Thread started - waiting for frames from VAD")
+        while not self._stop_event.is_set():
+            time.sleep(0.1)  # Idle loop, waiting for frames from VAD
+        self.logger.info("Wake Word Thread stopped")
     
     def stop(self):
         """Stop the wake word thread"""

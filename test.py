@@ -1,5 +1,5 @@
 import os
-from audio.mic_stream import AudioStream 
+from audio.mic_stream import MicStream 
 
 from vosk import Model, KaldiRecognizer
 import numpy as np
@@ -35,9 +35,9 @@ class SpeechToText:
         """Listening loop running in a separate thread."""
         print("🎙️  Thread: Starting to listen...")
         rec = KaldiRecognizer(self.model, self.samplerate)
-        audio_stream = AudioStream(samplerate=self.samplerate, channels=1, frame_duration_ms=frame_duration_ms)
+        mic_stream = MicStream(samplerate=self.samplerate, channels=1, frame_duration_ms=frame_duration_ms)
         
-        for frame in audio_stream.stream():
+        for frame in mic_stream.stream():
             # Check if there's a stop signal
             if self._stop_event.is_set():
                 break

@@ -11,8 +11,6 @@ from thread.thread_vad import VADThread
 from components.vad import VoiceActivityDetector
 from components.state_manager import StateManager, SystemState
 from components.logger import setup_logging, get_logger, close_logging
-from audio.mic_stream import AudioStream
-
 
 class TalkyBotSystem:
     """
@@ -24,20 +22,6 @@ class TalkyBotSystem:
         # Initialize logging first
         self.logger_system = setup_logging()
         self.logger = get_logger("MAIN")
-        
-        # Test audio system before proceeding
-        self.logger.info("Testing audio system...")
-        try:
-            # Test audio stream
-            test_audio = AudioStream()
-            if test_audio.test_device():
-                self.logger.info("✅ Audio system test passed")
-            else:
-                self.logger.warning("⚠️ Audio system test failed - continuing anyway")
-                self.logger.warning("⚠️ You may experience audio issues")
-        except Exception as e:
-            self.logger.warning(f"⚠️ Audio system test error: {e}")
-            self.logger.warning("⚠️ Continuing without audio test - you may experience issues")
         
         # Create state manager
         self.state_manager = StateManager(timeout_seconds=15)
@@ -54,7 +38,6 @@ class TalkyBotSystem:
         
         # Initialize audio components
         self.vad = VoiceActivityDetector()
-        self.audio_stream = AudioStream()
         
         # Initialize threads
         self._init_threads()
