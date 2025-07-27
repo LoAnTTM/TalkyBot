@@ -5,6 +5,8 @@ import traceback
 from enum import Enum
 from typing import Optional, Callable
 
+from components.logger import get_logger
+
 class SystemState(Enum):
     STANDBY = "STANDBY"
     LISTENING = "LISTENING"
@@ -23,13 +25,8 @@ class StateManager:
         self.conversation_active = threading.Event()
 
         self._state_callbacks = []
-        self.sleep_keywords = {
-            'bye', 'bye bye', 'goodbye', 'go to sleep', 'sleep',
-            'stop listening', 'see you later', 'goodnight', 'good night',
-            'shut down', 'power off', 'deactivate', 'turn off'
-        }
 
-        self.logger = logging.getLogger('StateManager')
+        self.logger = get_logger('StateManager')
 
     @property
     def current_state(self) -> SystemState:
@@ -98,13 +95,6 @@ class StateManager:
             return False
         if time.time() - self._last_activity_time > self.timeout_seconds:
             self.go_to_standby("Timeout")
-            return True
-        return False
-
-    def check_sleep_keywords(self, text: str) -> bool:
-        text_lower = text.lower()
-        if any(keyword in text_lower for keyword in self.sleep_keywords):
-            self.go_to_standby("Sleep keyword detected")
             return True
         return False
 

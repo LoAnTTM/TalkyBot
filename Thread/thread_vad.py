@@ -11,10 +11,10 @@ from components.state_manager import SystemState
 
 class VADThread(threading.Thread):
     """
-    VADThread: Xử lý audio real-time, phát hiện speech và điều phối pipeline:
-    - Wakeword: truyền frame cho wakeword khi ở STANDBY
-    - STT: truyền frame trực tiếp cho handler khi ở LISTENING
-    - TTS: dừng phát nếu phát hiện speech khi đang phát TTS (dùng event)
+    VADThread: Real-time audio processing, speech detection and pipeline coordination:
+    - Wakeword: send frame to wakeword when in STANDBY
+    - STT: send frame directly to handler when in LISTENING
+    - TTS: stop playback if speech detected during TTS (using event)
     """
     def __init__(self, state_manager=None, wakeword_detector=None, 
                  stt_handler=None, tts_interrupt_event=None, tts_playing_event=None):
@@ -31,8 +31,8 @@ class VADThread(threading.Thread):
         self.frame_count = 0
         self.logger = get_logger("VAD")
         
-        # Pre-speech buffer: giữ lại các frame trước khi phát hiện speech
-        self.pre_speech_buffer = deque(maxlen=10)  # khoảng 5s nếu 500ms mỗi frame
+        # Pre-speech buffer: keep frames before speech is detected
+        self.pre_speech_buffer = deque(maxlen=10)  # about 5s if 500ms per frame
 
     def run(self):
         self.logger.info("VAD Thread started as audio gatekeeper")
@@ -49,21 +49,27 @@ class VADThread(threading.Thread):
                     info = self.vad.get_continuous_speech_info()
                     current_speaking = info['is_speaking']
 
-                    # Luôn lưu vào buffer đệm
+                    # Always save to pre-speech buffer
                     self.pre_speech_buffer.append(frame)
 
-                    # Nếu vừa chuyển từ silence sang speech -> phát lại các frame đệm
+                    # If just switched from silence to speech -> flush buffered frames
                     if current_speaking and self.last_speaking_state is False:
                         self.logger.info("🗣️ VAD: Speech started — flushing buffered frames")
                         for buffered_frame in list(self.pre_speech_buffer):
                             self._route_frame(buffered_frame)
+                            # buffered_frame.clear()  # Clear frame after sending
                         self.pre_speech_buffer.clear()
 
-                    # Nếu đang nói, truyền frame hiện tại
+                    # Clear pre-speech buffer when system state changes
+                    if not current_speaking and self.last_speaking_state is True:
+                        self.logger.info("🔇 VAD: Silence detected — clearing pre-speech buffer")
+                        self.pre_speech_buffer.clear()
+
+                    # If speaking, send current frame
                     if current_speaking:
                         self._route_frame(frame)
 
-                        # Nếu đang phát TTS, ngắt ngay
+                        # If TTS is playing, interrupt immediately
                         if self.tts_playing_event and self.tts_playing_event.is_set():
                             if self.tts_interrupt_event:
                                 self.logger.info("🛑 VAD: Interrupting TTS due to user speech")
@@ -73,7 +79,7 @@ class VADThread(threading.Thread):
                             except Exception as e:
                                 self.logger.warning(f"⚠️ Failed to stop sounddevice: {e}")
 
-                    # Log thay đổi trạng thái
+                    # Log state change
                     if current_speaking != self.last_speaking_state:
                         self.last_speaking_state = current_speaking
                         if current_speaking:
@@ -104,7 +110,7 @@ class VADThread(threading.Thread):
 
     def _route_frame(self, frame):
         """
-        Gửi frame tới wakeword hoặc stt tùy theo trạng thái hệ thống
+        Send frame to wakeword or stt depending on system state
         """
         if self._is_state(SystemState.STANDBY) and self.wakeword_detector:
             frame = np.array(frame, dtype=np.float32).reshape(-1, 1)

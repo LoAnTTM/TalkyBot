@@ -16,8 +16,8 @@ class WakeWordDetector:
         model_name="alexa",
         model_folder="models/openwakeword",
         onnx_file="alexa_v0.1.onnx",
-        sensitivity_threshold=0.2,
-        min_trigger_interval=1.0,
+        sensitivity_threshold=0.5,
+        min_trigger_interval=2.0,
         state_manager=None,
     ):
         self.model_name = model_name
@@ -25,7 +25,7 @@ class WakeWordDetector:
         self.model_path = os.path.abspath(os.path.join(model_folder, onnx_file))
         self.sensitivity_threshold = sensitivity_threshold
         self.min_trigger_interval = min_trigger_interval
-        self.last_trigger_time = 0.0
+        self.last_trigger_time = 1.0
         self.state_manager = state_manager
         self.logger = get_logger("WAKE")
 
@@ -61,10 +61,6 @@ class WakeWordDetector:
             
             audio_int16 = (frame[:, 0] * 32767).astype(np.int16)
             self.audio_buffer.extend(audio_int16.tolist())
-
-            # if len(self.audio_buffer) < self.buffer_size:
-            #     # Not enough audio for detection
-            #     return
             
             # Convert deque to numpy array
             buffer_np = np.array(self.audio_buffer, dtype=np.int16)
@@ -76,7 +72,7 @@ class WakeWordDetector:
                 if (score > self.sensitivity_threshold and
                     (current_time - self.last_trigger_time > self.min_trigger_interval)):
                     if self.state_manager and hasattr(self.state_manager, 'wake_up'):
-                        self.logger.info(f"Wake word '{wake_word}' detected!!!!! (score: {score:.3f})")
+                        # self.logger.info(f"Wake word '{wake_word}' detected!!!!! (score: {score:.3f})")
                         self.state_manager.wake_up(f"Wake word '{wake_word}' detected!!!!! (score: {score:.3f})")
                     self.last_trigger_time = current_time
 
