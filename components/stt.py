@@ -59,17 +59,17 @@ class SpeechToText:
                 print(f"\r{' '*80}\r✅ Final: '{result}'")
                 return result
             self.current_partial = ""
-        else:
-            partial = json.loads(self.rec.PartialResult()).get("partial", "").strip()
-            if partial and partial != self.current_partial:
-                print(f"\r{' '*80}\r🔄 Partial: '{partial}'", end='', flush=True)
-                self.current_partial = partial
+        # else:
+        #     partial = json.loads(self.rec.PartialResult()).get("partial", "").strip()
+        #     if partial and partial != self.current_partial:
+        #         print(f"\r{' '*80}\r🔄 Partial: '{partial}'", end='', flush=True)
+        #         self.current_partial = partial
         return None
 
     def listen_and_transcribe(self, frame_duration_ms=250):
         """Real-time STT loop with print output"""
         print("🎙️ Listening from STT...")
-        mic_stream = MicStream(samplerate=self.samplerate, channels=1, frame_duration_ms=frame_duration_ms)
+        mic_stream = MicStream(samplerate=self.samplerate, channels=1, frame_duration_ms=frame_duration_ms, hop_duration_ms=100)
         rec = KaldiRecognizer(self.model, self.samplerate)
         current_partial = ""
 

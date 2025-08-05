@@ -121,7 +121,7 @@ class VoiceActivityDetector:
 if __name__ == "__main__":
     vad = VoiceActivityDetector(sampling_rate=16000, threshold=0.5, min_speech_duration_ms=100)
     from audio.mic_stream import MicStream
-    mic_stream = MicStream(samplerate=16000, channels=1, frame_duration_ms=100)
+    mic_stream = MicStream(samplerate=16000, channels=1, frame_duration_ms=100, hop_duration_ms=30)
     print("🎤 Starting continuous VAD test...")
     print("Speak long sentences to test (Press Ctrl+C to stop)")
     print("=" * 50)

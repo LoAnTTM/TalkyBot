@@ -33,3 +33,5 @@ test_*.py
 # Logs
 logs/
 *.log
+
+audio/mic.py

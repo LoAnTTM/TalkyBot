@@ -10,7 +10,6 @@ from components.logger import get_logger
 class SystemState(Enum):
     STANDBY = "STANDBY"
     LISTENING = "LISTENING"
-    PROCESSING = "PROCESSING"
     SPEAKING = "SPEAKING"
 
 class StateManager:
@@ -73,9 +72,6 @@ class StateManager:
             return True
         return False
 
-    def start_processing(self, reason: str = "Speech detected") -> bool:
-        return self.transition_to(SystemState.PROCESSING, reason)
-
     def start_speaking(self, reason: str = "Response ready") -> bool:
         return self.transition_to(SystemState.SPEAKING, reason)
 
@@ -122,8 +118,7 @@ class StateManager:
     def _is_valid_transition(self, from_state: SystemState, to_state: SystemState) -> bool:
         valid_transitions = {
             SystemState.STANDBY: [SystemState.LISTENING],
-            SystemState.LISTENING: [SystemState.PROCESSING, SystemState.SPEAKING, SystemState.STANDBY],
-            SystemState.PROCESSING: [SystemState.SPEAKING, SystemState.LISTENING, SystemState.STANDBY],
+            SystemState.LISTENING: [SystemState.SPEAKING],
             SystemState.SPEAKING: [SystemState.LISTENING, SystemState.STANDBY]
         }
         return to_state in valid_transitions.get(from_state, [])

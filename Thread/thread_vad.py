@@ -16,12 +16,13 @@ class VADThread(threading.Thread):
     - STT: send frame directly to handler when in LISTENING
     - TTS: stop playback if speech detected during TTS (using event)
     """
-    def __init__(self, state_manager=None, wakeword_detector=None, 
-                 stt_handler=None, tts_interrupt_event=None, tts_playing_event=None):
+    def __init__(self, mic_stream, state_manager=None, wakeword_thread=None, 
+                 stt_thread=None, tts_interrupt_event=None, tts_playing_event=None):
         super().__init__()
+        self.mic_stream = mic_stream
         self.state_manager = state_manager
-        self.wakeword_detector = wakeword_detector
-        self.stt_handler = stt_handler
+        self.wakeword_thread = wakeword_thread
+        self.stt_thread = stt_thread
         self.tts_interrupt_event = tts_interrupt_event
         self.tts_playing_event = tts_playing_event
         self.reference_audio = None  
@@ -37,10 +38,7 @@ class VADThread(threading.Thread):
     def run(self):
         self.logger.info("VAD Thread started as audio gatekeeper")
         try:
-            mic_stream = MicStream(samplerate=16000,
-                                    channels=1,
-                                    frame_duration_ms=50)
-            for frame in mic_stream.stream():
+            for frame in self.mic_stream.stream():
                 if self._stop_event.is_set():
                     break
                 self.frame_count += 1
@@ -56,8 +54,10 @@ class VADThread(threading.Thread):
                     if current_speaking and self.last_speaking_state is False:
                         self.logger.info("🗣️ VAD: Speech started — flushing buffered frames")
                         for buffered_frame in list(self.pre_speech_buffer):
-                            self._route_frame(buffered_frame)
-                            # buffered_frame.clear()  # Clear frame after sending
+                            if self._is_state(SystemState.STANDBY) and self.wakeword_thread:
+                                self.wakeword_thread.process_frame(buffered_frame)
+                            elif self._is_state(SystemState.LISTENING) and self.stt_thread:
+                                self.stt_thread.process_frame(buffered_frame)
                         self.pre_speech_buffer.clear()
 
                     # Clear pre-speech buffer when system state changes
@@ -65,9 +65,12 @@ class VADThread(threading.Thread):
                         self.logger.info("🔇 VAD: Silence detected — clearing pre-speech buffer")
                         self.pre_speech_buffer.clear()
 
-                    # If speaking, send current frame
+                    # If speaking,
                     if current_speaking:
-                        self._route_frame(frame)
+                        if self._is_state(SystemState.STANDBY):
+                            self.wakeword_thread.process_frame(frame)
+                        elif self._is_state(SystemState.LISTENING):
+                            self.stt_thread.process_frame(frame)
 
                         # If TTS is playing, interrupt immediately
                         if self.tts_playing_event and self.tts_playing_event.is_set():
@@ -108,19 +111,7 @@ class VADThread(threading.Thread):
             self.logger.warning(f"⚠️ State check failed: {e}")
             return False
 
-    def _route_frame(self, frame):
-        """
-        Send frame to wakeword or stt depending on system state
-        """
-        if self._is_state(SystemState.STANDBY) and self.wakeword_detector:
-            frame = np.array(frame, dtype=np.float32).reshape(-1, 1)
-            if frame.max() > 1.0 or frame.min() < -1.0:
-                frame = frame / 32767.0
-            self.wakeword_detector.process_frame(frame)
 
-        elif self._is_state(SystemState.LISTENING) and self.stt_handler:
-            self.logger.debug("Routing frame to STT handler (LISTENING state)")
-            self.stt_handler.process_frame(frame)
 
     def set_reference_audio(self, audio_data):
         """Set reference audio for echo cancellation"""

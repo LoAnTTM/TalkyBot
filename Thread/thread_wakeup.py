@@ -4,10 +4,11 @@ from components.wakeword import WakeWordDetector
 from components.logger import get_logger
 
 class WakeWordThread(threading.Thread):
-    def __init__(self, state_manager=None):
+    def __init__(self, mic_stream=None, state_manager=None):
         super().__init__()
         self.daemon = True
         self.state_manager = state_manager
+        self.mic_stream = mic_stream
         self.detector = WakeWordDetector(state_manager=state_manager)
         self._stop_event = threading.Event()
         self.logger = get_logger("WAKE")
