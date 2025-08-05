@@ -1,38 +1,102 @@
 import sounddevice as sd
 import numpy as np
+import threading
+import time
+import logging
 from collections import deque
 
+# Configure module-level logger to write into TalkyBot.log
+logger = logging.getLogger("MicStream")
+logger.setLevel(logging.DEBUG)
+file_handler = logging.FileHandler("TalkyBot.log")
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
+
+
 class MicStream:
-    def __init__(self, samplerate=16000, channels=1, frame_duration_ms=30, hop_duration_ms=10):
+    """
+    Manage microphone input with a sliding-window buffer for real-time audio processing.
+    """
+    def __init__(
+        self,
+        samplerate: int = 16000,
+        channels: int = 1,
+        frame_duration_ms: int = 30,
+        hop_duration_ms: int = 10,
+        buffer_duration_s: float = 10.0
+    ):
+        # Audio parameters
         self.samplerate = samplerate
         self.channels = channels
-        self.frame_duration_ms = frame_duration_ms
-        self.hop_duration_ms = hop_duration_ms
+        self.frame_size = int(self.samplerate * frame_duration_ms / 1000)
+        self.hop_size = int(self.samplerate * hop_duration_ms / 1000)
+        self.buffer_size = int(self.samplerate * buffer_duration_s)
 
-        self.frame_size = int(self.samplerate * self.frame_duration_ms / 1000)
-        self.hop_size = int(self.samplerate * self.hop_duration_ms / 1000)
+        # Thread-safe circular buffer
+        self._buffer = deque(maxlen=self.buffer_size)
+        self._lock = threading.Lock()
 
-        # Use a deque as a sliding window buffer
-        self._buffer = deque(maxlen=self.frame_size)
+        # Sounddevice stream
+        self._stream = sd.InputStream(
+            samplerate=self.samplerate,
+            channels=self.channels,
+            dtype="int16",
+            callback=self._audio_callback
+        )
+        self._running = False
 
-    def stream(self):
-        """Generator that yields overlapping audio frames from the microphone."""
-        # The blocksize should be the hop_size to get new data in smaller chunks
-        with sd.InputStream(samplerate=self.samplerate, channels=self.channels, dtype='int16', blocksize=self.hop_size) as stream:
-            # Pre-fill the buffer before starting to yield frames
-            initial_data, _ = stream.read(self.frame_size - self.hop_size)
-            if self.channels == 1:
-                initial_data = initial_data.flatten()
-            self._buffer.extend(initial_data)
+    def _audio_callback(self, indata, frames, time_info, status):
+        """Callback from sounddevice for each incoming block."""
+        if status:
+            logger.warning("Audio status: %s", status)
+        # indata shape: (frames, channels)
+        samples = indata[:, 0]  # take first channel
+        with self._lock:
+            self._buffer.extend(samples)
 
-            while True:
-                # Read a new chunk of data (the hop size)
-                new_chunk, _ = stream.read(self.hop_size)
-                if self.channels == 1:
-                    new_chunk = new_chunk.flatten()
+    def start(self):
+        """Start capturing audio from microphone."""
+        if not self._running:
+            self._stream.start()
+            self._running = True
+            logger.info("Microphone stream started.")
 
-                # The deque will automatically slide the window
-                self._buffer.extend(new_chunk)
+    def stop(self):
+        """Stop capturing audio and clear buffer."""
+        if self._running:
+            self._stream.stop()
+            self._running = False
+            with self._lock:
+                self._buffer.clear()
+            logger.info("Microphone stream stopped and buffer cleared.")
 
-                # Yield the current window (a copy of the buffer)
-                yield np.array(self._buffer, dtype=np.int16)
+    def stream_frames(self):
+        """
+        Generator that yields sliding-window frames continuously.
+        Each frame has length = frame_size, windows slide by hop_size.
+        """
+        try:
+            while self._running:
+                window = None
+                with self._lock:
+                    if len(self._buffer) >= self.frame_size:
+                        # Extract frame_size samples
+                        frame = [self._buffer[i] for i in range(self.frame_size)]
+                        # Drop hop_size samples
+                        for _ in range(self.hop_size):
+                            self._buffer.popleft()
+                        window = np.array(frame, dtype=np.int16)
+                if window is None:
+                    # Not enough data yet, wait a bit
+                    time.sleep(self.hop_size / self.samplerate)
+                else:
+                    yield window
+        except Exception as e:
+            logger.error("Error in stream_frames: %s", e, exc_info=True)
+
+    def close(self):
+        """Close audio stream and release resources."""
+        if self._stream:
+            self._stream.close()
+            logger.info("Microphone stream closed.")
